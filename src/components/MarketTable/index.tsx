@@ -1,7 +1,7 @@
 "use client";
 
-
-const MarketTable = ({coins:[]}) => {
+import { MarketListItem } from "../MarketListItem";
+const MarketTable = ({coins:[], loading, error}) => {
 
 
 
@@ -15,7 +15,7 @@ const MarketTable = ({coins:[]}) => {
           `Error: ${error}`
         ) : (
           coins.map((coin: any, index: number) => (
-            <MarketListItem key={coin.id} coin={coin} />
+            <MarketListItem key={coin.id} coin={coins} />
           ))
         )}
       </div>

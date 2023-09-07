@@ -6,7 +6,7 @@ import  MarketTable  from "../components/MarketTable/index"
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable/marketTableSlice"
-import { MarketListItem } from '../MarketListItem/index'; 
+import { MarketTable } from '../components/MarketTable/index'; 
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
 
 const Home = () => {
@@ -18,6 +18,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchCoins());
   }, [])
+
+
   return (
     <div className="">
       <Navbar />
@@ -31,7 +33,7 @@ const Home = () => {
       </div>
 
 
-      <div><MarketTable  /></div>
+      <div><MarketTable coins={coins} /></div>
     </div>
   );
 };
