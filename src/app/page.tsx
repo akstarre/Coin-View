@@ -6,18 +6,18 @@ import  MarketTable  from "../components/MarketTable/index"
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable/marketTableSlice"
-import { MarketTable } from '../components/MarketTable/index'; 
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
 
 const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const coinState = useSelector((state: RootState) => state.coins);
-  const { loading, coins, error } = coinState;
+  const currentCurrency = useSelector((state: RootState) => state.currency.currency)
+  const {coins, loading, error} = useSelector((state: RootState) => state.marketTable);
+ 
 
   useEffect(() => {
-    dispatch(fetchCoins());
-  }, [])
+    dispatch(fetchCoins(currentCurrency));
+  }, [currentCurrency, dispatch])
 
 
   return (
@@ -33,7 +33,7 @@ const Home = () => {
       </div>
 
 
-      <div><MarketTable coins={coins} /></div>
+      <div><MarketTable coins={coins} loading={loading} error={error} /></div>
     </div>
   );
 };

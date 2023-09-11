@@ -2,10 +2,12 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import marketTableReducer from "./Features/MarketTable/marketTableSlice"
+import currencyReducer from "./Features/CurrencySlice/currencySlice";
 
 export const store = configureStore({
     reducer: {
-        marketTable: marketTableReducer
+        marketTable: marketTableReducer,
+        currency: currencyReducer
     }
 })
 

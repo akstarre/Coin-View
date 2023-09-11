@@ -2,12 +2,21 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
-const COIN_URL= "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en"
 
-export const fetchCoins = createAsyncThunk('coins/getCoins', async (thunkApi) => {
+
+export const fetchCoins = createAsyncThunk('coins/getCoins', 
+    async (currency:string, thunkApi) => {
+    const COIN_URL= `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en`
+    const GLOBAL_URL=`https://api.coingecko.com/api/v3/global`
     const response = await fetch(COIN_URL)
+    const globalResponse = await fetch(GLOBAL_URL)
     const data = await response.json();
-    return data
+    const globalData = await globalResponse.json();
+    const finalData = data.map((coin) => {
+        return { ...coin, "total_market_cap": globalData.total_market_cap[coin.symbol] };
+      });
+
+    return finalData
 })
 
 const initialState = {
@@ -17,14 +26,14 @@ const initialState = {
 }
 
 const marketTableSlice = createSlice({
-    name: "users",
+    name: "coins",
     initialState,
     reducers: {
 
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCoins.fulfilled, (state, action)=> {
-            state.coins.push(...action.payload)
+            state.coins = action.payload
         })
     }
 })
