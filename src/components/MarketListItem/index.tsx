@@ -14,7 +14,7 @@ export const MarketListItem = ({ coin, index }) => {
       <td className="py-2 px-4 border">{coin.price_change_percentage_24h_in_currency.toFixed(2)}</td>
       <td className="py-2 px-4 border">{coin.price_change_percentage_7d_in_currency.toFixed(2)}</td>
       <td className="py-2 px-4 border">
-        <HorizontalBar num1={coin.total_volume} num2={coin.market_cap} />
+        <HorizontalBar num1={coin.market_cap_change_24h} num2={coin.market_cap} />
       </td>
       <td className="py-2 px-4 border">
         <HorizontalBar num1={coin.circulating_supply} num2={coin.total_supply} />

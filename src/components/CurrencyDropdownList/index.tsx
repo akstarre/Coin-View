@@ -1,8 +1,11 @@
 "use client"
+type Props = {
+    handleDropSelection: (selection: string) => void
+}
 
 const currencyList = ["usd", "eur", "jpy"];
 
-export const CurrencyDropdownList = ({handleDropSelection}) => {
+export const CurrencyDropdownList = ({handleDropSelection} : Props) => {
 
     return (
         <div>

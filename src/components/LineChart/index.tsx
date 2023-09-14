@@ -3,6 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import Chart, { ChartConfiguration, ChartData } from "chart.js/auto";
 
+// YO IMPORT lINE FROM "react-chartjs-2", look up package, no need call ChartConfiguration. 
+
 export const LineChart = () => {
     const chartRef = useRef<HTMLCanvasElement | null>(null)
 

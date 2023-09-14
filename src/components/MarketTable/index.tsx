@@ -43,27 +43,37 @@ interface MarketTableProps {
 
 import { MarketListItem } from "../MarketListItem";
 
-const MarketTable: React.FC<MarketTableProps> = ({coins, loading, error}) => {
+const tableCategories = [
+  "#",
+  "Name",
+  "Price",
+  "1h%",
+  "24h%",
+  "7d%",
+  "24h Volume/Market Cap",
+  "Circulating/Total Supply",
+  "Last 7d",
+];
+
+const MarketTable: React.FC<MarketTableProps> = ({ coins, loading, error }) => {
   return (
     <div className="flex flex-col ">
       <div className="mb-4 text-xl font-bold">Your Overview</div>
       {loading ? (
-        'Loading...'
+        "Loading..."
       ) : error ? (
         `Error: ${error}`
       ) : (
         <table className="min-w-full bg-blue-900 ">
           <thead>
             <tr>
-              <th className="py-2 px-4 border">#</th>
-              <th className="py-2 px-4 border">Name</th>
-              <th className="py-2 px-4 border">Price</th>
-              <th className="py-2 px-4 border">1h%</th>
-              <th className="py-2 px-4 border">24h%</th>
-              <th className="py-2 px-4 border">7d%</th>
-              <th className="py-2 px-4 border">24h Volume/Market Cap</th>
-              <th className="py-2 px-4 border">Circulating/Total Supply</th>
-              <th className="py-2 px-4 border">Last 7d</th>
+              {tableCategories.map((category) => {
+                return (
+                  <th className="py-2 px-4 border" key={category}>
+                    {category}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
@@ -76,6 +86,5 @@ const MarketTable: React.FC<MarketTableProps> = ({coins, loading, error}) => {
     </div>
   );
 };
-
 
 export default MarketTable;

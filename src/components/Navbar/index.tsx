@@ -7,7 +7,7 @@ import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice/currenc
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
 
 export const Navbar = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch: AppDispatch = useDispatch<AppDispatch>();
     const { currency } = useSelector((state: RootState) => state.currency);
 
     const handleSelection = (selection: string) => {

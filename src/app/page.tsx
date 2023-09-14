@@ -7,11 +7,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable/marketTableSlice"
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
+import  {useAppSelector} from "./GlobalRedux/store"
+
 
 const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const currentCurrency = useSelector((state: RootState) => state.currency.currency)
+  const {currency: currentCurrency} = useAppSelector((state) => state.currency)
   const {coins, loading, error} = useSelector((state: RootState) => state.marketTable);
  
 

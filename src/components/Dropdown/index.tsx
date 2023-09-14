@@ -3,9 +3,14 @@
 import {useState, useEffect, useRef} from "react"
 import { CurrencyDropdownList} from "../CurrencyDropdownList/index"
 
+type DropdownProps = {
+  handleSelection: (currency: string) => void;
+  currentCurrency: string;
+}
+
 const currencyList = ["usd", "eur", "jpy"]
 
-export const Dropdown = ({ handleSelection, currentCurrency }) => {
+export const Dropdown = ({ handleSelection, currentCurrency }: DropdownProps) => {
     const [dropDownOpen, setDropDownOpen] = useState(false);
   
     const closeDropDown = () => {
@@ -16,7 +21,7 @@ export const Dropdown = ({ handleSelection, currentCurrency }) => {
       setDropDownOpen(!dropDownOpen);
     };
   
-    const handleDropSelection = (selection) => {
+    const handleDropSelection = (selection:string) => {
       handleSelection(selection)
       closeDropDown();
     };
@@ -24,7 +29,7 @@ export const Dropdown = ({ handleSelection, currentCurrency }) => {
     const dropdownRef = useRef(null);
   
     useEffect(() => {
-      if (dropDownOpen) {
+      if (dropDownOpen && dropdownRef !== null) {
         dropdownRef.current.focus();
       }
     }, [dropDownOpen]);
