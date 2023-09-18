@@ -43,7 +43,6 @@ type ChartProps = {
 
 export const Chart =({chartType, chartData, currentChart}: ChartProps) =>{
 
-
 //   const currentTheme = localStorage.getItem('theme')
 //   const backgroundColor = currentTheme === 'dark' ? '#3D63EC' : '#00FC2A'
 
