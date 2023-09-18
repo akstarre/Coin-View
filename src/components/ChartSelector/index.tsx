@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 type ChartSelectorProps = {
   coins: Coin;
@@ -108,10 +110,10 @@ export const ChartSelector = ({
         })}
       </ChartSelectorInnerContainer>
       <ScrollButton className="right-0" onClick={scrollRight}>
-        ➡
+        <FontAwesomeIcon icon={faArrowRight} />
       </ScrollButton>
       <ScrollButton className="left-0" onClick={scrollLeft}>
-        ⬅
+        <FontAwesomeIcon icon={faArrowLeft} />
       </ScrollButton>
     </ChartSelectorContainer>
   );
