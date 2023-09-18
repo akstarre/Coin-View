@@ -7,10 +7,10 @@ import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice/currenc
 import { AppDispatch, RootState } from '@/app/GlobalRedux/store';
 
 export const Navbar = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch: AppDispatch = useDispatch<AppDispatch>();
     const { currency } = useSelector((state: RootState) => state.currency);
 
-    const handleCurrencySelection = (selection: string) => {
+    const handleSelection = (selection: string) => {
         dispatch(changeCurrency(selection));
     }
 
@@ -22,7 +22,7 @@ export const Navbar = () => {
             </div>
             <div className="flex flex-row justify-between" style={{ flexBasis: '33%' }}>
                 <div><input placeholder="Search"></input></div>
-                <div><Dropdown handleSelection={handleCurrencySelection} currentCurrency={currency} /></div>
+                <div><Dropdown handleSelection={handleSelection} currentCurrency={currency} /></div>
                 <button>DarkMode</button>
             </div>
         </div>

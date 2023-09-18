@@ -6,7 +6,6 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     currency: "usd",
-    currentChart: "bitcoin",
     loading: false,
     error: "",
 }
@@ -17,12 +16,9 @@ const currencySlice = createSlice({
     reducers: {
             changeCurrency (state, action) {
                 state.currency = action.payload
-            },
-            changeChart (state, action) {
-                state.currentChart = action.payload
             }
     }
 })
 
-export const {changeCurrency, changeChart} = currencySlice.actions
+export const {changeCurrency} = currencySlice.actions
 export default currencySlice.reducer
