@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
 
-//This is the tailwind dark-theme
-
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
