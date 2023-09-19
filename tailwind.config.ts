@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 
+//This is the tailwind dark-theme
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -16,7 +18,7 @@ const config: Config = {
         "grey-purple-1": "#191925",
         "grey-purple-2": "#232336",
         "grey-text": "#D1D1D1",
-        
+
         "green-change": "#01F1E3",
         "red-change": "#FE2264",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
