@@ -90,7 +90,6 @@ export const ChartSelector = ({
 
   return (
     <ChartSelectorContainer>
-      <BtcLogo />
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
