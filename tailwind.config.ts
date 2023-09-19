@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
+      backgroundColor: {
         "purple-highlight": "#6161D6",
         "purple-border": "#7878FA",
         "dark-purple": "#1E1932",
@@ -19,9 +19,6 @@ const config: Config = {
 
         "green-change": "#01F1E3",
         "red-change": "#FE2264",
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },

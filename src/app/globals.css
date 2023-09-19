@@ -11,3 +11,8 @@
   .scrollbar-hide {
     scrollbar-width: none;
   }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
