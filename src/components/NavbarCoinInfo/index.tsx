@@ -7,7 +7,12 @@ import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
 import tw from "tailwind-styled-components";
 import { HorizontalBar } from "../HorizontalBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins, faBalanceScale } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCoins,
+  faBalanceScale,
+  faCaretDown,
+} from "@fortawesome/free-solid-svg-icons";
+import 
 
 const NavBarCoinInfoContainer = tw.div`
 h-[50px]
@@ -33,6 +38,11 @@ text-xs
 const Icon = tw(FontAwesomeIcon)`
 p-2
 text-white
+`;
+
+const Caret = tw(FontAwesomeIcon)`
+p-2
+text-green-change
 `;
 
 export const NavbarCoinInfo = ({ currency }) => {
@@ -73,7 +83,10 @@ export const NavbarCoinInfo = ({ currency }) => {
         <Icon icon={faBalanceScale} />
         Exchange: {global?.markets}
       </CoinInfo>
-      <CoinInfo>{formatNumber(global?.total_volume[currency])}</CoinInfo>
+      <CoinInfo>
+        <Caret icon={faCaretDown} />
+        {formatNumber(global?.total_volume[currency])}
+      </CoinInfo>
       <CoinInfo>
         ${formatNumber(global?.total_market_cap[currency])}
         <HorizontalBar
@@ -82,6 +95,7 @@ export const NavbarCoinInfo = ({ currency }) => {
         />
       </CoinInfo>
       <CoinInfo>
+        <svg></svg>
         {global?.market_cap_percentage["btc"].toFixed(2)}%
         <HorizontalBar num1={global?.market_cap_percentage["btc"]} num2={100} />
       </CoinInfo>
