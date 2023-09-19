@@ -12,7 +12,6 @@ import {
   faBalanceScale,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import 
 
 const NavBarCoinInfoContainer = tw.div`
 h-[50px]
