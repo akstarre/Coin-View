@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { BtcLogo } from "../../../public/svg";
 
 type ChartSelectorProps = {
   coins: Coin;
@@ -89,6 +90,7 @@ export const ChartSelector = ({
 
   return (
     <ChartSelectorContainer>
+      <BtcLogo />
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
