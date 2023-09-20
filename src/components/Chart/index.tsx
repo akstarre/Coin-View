@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import { Bar, Line } from 'react-chartjs-2'
+import React, { useState, useEffect } from "react";
+import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
-} from 'chart.js'
+} from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement)
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const options = {
   responsive: true,
@@ -28,39 +28,31 @@ const options = {
       display: false, // Removes the numbers for the y-axis
     },
   },
-}
+};
 
-interface ChartDataInterface {
-
-}
+interface ChartDataInterface {}
 
 type ChartProps = {
   chartType: string;
   chartData: ChartDataInterface;
   currentChart: string;
+};
 
-}
+export const Chart = ({ chartType, chartData, currentChart }: ChartProps) => {
+  //   const currentTheme = localStorage.getItem('theme')
+  //   const backgroundColor = currentTheme === 'dark' ? '#3D63EC' : '#00FC2A'
 
-export const Chart =({chartType, chartData, currentChart}: ChartProps) =>{
+  // const data = {
+  //   labels: chartData?.volumeDates.map(date => new Date(date).getDate()),
+  //   datasets: [
+  //     {
+  //       fill: true,
+  //       label: 'Volumes',
+  //       data: bitcoinPriceVolumes,
+  //       backgroundColor: backgroundColor,
+  //     },
+  //   ],
+  // }
 
-//   const currentTheme = localStorage.getItem('theme')
-//   const backgroundColor = currentTheme === 'dark' ? '#3D63EC' : '#00FC2A'
-
-  const data = {
-    labels: chartData.volumeDates.map(date => new Date(date).getDate()),
-    datasets: [
-      {
-        fill: true,
-        label: 'Volumes',
-        data: bitcoinPriceVolumes,
-        backgroundColor: backgroundColor,
-      },
-    ],
-  }
-
-  return (
-    <div>
-      <Bar data={data} options={options} />
-    </div>
-  )
-}
+  return <div>{/* <Bar data={data} options={options} /> */}</div>;
+};
