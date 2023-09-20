@@ -2,6 +2,37 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+interface MarketCap {
+  [key: string]: number;
+}
+
+interface TotalVolume {
+  [key: string]: number;
+}
+
+interface MarketCapPercentage {
+  [key: string]: number;
+}
+
+interface GlobalData {
+  active_cryptocurrencies: number;
+  upcoming_icos: number;
+  ongoing_icos: number;
+  ended_icos: number;
+  markets: number;
+  total_market_cap: MarketCap;
+  total_volume: TotalVolume;
+  market_cap_percentage: MarketCapPercentage;
+  market_cap_change_percentage_24h_usd: number;
+  updated_at: number;
+}
+
+interface GlobalState {
+  data: GlobalData | null;
+  loading: boolean;
+  error: string;
+}
+
 export const fetchGlobal = createAsyncThunk(
   "global/getData",
   async (thunkApi) => {
@@ -13,21 +44,29 @@ export const fetchGlobal = createAsyncThunk(
   }
 );
 
-const initialState = {
-  globalData: [],
+const initialState: GlobalState = {
+  data: null,
   loading: false,
   error: "",
 };
 
 const globalSlice = createSlice({
-  name: "globalData",
+  name: "global",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchGlobal.fulfilled, (state, action) => {
-      state.globalData = action.payload;
+      state.data = action.payload;
     });
   },
 });
 
 export default globalSlice.reducer;
+
+export interface RootState {
+  globalData: {
+    data: GlobalData | null;
+    loading: boolean;
+    error: string;
+  };
+}

@@ -14,6 +14,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { BtcLogo, EthLogo } from "../../../public/svg";
 
+type NavbarCoinInfoProps = {
+  currency: string;
+};
+
 const NavBarCoinInfoContainer = tw.div`
 h-[50px]
 w-[100vw]
@@ -60,18 +64,13 @@ w-auto
 h-[]
 `;
 
-export const NavbarCoinInfo = ({ currency }) => {
+export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { globalData } = useSelector((state: RootState) => state.globalData);
-  const { data: global } = globalData;
+  const { data: global } = useSelector((state: RootState) => state.globalData);
+
   useEffect(() => {
     dispatch(fetchGlobal());
   }, []);
-
-  console.log(global);
-  const getVolumeOverMarket = () => {
-    const quotient = global.total_volume[currency] / global.total_market_cap;
-  };
 
   const formatNumber = (num: number) => {
     if (num > 1000000000000) {
@@ -100,10 +99,10 @@ export const NavbarCoinInfo = ({ currency }) => {
       </CoinInfo>
       <CoinInfo>
         <Caret icon={faCaretDown} />
-        {formatNumber(global?.total_volume[currency])}
+        {formatNumber(global?.total_volume[currency] ?? 0)}
       </CoinInfo>
       <CoinInfo>
-        ${formatNumber(global?.total_market_cap[currency])}
+        ${formatNumber(global?.total_market_cap[currency] ?? 0)}
         <HorizontalBar
           num1={global?.total_volume[currency]}
           num2={global?.total_market_cap[currency]}
