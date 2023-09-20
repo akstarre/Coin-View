@@ -14,10 +14,10 @@ export const fetchCoins = createAsyncThunk(
   }
 );
 
-const initialState: { coins: Coin[]; loading: boolean; error: Error | null } = {
+const initialState = {
   coins: [],
   loading: false,
-  error: null,
+  error: "",
 };
 
 const marketTableSlice = createSlice({
