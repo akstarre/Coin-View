@@ -6,7 +6,7 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { BtcLogo } from "../../../public/svg";
 
 type ChartSelectorProps = {
-  coins: Coin;
+  coins: Coin[];
   currentChart: string;
   currentCurrency: string;
   handleChartSelection: (selection: string) => void;
