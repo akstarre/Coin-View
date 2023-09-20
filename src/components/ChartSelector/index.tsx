@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 type ChartSelectorProps = {
-  coins: Coin;
+  coins: Coin[];
   currentChart: string;
   currentCurrency: string;
   handleChartSelection: (selection: string) => void;
