@@ -13,55 +13,56 @@ import {
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { BtcLogo, EthLogo } from "../../../public/svg";
+import { formatNumber } from "../../utils/conversion";
 
 type NavbarCoinInfoProps = {
   currency: string;
 };
 
 const NavBarCoinInfoContainer = tw.div`
-h-[50px]
-w-[100vw]
-p-0
-m-0
-bg-dark-purple
-flex
-justify-center
-space-x-4
-border-b
-border-[#353048]
+  h-[50px]
+  w-[100vw]
+  p-0
+  m-0
+  bg-dark-purple
+  flex
+  justify-center
+  space-x-4
+  border-b
+  border-[#353048]
 `;
 
 const CoinInfo = tw.div`
-flex
-justify-center
-space-x-4
-min-w-[100px]
-max-w-[200px]
-items-center
-text-xs
+  flex
+  justify-center
+  space-x-4
+  min-w-[100px]
+  max-w-[200px]
+  items-center
+  text-xs
 `;
 
 const Icon = tw(FontAwesomeIcon)`
-p-2
-text-white
+  p-2
+  text-white
 `;
 
 const Caret = tw(FontAwesomeIcon)`
-p-2
-text-green-change
+  p-2
+  text-green-change
 `;
 
 const LogoContainer = tw.div`
-h-[50px]
-w-[50px]
-flex
-items-center
-p-2
+  h-[50px]
+  w-[50px]
+  flex
+  items-center
+  p-2
 `;
 
 const LogoImg = tw.img`
-w-auto
-h-[]
+  w-auto
+  h-[]
 `;
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
@@ -71,21 +72,6 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   useEffect(() => {
     dispatch(fetchGlobal());
   }, []);
-
-  const formatNumber = (num: number) => {
-    if (num > 1000000000000) {
-      const finalNum = (num / 1000000000000).toFixed(2);
-      return `${finalNum}T`;
-    }
-    if (num > 1000000) {
-      const finalNum = (num / 1000000000).toFixed(2);
-      return `${finalNum}B`;
-    }
-    if (num > 1000000) {
-      const finalNum = (num / 1000000).toFixed(2);
-      return `${finalNum}M`;
-    }
-  };
 
   return (
     <NavBarCoinInfoContainer>
