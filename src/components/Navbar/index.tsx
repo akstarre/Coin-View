@@ -17,9 +17,9 @@ export const Navbar = () => {
   };
 
   const NavBarContainer = tw.div`
-  m-0
-  p-0
-  w-[100vw]
+    m-0
+    p-0
+    w-[100vw]
 `;
   return (
     <NavBarContainer>

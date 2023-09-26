@@ -55,9 +55,18 @@ const globalSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchGlobal.fulfilled, (state, action) => {
-      state.data = action.payload;
-    });
+    builder
+      .addCase(fetchGlobal.fulfilled, (state, action) => {
+        state.data = action.payload.data;
+      })
+      .addCase(fetchGlobal.pending, (state) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(fetchGlobal.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch global data";
+      });
   },
 });
 

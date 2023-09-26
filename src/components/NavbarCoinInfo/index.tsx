@@ -73,6 +73,11 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
     dispatch(fetchGlobal());
   }, []);
 
+  if (!global) {
+    return <div>Loading..</div>;
+  }
+
+  console.log(global);
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
@@ -84,11 +89,11 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         Exchange: {global?.markets}
       </CoinInfo>
       <CoinInfo>
-        <Caret icon={faCaretDown} />
-        {formatNumber(global?.total_volume[currency] ?? 0)}
+        <Caret icon={faCaretDown} /> $
+        {formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>
       <CoinInfo>
-        ${formatNumber(global?.total_market_cap[currency] ?? 0)}
+        ${formatNumber(global?.total_market_cap[currency] || 0)}
         <HorizontalBar
           num1={global?.total_volume[currency]}
           num2={global?.total_market_cap[currency]}
