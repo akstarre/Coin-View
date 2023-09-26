@@ -23,6 +23,13 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      spacing: {
+        "basis-16": "16%",
+        "basis-25": "25%",
+        "basis-33": "33%",
+        "basis-50": "50%",
+        "basis-75": "75%",
+      },
     },
   },
   plugins: [],

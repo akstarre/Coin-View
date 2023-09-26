@@ -5,6 +5,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+import tw from "tailwind-styled-components";
+import { Logoipsum } from "../../../public/svg";
 
 export const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,34 +16,45 @@ export const Navbar = () => {
     dispatch(changeCurrency(selection));
   };
 
+  const LogoContainer = tw.div`
+    h-[50px]
+    w-[100px]
+    <p-0>m-0</p-0>
+
+  `;
+
+  const MiddleNavBarContainer = tw.div`
+    flex 
+    justify-between
+  `;
+
+  const MiddleRightNavbarContainer = tw.div`
+    flex 
+    flex-row 
+    justify-between
+    basis-33
+  `;
+
+  const MiddleLeftNavbarContainer = tw.div`
+  basis-16
+  `;
+
   return (
-    <div className="flex justify-between">
-      <div
-        className="flex flex-row justify-between"
-        style={{ flexBasis: "16%" }}
-      >
-        <div>
-          <button>Coins</button>
-        </div>
-        <div>
-          <button>Portfolio</button>
-        </div>
-      </div>
-      <div
-        className="flex flex-row justify-between"
-        style={{ flexBasis: "33%" }}
-      >
-        <div>
-          <input placeholder="Search"></input>
-        </div>
-        <div>
-          <Dropdown
-            handleSelection={handleCurrencySelection}
-            currentCurrency={currency}
-          />
-        </div>
+    <MiddleNavBarContainer>
+      <MiddleLeftNavbarContainer>
+        <LogoContainer>
+          <Logoipsum className="h-20 w-40" />
+        </LogoContainer>
+      </MiddleLeftNavbarContainer>
+      <MiddleRightNavbarContainer>
+        <input placeholder="Search"></input>
+
+        <Dropdown
+          handleSelection={handleCurrencySelection}
+          currentCurrency={currency}
+        />
         <button>DarkMode</button>
-      </div>
-    </div>
+      </MiddleRightNavbarContainer>
+    </MiddleNavBarContainer>
   );
 };
