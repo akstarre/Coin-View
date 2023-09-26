@@ -77,7 +77,6 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
     return <div>Loading..</div>;
   }
 
-  console.log(global);
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
@@ -103,14 +102,14 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         <LogoContainer>
           <BtcLogo className="h-4 w-4" />
         </LogoContainer>
-        {global?.market_cap_percentage["btc"].toFixed(2)}%
+        {global?.market_cap_percentage.btc.toFixed(2)}%
         <HorizontalBar num1={global?.market_cap_percentage["btc"]} num2={100} />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogo className="h-4 w-4" />
         </LogoContainer>
-        {global?.market_cap_percentage["eth"].toFixed(2)}%
+        {global?.market_cap_percentage.eth.toFixed(2)}%
         <HorizontalBar num1={global?.market_cap_percentage["eth"]} num2={100} />
       </CoinInfo>
     </NavBarCoinInfoContainer>
