@@ -1,10 +1,8 @@
 "use client";
 
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { Providers } from "./GlobalRedux/provider";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Providers } from "./GlobalRedux/provider";
 
 export default function RootLayout({
   children,
@@ -13,9 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-slate-800 text-slate-100 container m-0 p-0`}
-      >
+      <body className={`bg-slate-800 text-slate-100 container m-0 p-0`}>
         <Providers>{children}</Providers>
       </body>
     </html>
