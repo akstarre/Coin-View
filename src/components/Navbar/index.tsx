@@ -7,6 +7,7 @@ import tw from "tailwind-styled-components";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
+import { ThemeToggle } from "../ThemeToggle/index";
 
 export const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,7 +50,7 @@ export const Navbar = () => {
               currentCurrency={currency}
             />
           </div>
-          <button>DarkMode</button>
+          <ThemeToggle />
         </div>
       </div>
     </NavBarContainer>
