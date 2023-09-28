@@ -19,6 +19,13 @@ const config: Config = {
         "green-change": "#01F1E3",
         "red-change": "#FE2264",
       },
+      spacing: {
+        "basis-16": "16%",
+        "basis-25": "25%",
+        "basis-33": "33%",
+        "basis-50": "50%",
+        "basis-75": "75%",
+      },
     },
   },
   plugins: [],
