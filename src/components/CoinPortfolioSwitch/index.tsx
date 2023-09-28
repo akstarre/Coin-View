@@ -27,7 +27,7 @@ const ButtonSwitch = tw.button<{ selected: string }>`
   ${(props) => props.selected === "portfolio" && "transform translate-x-full"}
 `;
 
-const SwitchButton = tw.button`
+const SwitchButton = tw.button<{ buttonType: string }>`
   absolute
   top-0
   w-1/2
@@ -35,11 +35,13 @@ const SwitchButton = tw.button`
   flex
   items-center
   justify-center
-  left-0
+  ${(props) => (props.buttonType === "coins" ? "left-0" : "left-1/2")}
 `;
 
 export const CoinPortfolioSwitch: React.FC = () => {
   const [selected, setSelected] = useState("coins");
+
+  const [coins, portfolio] = ["coins", "portfolio"];
 
   const handleCoinsSelection = () => {
     setSelected("coins");
@@ -51,8 +53,10 @@ export const CoinPortfolioSwitch: React.FC = () => {
   return (
     <SwitchContainer>
       <ButtonSwitch selected={selected} />
-      <SwitchButton onClick={handleCoinsSelection}>Coins</SwitchButton>
-      <SwitchButton className="left-1/2" onClick={handlePorfolioSelection}>
+      <SwitchButton buttonType={coins} onClick={handleCoinsSelection}>
+        Coins
+      </SwitchButton>
+      <SwitchButton buttonType={portfolio} onClick={handlePorfolioSelection}>
         Portfolio
       </SwitchButton>
     </SwitchContainer>
