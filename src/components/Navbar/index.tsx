@@ -8,6 +8,41 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import tw from "tailwind-styled-components";
 import { Logoipsum } from "../../../public/svg";
 
+const LogoContainer = tw.div`
+  flex
+  items-center
+  h-[40px]
+  w-[100px]
+  m-0
+`;
+
+const MiddleNavBarContainer = tw.div`
+  flex 
+  justify-between
+  items-center  
+  w-full  
+  p-4   
+`;
+
+const RightNavbarContainer = tw.div`
+  flex 
+  items-center 
+  space-x-4  
+`;
+
+const RoundedButton = tw.button`
+  w-[40px]
+  h-[40px]
+  rounded-[10px]
+  focus:outline-none
+`;
+
+const RoundedDropdown = tw(Dropdown)`
+  w-[40px]
+  h-[40px]
+  rounded-[10px]
+`;
+
 export const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { currency } = useSelector((state: RootState) => state.currency);
@@ -16,45 +51,22 @@ export const Navbar = () => {
     dispatch(changeCurrency(selection));
   };
 
-  const LogoContainer = tw.div`
-    h-[50px]
-    w-[100px]
-    <p-0>m-0</p-0>
-
-  `;
-
-  const MiddleNavBarContainer = tw.div`
-    flex 
-    justify-between
-  `;
-
-  const MiddleRightNavbarContainer = tw.div`
-    flex 
-    flex-row 
-    justify-between
-    basis-33
-  `;
-
-  const MiddleLeftNavbarContainer = tw.div`
-  basis-16
-  `;
-
   return (
     <MiddleNavBarContainer>
-      <MiddleLeftNavbarContainer>
-        <LogoContainer>
-          <Logoipsum className="h-20 w-40" />
-        </LogoContainer>
-      </MiddleLeftNavbarContainer>
-      <MiddleRightNavbarContainer>
-        <input placeholder="Search"></input>
+      <LogoContainer>
+        <Logoipsum className="h-20 w-40" />
+      </LogoContainer>
 
-        <Dropdown
+      <RightNavbarContainer>
+        <input placeholder="Search" className="rounded p-2" />
+
+        <RoundedDropdown
           handleSelection={handleCurrencySelection}
           currentCurrency={currency}
         />
-        <button>DarkMode</button>
-      </MiddleRightNavbarContainer>
+
+        <RoundedButton>🌙</RoundedButton>
+      </RightNavbarContainer>
     </MiddleNavBarContainer>
   );
 };
