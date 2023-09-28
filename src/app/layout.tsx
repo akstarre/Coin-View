@@ -14,7 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`bg-slate-800 text-slate-100 container m-0 p-0`}>
         <ReduxProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </ReduxProvider>
       </body>
     </html>
