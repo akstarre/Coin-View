@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
-  const [currentTheme, setCurrentTheme] = useState("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,10 +14,9 @@ export const ThemeToggle = () => {
   }
 
   const handleThemeToggle = () => {
-    if (currentTheme === "dark") {
+    if (theme === "dark") {
       setTheme("light");
-    }
-    if (currentTheme === "light") {
+    } else if (theme === "light") {
       setTheme("dark");
     }
   };
