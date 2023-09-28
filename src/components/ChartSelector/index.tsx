@@ -26,36 +26,36 @@ interface Coin {
 }
 
 const ChartSelectorContainer = tw.div`
-relative
+  relative
 `;
 
 const ChartSelectorInnerContainer = tw.div`
-flex 
-whitespace-nowrap 
-overflow-x-auto 
-scrollbar-hide
-max-w-[100vw]
+  flex 
+  whitespace-nowrap 
+  overflow-x-auto 
+  scrollbar-hide
+  max-w-[100vw]
 `;
 
 const CoinCard = tw.div`
-p-4
-rounded-lg
-shadow-lg
-cursor-pointer
-m-2
-inline-block
-max-w-[200px]
+  p-4
+  rounded-lg
+  shadow-lg
+  cursor-pointer
+  m-2
+  inline-block
+  max-w-[200px]
 `;
 
 const ScrollButton = tw.div`
-absolute
-top-1/2
-bg-blue-300 
-text-white
-p-4
-rounded-full
-z-1
-cursor-pointer
+  absolute
+  top-1/2
+  bg-blue-300 
+  text-white
+  p-4
+  rounded-full
+  z-1
+  cursor-pointer
 `;
 
 export const ChartSelector = ({
