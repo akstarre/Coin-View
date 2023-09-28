@@ -1,10 +1,9 @@
 "use client";
 
 import "./globals.css";
-import { Inter } from "next/font/google";
-import { Providers } from "./GlobalRedux/provider";
-
-const inter = Inter({ subsets: ["latin"] });
+import { ThemeProvider } from "next-themes";
+import { ReduxProvider } from "./GlobalRedux/provider";
+import { useState, useEffect } from "react";
 
 export default function RootLayout({
   children,
@@ -13,10 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-slate-800 text-slate-100 container m-0 p-0`}
-      >
-        <Providers>{children}</Providers>
+      <body className={`bg-slate-800 text-slate-100 container m-0 p-0`}>
+        <ReduxProvider>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
