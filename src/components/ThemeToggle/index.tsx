@@ -1,6 +1,21 @@
 "use client";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
+import tw from "tailwind-styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLightbulb, faMoon } from "@fortawesome/free-regular-svg-icons";
+
+const StyledIcon = tw(FontAwesomeIcon)`
+
+`;
+
+const StyledButton = tw.button`
+  w-12
+  h-10
+  bg-l-light-purple-background
+  dark:bg-d-grey-purple-1
+  rounded-[10px]
+`;
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -22,9 +37,20 @@ export const ThemeToggle = () => {
     }
   };
 
+  const getIcon = () => {
+    if (theme === "dark") {
+      return faMoon;
+    }
+    if (theme === "light") {
+      return faLightbulb;
+    }
+  };
+
   return (
     <div>
-      <button onClick={handleThemeToggle}>{theme}</button>
+      <StyledButton onClick={handleThemeToggle}>
+        <StyledIcon icon={getIcon()} />
+      </StyledButton>
     </div>
   );
 };
