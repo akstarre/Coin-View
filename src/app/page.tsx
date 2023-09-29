@@ -11,6 +11,7 @@ import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
 import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
+import tw from "tailwind-styled-components";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
