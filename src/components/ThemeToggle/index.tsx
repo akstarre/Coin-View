@@ -15,7 +15,7 @@ export const ThemeToggle = () => {
   }
 
   const handleThemeToggle = () => {
-    if (theme === "dark") {
+    if (theme === "dark" || theme === "system") {
       setTheme("light");
     } else if (theme === "light") {
       setTheme("dark");
