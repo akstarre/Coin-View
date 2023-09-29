@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
-import tw from "tailwind-styled-components";
 import { Logoipsum } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
