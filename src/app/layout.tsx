@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={``}>
+      <body>
         <ReduxProvider>
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </ReduxProvider>

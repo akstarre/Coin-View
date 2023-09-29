@@ -41,12 +41,8 @@ const Home = () => {
             handleChartSelection={handleChartSelection}
           />
         </div>
-        <div className="relative w-[calc(50%-16px)]">
-          {/* <Chart chartType="line" currentChart={currentChart}/> */}
-        </div>
-        <div className="relative w-[calc(50%-16px)]">
-          {/* <Chart chartType="bar" currentChart={currentChart}/> */}
-        </div>
+        <div className="relative w-[calc(50%-16px)]"></div>
+        <div className="relative w-[calc(50%-16px)]"></div>
       </div>
 
       <div>
