@@ -1,8 +1,8 @@
 "use client";
 
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
 import { ReduxProvider } from "./GlobalRedux/provider";
+import ThemeProviders from "./ThemeProviders";
 import { useState, useEffect } from "react";
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProvider>
-          <ThemeProvider attribute="class">{children}</ThemeProvider>
+          <ThemeProviders>{children}</ThemeProviders>
         </ReduxProvider>
       </body>
     </html>
