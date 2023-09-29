@@ -11,8 +11,6 @@ type DropdownProps = {
   currentCurrency: string;
 };
 
-const currencyList = ["USD", "EUR", "JPY"];
-
 const DropdownContainer = tw.div`
   flex
   items-center
@@ -25,11 +23,13 @@ const DropdownContainer = tw.div`
   dark:bg-d-grey-purple-1
 `;
 
-const DropdownButton = tw.div`
+const DropdownButton = tw.button`
   flex
   text-center
   items-center
   cursor-pointer
+  text-l-dark-purple-background
+  dark:text-white
 `;
 
 const DropdownList = tw.div`
@@ -38,7 +38,7 @@ const DropdownList = tw.div`
 `;
 
 const StyledIcon = tw(FontAwesomeIcon)`
-pr-2
+  pr-2
 `;
 
 export const Dropdown = ({
