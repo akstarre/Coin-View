@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
-import tw from "tailwind-styled-components";
 import { Logoipsum } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
+import { CoinPortfolioSwitch } from "../CoinPortfolioSwitch";
 
 const LogoContainer = tw.div`
   flex
@@ -54,24 +54,28 @@ export const Navbar = () => {
     dispatch(changeCurrency(selection));
   };
 
-  const NavBarContainer = tw.div`
+  const NavbarContainer = tw.div`
     m-0
     p-0
     w-[100vw]
 `;
   return (
-    <MiddleNavBarContainer>
-      <LogoContainer>
-        <Logoipsum className="h-20 w-40" />
-      </LogoContainer>
-      <RightNavbarContainer>
-        <input placeholder="Search" className="rounded p-2" />
-        <RoundedDropdown
-          handleSelection={handleCurrencySelection}
-          currentCurrency={currency}
-        />
-        <RoundedButton>🌙</RoundedButton>
-      </RightNavbarContainer>
-    </MiddleNavBarContainer>
+    <NavbarContainer>
+      <NavbarCoinInfo currency={currency} />
+      <MiddleNavBarContainer>
+        <LogoContainer>
+          <Logoipsum className="h-20 w-40" />
+        </LogoContainer>
+        <RightNavbarContainer>
+          <input placeholder="Search" className="rounded p-2" />
+          <RoundedDropdown
+            handleSelection={handleCurrencySelection}
+            currentCurrency={currency}
+          />
+          <RoundedButton>🌙</RoundedButton>
+        </RightNavbarContainer>
+      </MiddleNavBarContainer>
+      <CoinPortfolioSwitch />
+    </NavbarContainer>
   );
 };
