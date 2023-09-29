@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div className="">
       <Navbar />
-      <CoinPortfolioSwitch />
+      {/* <CoinPortfolioSwitch /> */}
       <div className="flex w-full justify-around items-center p-4">
         <div>
           <ChartSelector

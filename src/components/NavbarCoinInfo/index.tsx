@@ -62,7 +62,6 @@ const LogoContainer = tw.div`
 
 const LogoImg = tw.img`
   w-auto
-  h-[]
 `;
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
