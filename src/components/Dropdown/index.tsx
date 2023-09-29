@@ -2,13 +2,44 @@
 
 import { useState, useEffect, useRef } from "react";
 import { CurrencyDropdownList } from "../CurrencyDropdownList/index";
+import tw from "tailwind-styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getCurrencySymbol } from "@/utils/formatting";
 
 type DropdownProps = {
   handleSelection: (currency: string) => void;
   currentCurrency: string;
 };
 
-const currencyList = ["usd", "eur", "jpy"];
+const currencyList = ["USD", "EUR", "JPY"];
+
+const DropdownContainer = tw.div`
+  flex
+  items-center
+  justify-center
+  relative
+  w-20
+  h-10
+  rounded-[10px]
+  bg-l-light-purple-background
+  dark:bg-d-grey-purple-1
+`;
+
+const DropdownButton = tw.div`
+  flex
+  text-center
+  items-center
+  cursor-pointer
+`;
+
+const DropdownList = tw.div`
+  absolute
+  top-10
+`;
+
+const StyledIcon = tw(FontAwesomeIcon)`
+pr-2
+`;
 
 export const Dropdown = ({
   handleSelection,
@@ -38,19 +69,20 @@ export const Dropdown = ({
   }, [dropDownOpen]);
 
   return (
-    <div className="dropdownContainer">
-      <div
+    <DropdownContainer>
+      <DropdownButton
         className="dropdownButton"
         onClick={updateDropDown}
         ref={dropdownRef}
       >
-        {currentCurrency}
-      </div>
+        <StyledIcon icon={getCurrencySymbol(currentCurrency)} />{" "}
+        {currentCurrency.toUpperCase()}
+      </DropdownButton>
       {dropDownOpen && (
-        <div className="dropdownList" onBlur={closeDropDown} ref={dropdownRef}>
+        <DropdownList onBlur={closeDropDown} ref={dropdownRef}>
           <CurrencyDropdownList handleDropSelection={handleDropSelection} />
-        </div>
+        </DropdownList>
       )}
-    </div>
+    </DropdownContainer>
   );
 };

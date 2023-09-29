@@ -67,8 +67,10 @@ const StyledIcon = tw(FontAwesomeIcon)`
 
 const StyledInput = tw.input`
   pl-8
+  py-2
   w-full
   bg-transparent
+  focus:outline-none
   ::placeholder {
     text-l-dark-purple
     dark:text-white
@@ -86,7 +88,7 @@ export const Navbar = () => {
   const { currency } = useSelector((state: RootState) => state.currency);
 
   const handleCurrencySelection = (selection: string) => {
-    dispatch(changeCurrency(selection));
+    dispatch(changeCurrency(selection.toLowerCase()));
   };
 
   return (

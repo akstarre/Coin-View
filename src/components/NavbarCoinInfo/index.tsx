@@ -6,14 +6,14 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
 import { HorizontalBar } from "../HorizontalBar";
 import { BtcLogo, EthLogo } from "../../../public/svg";
-import { formatNumber } from "../../utils/conversion";
+import { formatNumber } from "@/utils/formatting";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCoins,
   faBalanceScale,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type NavbarCoinInfoProps = {
   currency: string;
