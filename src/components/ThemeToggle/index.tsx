@@ -14,6 +14,8 @@ const StyledButton = tw.button`
   h-10
   bg-l-light-purple-background
   dark:bg-d-grey-purple-1
+  dark:border-[1px]
+  dark:border-d-grey-purple-border
   rounded-[10px]
 `;
 

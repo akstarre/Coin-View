@@ -53,9 +53,12 @@ const RoundedDropdown = tw(Dropdown)`
 
 const InputContainer = tw.div`
   relative
+  w-72
   bg-l-light-purple-background
   dark:bg-d-grey-purple-1
-  rounded
+  dark:border-[1px]
+  dark:border-d-grey-purple-border
+  rounded-[10px]
 `;
 
 const StyledIcon = tw(FontAwesomeIcon)`
