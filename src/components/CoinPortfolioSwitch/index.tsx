@@ -2,15 +2,31 @@
 import { useState } from "react";
 import tw from "tailwind-styled-components";
 
+const SwitchComponentContainer = tw.div`
+  w-full
+  p-8
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
+`;
+
 const SwitchContainer = tw.div`
-p-8
   relative
-  w-48
+  w-[400px]
   h-12
+  m-1
+  p-1  
   bg-white
   dark:bg-d-grey-purple-1
-  rounded-[5px]
+  rounded-[10px]
   overflow-hidden
+`;
+
+const NestedSwitchContainer = tw.div`
+  w-full
+  h-full
+  p-2 
+  dark:bg-d-grey-purple-2
+  rounded-[10px]
 `;
 
 const ButtonSwitch = tw.button<{ selected: string }>`
@@ -18,7 +34,8 @@ const ButtonSwitch = tw.button<{ selected: string }>`
   top-0
   left-0
   w-1/2
-  h-full
+  h-10
+  m-1
   bg-l-light-purple-highlight
   dark:bg-d-purple-highlight
   focus:outline-none
@@ -26,10 +43,14 @@ const ButtonSwitch = tw.button<{ selected: string }>`
   duration-300
   ease-in-out
   rounded-[10px]
-  ${(props) => props.selected === "portfolio" && "transform translate-x-full"}
-`;
+  border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
+  border-l-light-purple-border
+  dark:border-d-purple-border 
+  dark:shadow-light
+  ${(props) =>
+    props.selected === "portfolio" && "transform translate-x-[96%]"} `;
 
-const SwitchButton = tw.button<{
+const StyledButton = tw.button<{
   buttonposition: string;
   selected: string;
 }>`
@@ -59,22 +80,26 @@ export const CoinPortfolioSwitch: React.FC = () => {
     setSelected("portfolio");
   };
   return (
-    <SwitchContainer>
-      <ButtonSwitch selected={selected} />
-      <SwitchButton
-        selected={selected}
-        buttonposition={coins}
-        onClick={handleCoinsSelection}
-      >
-        Coins
-      </SwitchButton>
-      <SwitchButton
-        selected={selected}
-        buttonposition={portfolio}
-        onClick={handlePorfolioSelection}
-      >
-        Portfolio
-      </SwitchButton>
-    </SwitchContainer>
+    <SwitchComponentContainer>
+      <SwitchContainer>
+        <NestedSwitchContainer>
+          <ButtonSwitch selected={selected} />
+          <StyledButton
+            selected={selected}
+            buttonposition={coins}
+            onClick={handleCoinsSelection}
+          >
+            Coins
+          </StyledButton>
+          <StyledButton
+            selected={selected}
+            buttonposition={portfolio}
+            onClick={handlePorfolioSelection}
+          >
+            Portfolio
+          </StyledButton>
+        </NestedSwitchContainer>
+      </SwitchContainer>
+    </SwitchComponentContainer>
   );
 };
