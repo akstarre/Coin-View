@@ -41,9 +41,7 @@ export const ThemeToggle = () => {
     if (theme === "dark") {
       return faMoon;
     }
-    if (theme === "light") {
-      return faLightbulb;
-    }
+    return faLightbulb;
   };
 
   return (
