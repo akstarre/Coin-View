@@ -21,6 +21,8 @@ const DropdownContainer = tw.div`
   rounded-[10px]
   bg-l-light-purple-background
   dark:bg-d-grey-purple-1
+  dark:border-[1px]
+  dark:border-d-grey-purple-border
 `;
 
 const DropdownButton = tw.button`
@@ -34,7 +36,13 @@ const DropdownButton = tw.button`
 
 const DropdownList = tw.div`
   absolute
-  top-10
+  top-full
+  left-1
+  transition
+  ease-in
+  duration-200
+  transform
+  opacity-1
 `;
 
 const StyledIcon = tw(FontAwesomeIcon)`
@@ -47,7 +55,7 @@ export const Dropdown = ({
 }: DropdownProps) => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
 
-  const closeDropDown = () => {
+  const closedropDown = () => {
     setDropDownOpen(false);
   };
 
@@ -57,29 +65,31 @@ export const Dropdown = ({
 
   const handleDropSelection = (selection: string) => {
     handleSelection(selection);
-    closeDropDown();
+    closedropDown();
+  };
+
+  const handleDropBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!dropdownRef.current?.contains(e.relatedTarget)) {
+      closedropDown();
+    }
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (dropDownOpen && dropdownRef.current !== null) {
-      dropdownRef.current.focus();
+    if (dropDownOpen) {
+      dropdownRef.current?.focus();
     }
   }, [dropDownOpen]);
 
   return (
-    <DropdownContainer>
-      <DropdownButton
-        className="dropdownButton"
-        onClick={updateDropDown}
-        ref={dropdownRef}
-      >
+    <DropdownContainer ref={dropdownRef} onBlur={handleDropBlur}>
+      <DropdownButton className="dropdownButton" onClick={updateDropDown}>
         <StyledIcon icon={getCurrencySymbol(currentCurrency)} />{" "}
         {currentCurrency.toUpperCase()}
       </DropdownButton>
       {dropDownOpen && (
-        <DropdownList onBlur={closeDropDown} ref={dropdownRef}>
+        <DropdownList>
           <CurrencyDropdownList handleDropSelection={handleDropSelection} />
         </DropdownList>
       )}

@@ -16,6 +16,7 @@ const config: Config = {
         "d-black-purple": "#13121A",
         "d-grey-purple-1": "#191925",
         "d-grey-purple-2": "#232336",
+        "d-grey-purple-border": "#232336",
         "d-grey-text": "#D1D1D1",
         "l-dark-purple-background": "#353574",
         "l-light-purple-background": "#EBEBFF",
@@ -30,6 +31,9 @@ const config: Config = {
         "basis-33": "33%",
         "basis-50": "50%",
         "basis-75": "75%",
+      },
+      boxShadow: {
+        "d-shadow": "0 1px 2px 2px rgba(255,255,255)",
       },
     },
   },

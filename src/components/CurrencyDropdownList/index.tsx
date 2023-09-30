@@ -18,6 +18,8 @@ const CurrencyListContainer = tw.div`
   dark:bg-d-grey-purple-1
   text-right
   overflow-hidden
+  dark:border-[1px]
+  dark:border-d-grey-purple-border
 `;
 
 const CurrencyListItem = tw.div`
