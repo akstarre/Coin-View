@@ -32,9 +32,6 @@ const config: Config = {
         "basis-50": "50%",
         "basis-75": "75%",
       },
-      boxShadow: {
-        "d-shadow": "0 1px 2px 2px rgba(255,255,255)",
-      },
     },
   },
   variants: {
