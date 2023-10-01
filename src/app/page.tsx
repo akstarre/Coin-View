@@ -11,6 +11,7 @@ import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
 import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
+import tw from "tailwind-styled-components";
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,7 +33,6 @@ const Home = () => {
   return (
     <div className="">
       <Navbar />
-      <CoinPortfolioSwitch />
       <div className="flex w-full justify-around items-center p-4">
         <div>
           <ChartSelector
@@ -42,12 +42,8 @@ const Home = () => {
             handleChartSelection={handleChartSelection}
           />
         </div>
-        <div className="relative w-[calc(50%-16px)]">
-          {/* <Chart chartType="line" currentChart={currentChart}/> */}
-        </div>
-        <div className="relative w-[calc(50%-16px)]">
-          {/* <Chart chartType="bar" currentChart={currentChart}/> */}
-        </div>
+        <div className="relative w-[calc(50%-16px)]"></div>
+        <div className="relative w-[calc(50%-16px)]"></div>
       </div>
 
       <div>

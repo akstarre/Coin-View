@@ -1,14 +1,32 @@
 "use client";
-import tw from "tailwind-styled-components";
 import { useState } from "react";
+import tw from "tailwind-styled-components";
+
+const SwitchComponentContainer = tw.div`
+  w-full
+  p-8
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
+`;
 
 const SwitchContainer = tw.div`
   relative
-  w-48
+  w-[400px]
   h-12
-  bg-gray-800
-  rounded-[5px]
+  m-1
+  p-1  
+  bg-white
+  dark:bg-d-grey-purple-1
+  rounded-[10px]
   overflow-hidden
+`;
+
+const NestedSwitchContainer = tw.div`
+  w-full
+  h-full
+  p-2 
+  dark:bg-d-grey-purple-2
+  rounded-[10px]
 `;
 
 const ButtonSwitch = tw.button<{ selected: string }>`
@@ -16,18 +34,26 @@ const ButtonSwitch = tw.button<{ selected: string }>`
   top-0
   left-0
   w-1/2
-  h-full
-  bg-blue-500
-  text-white
+  h-10
+  m-1
+  bg-l-light-purple-highlight
+  dark:bg-d-purple-highlight
   focus:outline-none
   transition-transform
   duration-300
   ease-in-out
   rounded-[10px]
-  ${(props) => props.selected === "portfolio" && "transform translate-x-full"}
-`;
+  border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
+  border-l-light-purple-border
+  dark:border-d-purple-border 
+  dark:shadow-light
+  ${(props) =>
+    props.selected === "portfolio" && "transform translate-x-[96%]"} `;
 
-const SwitchButton = tw.button<{ buttonType: string }>`
+const StyledButton = tw.button<{
+  buttonposition: string;
+  selected: string;
+}>`
   absolute
   top-0
   w-1/2
@@ -35,7 +61,10 @@ const SwitchButton = tw.button<{ buttonType: string }>`
   flex
   items-center
   justify-center
-  ${(props) => (props.buttonType === "coins" ? "left-0" : "left-1/2")}
+  text-l-dark-purple
+  dark:text-white
+  ${(props) => (props.buttonposition === "coins" ? "left-0" : "left-1/2")}
+  ${(props) => props.selected === props.buttonposition && "text-white"}
 `;
 
 export const CoinPortfolioSwitch: React.FC = () => {
@@ -51,14 +80,26 @@ export const CoinPortfolioSwitch: React.FC = () => {
     setSelected("portfolio");
   };
   return (
-    <SwitchContainer>
-      <ButtonSwitch selected={selected} />
-      <SwitchButton buttonType={coins} onClick={handleCoinsSelection}>
-        Coins
-      </SwitchButton>
-      <SwitchButton buttonType={portfolio} onClick={handlePorfolioSelection}>
-        Portfolio
-      </SwitchButton>
-    </SwitchContainer>
+    <SwitchComponentContainer>
+      <SwitchContainer>
+        <NestedSwitchContainer>
+          <ButtonSwitch selected={selected} />
+          <StyledButton
+            selected={selected}
+            buttonposition={coins}
+            onClick={handleCoinsSelection}
+          >
+            Coins
+          </StyledButton>
+          <StyledButton
+            selected={selected}
+            buttonposition={portfolio}
+            onClick={handlePorfolioSelection}
+          >
+            Portfolio
+          </StyledButton>
+        </NestedSwitchContainer>
+      </SwitchContainer>
+    </SwitchComponentContainer>
   );
 };

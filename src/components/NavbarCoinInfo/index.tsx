@@ -4,16 +4,16 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
-import tw from "tailwind-styled-components";
 import { HorizontalBar } from "../HorizontalBar";
+import { BtcLogo, EthLogo } from "../../../public/svg";
+import { formatNumber } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCoins,
   faBalanceScale,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { BtcLogo, EthLogo } from "../../../public/svg";
-import { formatNumber } from "../../utils/conversion";
+import tw from "tailwind-styled-components";
 
 type NavbarCoinInfoProps = {
   currency: string;
@@ -24,12 +24,16 @@ const NavBarCoinInfoContainer = tw.div`
   w-[100vw]
   p-0
   m-0
-  bg-dark-purple
   flex
   justify-center
   space-x-4
   border-b
   border-[#353048]
+  bg-l-dark-purple-background
+  text-white
+  dark:bg-d-dark-purple
+  
+ 
 `;
 
 const CoinInfo = tw.div`
@@ -58,11 +62,6 @@ const LogoContainer = tw.div`
   flex
   items-center
   p-2
-`;
-
-const LogoImg = tw.img`
-  w-auto
-  h-[]
 `;
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
