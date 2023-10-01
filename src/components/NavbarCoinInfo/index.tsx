@@ -25,7 +25,7 @@ const NavBarCoinInfoContainer = tw.div`
   p-0
   m-0
   flex
-  justify-center
+  justify-centergit 
   space-x-4
   border-b
   border-[#353048]
@@ -64,6 +64,16 @@ const LogoContainer = tw.div`
   p-2
 `;
 
+const BtcLogoDiv = tw(BtcLogo)`
+  h-4 
+  w-4
+`;
+
+const EthLogoDiv = tw(EthLogo)`
+  h-4 
+  w-4
+`;
+
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { data: global } = useSelector((state: RootState) => state.globalData);
@@ -99,14 +109,14 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
-          <BtcLogo className="h-4 w-4" />
+          <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
         <HorizontalBar num1={global?.market_cap_percentage["btc"]} num2={100} />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
-          <EthLogo className="h-4 w-4" />
+          <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
         <HorizontalBar num1={global?.market_cap_percentage["eth"]} num2={100} />
