@@ -25,7 +25,7 @@ const NavBarCoinInfoContainer = tw.div`
   p-0
   m-0
   flex
-  justify-centergit 
+  justify-center 
   space-x-4
   border-b
   border-[#353048]
