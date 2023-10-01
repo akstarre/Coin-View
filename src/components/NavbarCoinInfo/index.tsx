@@ -32,8 +32,6 @@ const NavBarCoinInfoContainer = tw.div`
   bg-l-dark-purple-background
   text-white
   dark:bg-d-dark-purple
-  
- 
 `;
 
 const CoinInfo = tw.div`
@@ -74,6 +72,10 @@ const EthLogoDiv = tw(EthLogo)`
   w-4
 `;
 
+const NavHorizontalBar = tw(HorizontalBar)`
+
+`;
+
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { data: global } = useSelector((state: RootState) => state.globalData);
@@ -102,7 +104,7 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
       </CoinInfo>
       <CoinInfo>
         ${formatNumber(global?.total_market_cap[currency] || 0)}
-        <HorizontalBar
+        <NavHorizontalBar
           num1={global?.total_volume[currency]}
           num2={global?.total_market_cap[currency]}
         />
@@ -112,14 +114,20 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        <HorizontalBar num1={global?.market_cap_percentage["btc"]} num2={100} />
+        <NavHorizontalBar
+          num1={global?.market_cap_percentage["btc"]}
+          num2={100}
+        />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
-        <HorizontalBar num1={global?.market_cap_percentage["eth"]} num2={100} />
+        <NavHorizontalBar
+          num1={global?.market_cap_percentage["eth"]}
+          num2={100}
+        />
       </CoinInfo>
     </NavBarCoinInfoContainer>
   );
