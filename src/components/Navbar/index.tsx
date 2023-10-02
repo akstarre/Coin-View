@@ -8,6 +8,7 @@ import { Logoipsum } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
 import { CoinPortfolioSwitch } from "../CoinPortfolioSwitch";
+import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 import { Dropdown } from "@/components/Dropdown";
@@ -101,6 +102,7 @@ export const Navbar = () => {
         <LogoContainer>
           <Logoipsum className="h-20 w-40" />
         </LogoContainer>
+        <HomePortfolioSwitch />
         <RightNavbarContainer>
           <InputContainer>
             <StyledIcon icon={faMagnifyingGlass} />
