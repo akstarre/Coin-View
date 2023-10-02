@@ -11,24 +11,28 @@ import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
 import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
+import { FakeMarketTableData } from "./GlobalRedux/Features/FakeMarketTableData";
 import tw from "tailwind-styled-components";
 
 const Home = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { currency: currentCurrency, currentChart } = useAppSelector(
-    (state) => state.currency
-  );
-  const { coins, loading, error } = useSelector(
-    (state: RootState) => state.marketTable
-  );
+  // const dispatch = useDispatch<AppDispatch>();
+  // const { currency: currentCurrency, currentChart } = useAppSelector(
+  //   (state) => state.currency
+  // );
+  // const { coins, loading, error } = useSelector(
+  //   (state: RootState) => state.marketTable
+  // );
 
-  useEffect(() => {
-    dispatch(fetchCoins(currentCurrency));
-  }, [currentCurrency, dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchCoins(currentCurrency));
+  // }, [currentCurrency, dispatch]);
 
   const handleChartSelection = (selection: string) => {
-    dispatch(changeChart(selection));
+    // dispatch(changeChart(selection));
   };
+
+  //Fake Data
+  const currency = "us";
 
   return (
     <div className="">
