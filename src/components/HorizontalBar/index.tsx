@@ -13,7 +13,7 @@ type BarOverlayProps = {
 
 const BarContainer = tw.div`
   barContainer 
-  w-200px 
+  w-full 
   h-[4px] 
   bg-gray-600 
   rounded-full
@@ -23,7 +23,7 @@ const BarOverlay = tw.div<BarOverlayProps>`
   h-full 
   rounded-full 
   bg-green-400
-  ${(props) => `w-[50%]`}
+  ${(props) => `w-[${props.percentage}%]`}
 `;
 
 export const HorizontalBar: React.FC<HorizontalBarProps> = ({ percentage }) => {

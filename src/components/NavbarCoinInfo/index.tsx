@@ -39,8 +39,16 @@ const CoinInfo = tw.div`
   flex
   justify-center
   space-x-4
-  min-w-[100px]
-  max-w-[200px]
+  w-40
+  items-center
+  text-xs
+`;
+
+const MarketInfo = tw.div`
+  flex
+  justify-center
+  space-x-4
+  w-32
   items-center
   text-xs
 `;
@@ -99,25 +107,25 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         <Caret icon={faCaretDown} /> $
         {formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>
-      <CoinInfo>
-        ${formatNumber(global?.total_market_cap[currency] || 0)}
+      <MarketInfo>
+        <span>${formatNumber(global?.total_market_cap[currency] || 0)}</span>
         <HorizontalBar
           percentage={getPercentage(
             global?.total_volume[currency],
             global?.total_market_cap[currency]
           )}
         />
-      </CoinInfo>
+      </MarketInfo>
       <CoinInfo>
         <LogoContainer>
-          <BtcLogo className="h-4 w-4" />
+          <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
         <HorizontalBar percentage={global?.market_cap_percentage["btc"]} />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
-          <EthLogo className="h-4 w-4" />
+          <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
         <HorizontalBar percentage={global?.market_cap_percentage["eth"]} />
