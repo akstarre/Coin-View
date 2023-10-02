@@ -13,6 +13,11 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
 import tw from "tailwind-styled-components";
 
+const PageContainer = tw.div`
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
+  `;
+
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { currency: currentCurrency, currentChart } = useAppSelector(
@@ -31,7 +36,7 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <PageContainer>
       <Navbar />
       <div className="flex w-full justify-around items-center p-4">
         <div>
@@ -49,7 +54,7 @@ const Home = () => {
       <div>
         <MarketTable coins={coins} loading={loading} error={error} />
       </div>
-    </div>
+    </PageContainer>
   );
 };
 
