@@ -3,6 +3,7 @@ import {
   faDollarSign,
   faYenSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 export const formatNumber = (num: number) => {
   if (num > 1000000000000) {
@@ -29,5 +30,13 @@ export const getCurrencySymbol = (currency: string) => {
       return faYenSign;
     default:
       return faDollarSign;
+  }
+};
+
+export const getCaret = (num: number) => {
+  if (num > 0) {
+    return faCaretUp;
+  } else {
+    return faCaretDown;
   }
 };
