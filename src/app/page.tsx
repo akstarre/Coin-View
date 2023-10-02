@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Chart } from "@/components/Chart";
 import MarketTable from "../components/MarketTable/index";
-import { ChartSelector } from "../components/ChartSelector/index";
+import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
 import { CoinPortfolioSwitch } from "@/components/CoinPortfolioSwitch";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,7 @@ const Home = () => {
       <Navbar />
       <div className="flex w-full justify-around items-center p-4">
         <div>
-          <ChartSelector
+          <CoinSelectorCarousel
             coins={coins}
             currentChart={currentChart}
             currentCurrency={currentCurrency}

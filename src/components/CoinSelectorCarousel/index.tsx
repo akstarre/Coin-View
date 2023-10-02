@@ -1,9 +1,10 @@
 "use client";
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
+import { formatNumber } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { BtcLogo } from "../../../public/svg";
+import Image from "next/image";
 
 type ChartSelectorProps = {
   coins: Coin[];
@@ -58,7 +59,7 @@ const ScrollButton = tw.div`
   cursor-pointer
 `;
 
-export const ChartSelector = ({
+export const CoinSelectorCarousel = ({
   coins,
   currentChart,
   currentCurrency,
@@ -93,19 +94,23 @@ export const ChartSelector = ({
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
+          console.log(coin);
           return (
             <CoinCard
               key={index}
               className={isCurrent ? "bg-blue-300" : "bg-blue-800"}
               onClick={() => handleSelection(coin.name)}
             >
+              <Image src={`${coin.image}`} width={50} height={50} />
               <div>
                 {coin.name} ({coin.symbol})
               </div>
               <div>
                 {coin.current_price} {currentCurrency}
               </div>
-              <div>{coin.price_change_percentage_24h_in_currency}%</div>
+              <div>
+                {formatNumber(coin.price_change_percentage_24h_in_currency)}%
+              </div>
             </CoinCard>
           );
         })}
