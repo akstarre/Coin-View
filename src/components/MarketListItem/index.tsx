@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactElement } from "react";
-import { HorizontalBar } from "../HorizontalBar";
+import { HorizontalBar } from "../HorizontalBar/index";
 import { Coin } from "../../../interfaces";
 
 type MarketListItemProps = {

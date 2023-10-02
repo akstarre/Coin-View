@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
-import { HorizontalBar } from "../HorizontalBar";
+import { HorizontalBar } from "../HorizontalBar/index";
 import { BtcLogo, EthLogo } from "../../../public/svg";
 import { formatNumber } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,8 +38,8 @@ const CoinInfo = tw.div`
   flex
   justify-center
   space-x-4
-  min-w-[100px]
-  max-w-[200px]
+  w-20
+  h-full
   items-center
   text-xs
 `;
@@ -55,8 +55,6 @@ const Caret = tw(FontAwesomeIcon)`
 `;
 
 const LogoContainer = tw.div`
-  h-[50px]
-  w-[50px]
   flex
   items-center
   p-2
@@ -73,7 +71,8 @@ const EthLogoDiv = tw(EthLogo)`
 `;
 
 const NavHorizontalBar = tw(HorizontalBar)`
-
+  p-4
+  w-60
 `;
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
