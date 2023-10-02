@@ -93,6 +93,8 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
     return <div>Loading..</div>;
   }
 
+  const BtcMCP = Math.ceil(global?.market_cap_percentage["btc"]);
+  const EthMCP = Math.ceil(global?.market_cap_percentage["eth"]);
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
@@ -121,14 +123,16 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        <HorizontalBar percentage={global?.market_cap_percentage["btc"]} />
+        {global?.market_cap_percentage.btc && (
+          <HorizontalBar percentage={BtcMCP} />
+        )}
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
-        <HorizontalBar percentage={global?.market_cap_percentage["eth"]} />
+        {global && <HorizontalBar percentage={EthMCP} />}
       </CoinInfo>
     </NavBarCoinInfoContainer>
   );
