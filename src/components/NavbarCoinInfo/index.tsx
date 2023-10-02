@@ -38,10 +38,20 @@ const CoinInfo = tw.div`
   flex
   justify-center
   space-x-4
-  w-20
+  w-40
   h-full
   items-center
   text-xs
+`;
+
+const MarketInfo = tw.div`
+flex
+justify-center
+space-x-4
+w-32
+h-full
+items-center
+text-xs
 `;
 
 const Icon = tw(FontAwesomeIcon)`
@@ -71,7 +81,6 @@ const EthLogoDiv = tw(EthLogo)`
 `;
 
 const NavHorizontalBar = tw(HorizontalBar)`
-  p-4
   w-60
 `;
 
@@ -101,13 +110,13 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         <Caret icon={faCaretDown} /> $
         {formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>
-      <CoinInfo>
-        ${formatNumber(global?.total_market_cap[currency] || 0)}
+      <MarketInfo>
+        <span>${formatNumber(global?.total_market_cap[currency] || 0)}</span>
         <NavHorizontalBar
           num1={global?.total_volume[currency]}
           num2={global?.total_market_cap[currency]}
         />
-      </CoinInfo>
+      </MarketInfo>
       <CoinInfo>
         <LogoContainer>
           <BtcLogoDiv />
