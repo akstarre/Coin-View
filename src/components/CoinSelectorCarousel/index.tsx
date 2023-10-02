@@ -54,12 +54,14 @@ const CoinCard = tw.div<CoinCardProps>`
   shadow-lg
   cursor-pointer
   m-2
+  w-[400px]
   inline-block
   ${(props) =>
     props.isCurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
     border-l-light-purple-border
     text-white
+    bg-l-light-purple-highlight
     dark:border-d-purple-border
     dark:bg-d-purple-highlight
     dark:shadow-light
@@ -124,10 +126,10 @@ export const CoinSelectorCarousel = ({
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
-          console.log(coin);
+
           return (
             <CoinCard
-              key={index}
+              key={coin.symbol}
               isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
