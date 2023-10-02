@@ -7,6 +7,7 @@ import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
 import { HorizontalBar } from "../HorizontalBar";
 import { BtcLogo, EthLogo } from "../../../public/svg";
 import { formatNumber } from "@/utils/formatting";
+import { getPercentage } from "@/utils/conversions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCoins,
@@ -32,8 +33,6 @@ const NavBarCoinInfoContainer = tw.div`
   bg-l-dark-purple-background
   text-white
   dark:bg-d-dark-purple
-  
- 
 `;
 
 const CoinInfo = tw.div`
@@ -93,8 +92,10 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
       <CoinInfo>
         ${formatNumber(global?.total_market_cap[currency] || 0)}
         <HorizontalBar
-          num1={global?.total_volume[currency]}
-          num2={global?.total_market_cap[currency]}
+          percentage={getPercentage(
+            global?.total_volume[currency],
+            global?.total_market_cap[currency]
+          )}
         />
       </CoinInfo>
       <CoinInfo>
@@ -102,14 +103,14 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogo className="h-4 w-4" />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        <HorizontalBar num1={global?.market_cap_percentage["btc"]} num2={100} />
+        <HorizontalBar percentage={global?.market_cap_percentage["btc"]} />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogo className="h-4 w-4" />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
-        <HorizontalBar num1={global?.market_cap_percentage["eth"]} num2={100} />
+        <HorizontalBar percentage={global?.market_cap_percentage["eth"]} />
       </CoinInfo>
     </NavBarCoinInfoContainer>
   );

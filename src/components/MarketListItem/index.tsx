@@ -2,6 +2,7 @@
 
 import React, { ReactElement } from "react";
 import { HorizontalBar } from "../HorizontalBar";
+import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
 
 type MarketListItemProps = {
@@ -33,14 +34,15 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
       </td>
       <td className="py-2 px-4 border">
         <HorizontalBar
-          num1={coin.market_cap_change_24h}
-          num2={coin.market_cap}
+          percentage={getPercentage(
+            coin.market_cap_change_24h,
+            coin.market_cap
+          )}
         />
       </td>
       <td className="py-2 px-4 border">
         <HorizontalBar
-          num1={coin.circulating_supply}
-          num2={coin.total_supply}
+          percentage={getPercentage(coin.circulating_supply, coin.total_supply)}
         />
       </td>
       <td className="py-2 px-4 border">Sparkline Placeholder</td>
