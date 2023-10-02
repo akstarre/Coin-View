@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { Logoipsum } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
-import { CoinPortfolioSwitch } from "../CoinPortfolioSwitch";
+import { CoinPortfolioSwitch } from "../CoinConverterSwitch";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 import { Dropdown } from "@/components/Dropdown";

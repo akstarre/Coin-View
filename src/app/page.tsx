@@ -4,7 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Chart } from "@/components/Chart";
 import MarketTable from "../components/MarketTable/index";
 import { ChartSelector } from "../components/ChartSelector/index";
-import { CoinPortfolioSwitch } from "@/components/CoinPortfolioSwitch";
+import { CoinPortfolioSwitch } from "@/components/CoinConverterSwitch";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
