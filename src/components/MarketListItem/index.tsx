@@ -33,14 +33,16 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
       </td>
       <td className="py-2 px-4 border">
         <HorizontalBar
-          num1={coin.market_cap_change_24h}
-          num2={coin.market_cap}
+          percentage={0}
+          // num1={coin.market_cap_change_24h}
+          // num2={coin.market_cap}
         />
       </td>
       <td className="py-2 px-4 border">
         <HorizontalBar
-          num1={coin.circulating_supply}
-          num2={coin.total_supply}
+          percentage={0}
+          // num1={coin.circulating_supply}
+          // num2={coin.total_supply}
         />
       </td>
       <td className="py-2 px-4 border">Sparkline Placeholder</td>

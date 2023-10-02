@@ -4,16 +4,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
+import tw from "tailwind-styled-components";
 import { HorizontalBar } from "../HorizontalBar/index";
 import { BtcLogo, EthLogo } from "../../../public/svg";
 import { formatNumber } from "@/utils/formatting";
+import { getPercentage } from "@/utils/conversions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCoins,
   faBalanceScale,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import tw from "tailwind-styled-components";
 
 type NavbarCoinInfoProps = {
   currency: string;
@@ -81,7 +82,7 @@ const EthLogoDiv = tw(EthLogo)`
 `;
 
 const NavHorizontalBar = tw(HorizontalBar)`
-  w-60
+  
 `;
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
@@ -113,8 +114,10 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
       <MarketInfo>
         <span>${formatNumber(global?.total_market_cap[currency] || 0)}</span>
         <NavHorizontalBar
-          num1={global?.total_volume[currency]}
-          num2={global?.total_market_cap[currency]}
+          percentage={getPercentage(
+            global?.total_volume[currency],
+            global?.total_market_cap[currency]
+          )}
         />
       </MarketInfo>
       <CoinInfo>
@@ -122,20 +125,14 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        <NavHorizontalBar
-          num1={global?.market_cap_percentage["btc"]}
-          num2={100}
-        />
+        <NavHorizontalBar percentage={global?.market_cap_percentage["btc"]} />
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
-        <NavHorizontalBar
-          num1={global?.market_cap_percentage["eth"]}
-          num2={100}
-        />
+        <NavHorizontalBar percentage={global?.market_cap_percentage["eth"]} />
       </CoinInfo>
     </NavBarCoinInfoContainer>
   );
