@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
-import { formatNumber } from "@/utils/formatting";
+import { formatNumber, getCaret } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -11,6 +11,10 @@ type ChartSelectorProps = {
   currentChart: string;
   currentCurrency: string;
   handleChartSelection: (selection: string) => void;
+};
+
+type CoinCardProps = {
+  isCurrent: boolean;
 };
 
 interface Coin {
@@ -38,14 +42,17 @@ const ChartSelectorInnerContainer = tw.div`
   max-w-[100vw]
 `;
 
-const CoinCard = tw.div`
+const CoinCard = tw.div<CoinCardProps>`
+  flex
+  items-center
   p-4
   rounded-lg
   shadow-lg
   cursor-pointer
   m-2
   inline-block
-  max-w-[200px]
+  ${(props) =>
+    props.isCurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
 `;
 
 const ScrollButton = tw.div`
@@ -57,6 +64,15 @@ const ScrollButton = tw.div`
   rounded-full
   z-1
   cursor-pointer
+`;
+
+const CoinPriceDiv = tw.div`
+  opacity-50
+`;
+
+const CoinInfoDiv = tw.div`
+  flex
+  flex-col
 `;
 
 export const CoinSelectorCarousel = ({
@@ -98,17 +114,27 @@ export const CoinSelectorCarousel = ({
           return (
             <CoinCard
               key={index}
-              className={isCurrent ? "bg-blue-300" : "bg-blue-800"}
+              isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
-              <Image src={`${coin.image}`} width={50} height={50} />
+              <Image
+                src={`${coin.image}`}
+                width={50}
+                height={50}
+                alt={`Image of ${coin.name}'s symbol`}
+              />
+              <CoinInfoDiv>
+                <div>
+                  {coin.name} ({coin.symbol})
+                </div>
+                <CoinPriceDiv>
+                  {coin.current_price} {currentCurrency}
+                </CoinPriceDiv>
+              </CoinInfoDiv>
               <div>
-                {coin.name} ({coin.symbol})
-              </div>
-              <div>
-                {coin.current_price} {currentCurrency}
-              </div>
-              <div>
+                <FontAwesomeIcon
+                  icon={getCaret(coin.price_change_percentage_24h_in_currency)}
+                />
                 {formatNumber(coin.price_change_percentage_24h_in_currency)}%
               </div>
             </CoinCard>
