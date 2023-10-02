@@ -123,9 +123,7 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        {global?.market_cap_percentage.btc && (
-          <HorizontalBar percentage={BtcMCP} />
-        )}
+        {global && <HorizontalBar percentage={BtcMCP} />}
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
