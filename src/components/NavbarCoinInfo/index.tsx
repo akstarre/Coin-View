@@ -63,6 +63,16 @@ const LogoContainer = tw.div`
   p-2
 `;
 
+const BtcLogoDiv = tw(BtcLogo)`
+  h-4 
+  w-4
+`;
+
+const EthLogoDiv = tw(EthLogo)`
+  h-4 
+  w-4
+`;
+
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { data: global } = useSelector((state: RootState) => state.globalData);
