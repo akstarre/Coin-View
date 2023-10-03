@@ -29,9 +29,10 @@ const Home = () => {
   //   dispatch(fetchCoins(currentCurrency));
   // }, [currentCurrency, dispatch]);
 
-  // const handleChartSelection = (selection: string) => {
-  //   dispatch(changeChart(selection));
-  // };
+  const handleChartSelection = (selection: string) => {
+    // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
+    // dispatch(changeChart(selection));
+  };
 
   let currentChart = "bitcoin";
   let currentCurrency = "usd";
@@ -48,7 +49,7 @@ const Home = () => {
             coins={coins}
             currentChart={currentChart}
             currentCurrency={currentCurrency}
-            // handleChartSelection={handleChartSelection}
+            handleChartSelection={handleChartSelection}
           />
         </div>
         <div className="relative w-[calc(50%-16px)]"></div>
