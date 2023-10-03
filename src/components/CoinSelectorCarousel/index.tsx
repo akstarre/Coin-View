@@ -124,16 +124,14 @@ ChartSelectorProps) => {
     }
   };
 
-  const CaretColorObject = getCaretAndColor(
-    coin.price_change_percentage_24h_in_currency
-  );
-
   return (
     <ChartSelectorContainer>
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
-
+          const CaretColorObject = getCaretAndColor(
+            coin.price_change_percentage_24h_in_currency
+          );
           return (
             <CoinCard
               key={coin.symbol}
