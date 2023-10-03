@@ -95,10 +95,12 @@ export const CoinSelectorCarousel = ({
   coins,
   currentChart,
   currentCurrency,
-  handleChartSelection,
-}: ChartSelectorProps) => {
+}: //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
+// handleChartSelection,
+ChartSelectorProps) => {
   const handleSelection = (selection: string) => {
-    handleChartSelection(selection);
+    //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
+    // handleChartSelection(selection);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
