@@ -18,6 +18,7 @@ export const formatNumber = (num: number) => {
     const finalNum = (num / 1000000).toFixed(2);
     return `${finalNum}M`;
   }
+  return num.toFixed(2);
 };
 
 export const getCurrencySymbol = (currency: string) => {

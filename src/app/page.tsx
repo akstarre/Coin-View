@@ -3,7 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Chart } from "@/components/Chart";
 import MarketTable from "../components/MarketTable/index";
-import { ChartSelector } from "../components/ChartSelector/index";
+import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
 import { CoinPortfolioSwitch } from "@/components/CoinPortfolioSwitch";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,11 @@ import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
 import tw from "tailwind-styled-components";
+
+const PageContainer = tw.div`
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
+  `;
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,11 +36,11 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <PageContainer>
       <Navbar />
       <div className="flex w-full justify-around items-center p-4">
         <div>
-          <ChartSelector
+          <CoinSelectorCarousel
             coins={coins}
             currentChart={currentChart}
             currentCurrency={currentCurrency}
@@ -49,7 +54,7 @@ const Home = () => {
       <div>
         <MarketTable coins={coins} loading={loading} error={error} />
       </div>
-    </div>
+    </PageContainer>
   );
 };
 
