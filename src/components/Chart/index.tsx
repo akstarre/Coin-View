@@ -39,6 +39,7 @@ type ChartProps = {
 };
 
 export const Chart = ({ chartType, chartData, currentChart }: ChartProps) => {
+  //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
   //   const currentTheme = localStorage.getItem('theme')
   //   const backgroundColor = currentTheme === 'dark' ? '#3D63EC' : '#00FC2A'
 

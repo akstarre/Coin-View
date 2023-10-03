@@ -1,7 +1,8 @@
 "use client";
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
-import { formatNumber, getCaret } from "@/utils/formatting";
+import { formatNumber } from "@/utils/formatting";
+import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
@@ -128,7 +129,9 @@ ChartSelectorProps) => {
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
-
+          const CaretColorObject = getCaretAndColor(
+            coin.price_change_percentage_24h_in_currency
+          );
           return (
             <CoinCard
               key={coin.symbol}
@@ -150,9 +153,7 @@ ChartSelectorProps) => {
                 </CoinPriceDiv>
               </CoinInfoDiv>
               <div>
-                <FontAwesomeIcon
-                  icon={getCaret(coin.price_change_percentage_24h_in_currency)}
-                />
+                <FontAwesomeIcon icon={CaretColorObject.caret} />
                 {formatNumber(coin.price_change_percentage_24h_in_currency)}%
               </div>
             </CoinCard>
