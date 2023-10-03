@@ -116,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
           <ThemeToggle />
         </RightNavbarContainer>
       </MainNavbarContainer>
-      <CoinPortfolioSwitch />
+      <CoinConverterSwitch />
     </NavbarContainer>
   );
 };
