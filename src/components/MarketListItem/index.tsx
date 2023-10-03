@@ -4,7 +4,15 @@ import React, { ReactElement } from "react";
 import { HorizontalBar } from "../HorizontalBar";
 import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
+import { formatNumber } from "@/utils/formatting";
+import { getCaretAndColor } from "@/utils/formatting";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import tw from "tailwind-styled-components";
+
+// type PercentChangeProp = {
+//   color: string;
+// };
 
 const TableRowContainer = tw.div`
   flex
@@ -18,47 +26,56 @@ const TableRowContainer = tw.div`
 
 export const NumberCell = tw.div`
   w-4
-  py-2 
-  px-4
+  py-3
+  px-6
   text-center
   overflow-hidden
-  
+  opacity-7
 `;
 
 export const NameCell = tw.div`
-  w-40
-  py-2 
+  flex
+  items-center
+  justify-start
+  w-44
+  py-3
   px-4
-  text-center
-  overflow-hidden
+  overflow-wrap
+  font-medium
 `;
 
 export const PriceCell = tw.div`
   w-32
-  py-2 
+  py-3
   px-4
   text-center
+  font-medium
 `;
 
 export const PercentChangeCell = tw.div`
   w-28
   text-center
-  py-2 
+  py-3
   px-4
+  ${(props) => `text-${props.color}`}
 `;
 
 export const HorizontalBarCell = tw.div`
   w-60
   text-center
-  py-2 
+  py-3
   px-4
 `;
 
 export const SparklineCell = tw.div`
   max-w-40
   text-center
-  py-2 
+  py-3
   px-4
+`;
+
+const StyledIcon = tw(FontAwesomeIcon)`
+px-2
 `;
 
 type MarketListItemProps = {
@@ -67,21 +84,41 @@ type MarketListItemProps = {
 };
 
 export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
+  const oneHourObject = getCaretAndColor(
+    coin.price_change_percentage_1h_in_currency
+  );
+  const twoFourHourObject = getCaretAndColor(
+    coin.price_change_percentage_24h_in_currency
+  );
+  const sevenDayObject = getCaretAndColor(
+    coin.price_change_percentage_7d_in_currency
+  );
+
   return (
     <TableRowContainer>
       <NumberCell>{index + 1}</NumberCell>
       <NameCell>
+        <Image
+          src={coin.image}
+          width={30}
+          height={30}
+          alt={`${coin.name}'s logo`}
+          className="pr-2"
+        />
         {coin.name} ({coin.symbol})
       </NameCell>
       <PriceCell>{coin.current_price.toFixed(2)}</PriceCell>
-      <PercentChangeCell>
-        {coin.price_change_percentage_1h_in_currency.toFixed(2)}
+      <PercentChangeCell className={`text-${oneHourObject.color}`}>
+        <StyledIcon icon={oneHourObject.caret} />
+        {formatNumber(coin.price_change_percentage_1h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell>
-        {coin.price_change_percentage_24h_in_currency.toFixed(2)}
+      <PercentChangeCell className={`text-${twoFourHourObject.color}`}>
+        <StyledIcon icon={twoFourHourObject.caret} />
+        {formatNumber(coin.price_change_percentage_24h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell>
-        {coin.price_change_percentage_7d_in_currency.toFixed(2)}
+      <PercentChangeCell className={`text-${sevenDayObject.color}`}>
+        <StyledIcon icon={sevenDayObject.caret} />
+        {formatNumber(coin.price_change_percentage_7d_in_currency)}
       </PercentChangeCell>
       <HorizontalBarCell>
         <HorizontalBar

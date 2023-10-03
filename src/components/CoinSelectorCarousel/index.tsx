@@ -92,6 +92,10 @@ const CoinInfoDiv = tw.div`
   flex-col
 `;
 
+const StyledIcon = tw(FontAwesomeIcon)`
+    ${(props) => `text-${props.color}`}
+`;
+
 export const CoinSelectorCarousel = ({
   coins,
   currentChart,
@@ -153,7 +157,10 @@ ChartSelectorProps) => {
                 </CoinPriceDiv>
               </CoinInfoDiv>
               <div>
-                <FontAwesomeIcon icon={CaretColorObject.caret} />
+                <StyledIcon
+                  icon={CaretColorObject.caret}
+                  color={CaretColorObject.color}
+                />
                 {formatNumber(coin.price_change_percentage_24h_in_currency)}%
               </div>
             </CoinCard>
