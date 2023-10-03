@@ -13,6 +13,10 @@ import tw from "tailwind-styled-components";
 import { Dropdown } from "@/components/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+type NavbarProps = {
+  currency: string;
+};
+
 const LogoContainer = tw.div`
   flex
   items-center
@@ -86,12 +90,12 @@ const NavbarContainer = tw.div`
   w-[100vw]
 `;
 
-export const Navbar = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { currency } = useSelector((state: RootState) => state.currency);
+export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
+  // const dispatch = useDispatch<AppDispatch>();
+  // const { currency } = useSelector((state: RootState) => state.currency);
 
   const handleCurrencySelection = (selection: string) => {
-    dispatch(changeCurrency(selection.toLowerCase()));
+    // dispatch(changeCurrency(selection.toLowerCase()));
   };
 
   return (

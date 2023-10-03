@@ -10,11 +10,11 @@ type ChartSelectorProps = {
   coins: Coin[];
   currentChart: string;
   currentCurrency: string;
-  handleChartSelection: (selection: string) => void;
+  // handleChartSelection: (selection: string) => void;
 };
 
 type CoinCardProps = {
-  isCurrent: boolean;
+  iscurrent: boolean;
 };
 
 interface Coin {
@@ -52,7 +52,7 @@ const CoinCard = tw.div<CoinCardProps>`
   m-2
   inline-block
   ${(props) =>
-    props.isCurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
+    props.iscurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
 `;
 
 const ScrollButton = tw.div`
@@ -79,10 +79,10 @@ export const CoinSelectorCarousel = ({
   coins,
   currentChart,
   currentCurrency,
-  handleChartSelection,
-}: ChartSelectorProps) => {
+}: // handleChartSelection,
+ChartSelectorProps) => {
   const handleSelection = (selection: string) => {
-    handleChartSelection(selection);
+    // handleChartSelection(selection);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -114,7 +114,7 @@ export const CoinSelectorCarousel = ({
           return (
             <CoinCard
               key={index}
-              isCurrent={isCurrent}
+              iscurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
               <Image
