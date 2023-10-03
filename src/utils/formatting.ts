@@ -34,10 +34,10 @@ export const getCurrencySymbol = (currency: string) => {
   }
 };
 
-export const getCaret = (num: number) => {
+export const getCaretAndColor = (num: number) => {
   if (num > 0) {
-    return faCaretUp;
+    return { caret: faCaretUp, color: "green-change" };
   } else {
-    return faCaretDown;
+    return { caret: faCaretDown, color: "red-change" };
   }
 };
