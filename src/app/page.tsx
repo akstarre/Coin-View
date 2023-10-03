@@ -15,6 +15,11 @@ import tw from "tailwind-styled-components";
 import { CoinsData } from "./FakeData/CoinsData";
 import { GlobalData } from "./FakeData/GlobalData";
 
+const PageContainer = tw.div`
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
+  `;
+
 const Home = () => {
   // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
   // const dispatch = useDispatch<AppDispatch>();
@@ -41,8 +46,10 @@ const Home = () => {
   const coins = CoinsData;
 
   return (
-    <div className="">
+
+    <PageContainer>
       <Navbar currency={currentCurrency} />
+
       <div className="flex w-full justify-around items-center p-4">
         <div>
           <CoinSelectorCarousel
@@ -59,7 +66,7 @@ const Home = () => {
       <div>
         <MarketTable coins={coins} loading={loading} error={error} />
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

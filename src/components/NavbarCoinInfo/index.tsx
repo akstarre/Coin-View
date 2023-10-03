@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
 import { HorizontalBar } from "../HorizontalBar";
 import { BtcLogo, EthLogo } from "../../../public/svg";
-import { formatNumber } from "@/utils/formatting";
+import { formatNumber, getCaretAndColor } from "@/utils/formatting";
 import { getPercentage } from "@/utils/conversions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -60,7 +60,7 @@ const Icon = tw(FontAwesomeIcon)`
 
 const Caret = tw(FontAwesomeIcon)`
   p-2
-  text-green-change
+  ${(props) => `text-${props.color}`}
 `;
 
 const LogoContainer = tw.div`
@@ -95,6 +95,9 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
 
   const BtcMCP = Math.ceil(global?.market_cap_percentage["btc"]);
   const EthMCP = Math.ceil(global?.market_cap_percentage["eth"]);
+  const usdChangeObject = getCaretAndColor(
+    global?.market_cap_change_percentage_24h_usd
+  );
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
@@ -106,7 +109,7 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         Exchange: {global?.markets}
       </CoinInfo>
       <CoinInfo>
-        <Caret icon={faCaretDown} /> $
+        <Caret icon={usdChangeObject.caret} color={usdChangeObject.color} /> $
         {formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>
       <MarketInfo>

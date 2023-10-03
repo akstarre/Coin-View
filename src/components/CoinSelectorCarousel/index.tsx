@@ -5,6 +5,7 @@ import { formatNumber, getCaret } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { Url } from "next/dist/shared/lib/router/router";
 
 type ChartSelectorProps = {
   coins: Coin[];
@@ -21,6 +22,7 @@ interface Coin {
   name: string;
   symbol: string;
   current_price: number;
+  image: Url;
   price_change_percentage_1h_in_currency: number;
   price_change_percentage_24h_in_currency: number;
   price_change_percentage_7d_in_currency: number;
@@ -32,6 +34,8 @@ interface Coin {
 
 const ChartSelectorContainer = tw.div`
   relative
+  bg-l-light-grey-background
+  dark:bg-d-black-purple
 `;
 
 const ChartSelectorInnerContainer = tw.div`
@@ -50,9 +54,21 @@ const CoinCard = tw.div<CoinCardProps>`
   shadow-lg
   cursor-pointer
   m-2
+  w-[400px]
   inline-block
   ${(props) =>
-    props.isCurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
+    props.isCurrent
+      ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
+    border-l-light-purple-border
+    text-white
+    bg-l-light-purple-highlight
+    dark:border-d-purple-border
+    dark:bg-d-purple-highlight
+    dark:shadow-light
+    `
+      : `text-l-dark-purple
+      dark:text-white
+      dark:bg-d-grey-purple-1`}
 `;
 
 const ScrollButton = tw.div`
@@ -112,16 +128,17 @@ ChartSelectorProps) => {
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
+
           return (
             <CoinCard
-              key={index}
+              key={coin.symbol}
               isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
               <Image
                 src={`${coin.image}`}
-                width={50}
-                height={50}
+                width={40}
+                height={40}
                 alt={`Image of ${coin.name}'s symbol`}
               />
               <CoinInfoDiv>

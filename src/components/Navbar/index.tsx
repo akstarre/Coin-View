@@ -4,10 +4,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
-import { Logoipsum } from "../../../public/svg";
+import { CoinViewLogo } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
-import { CoinPortfolioSwitch } from "../CoinPortfolioSwitch";
+import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
 import { Dropdown } from "@/components/Dropdown";
@@ -20,9 +20,8 @@ type NavbarProps = {
 const LogoContainer = tw.div`
   flex
   items-center
-  h-[40px]
-  w-[100px]
   m-0
+  h-1/2
 `;
 
 const MainNavbarContainer = tw.div`
@@ -103,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
       <NavbarCoinInfo currency={currency} />
       <MainNavbarContainer>
         <LogoContainer>
-          <Logoipsum className="h-20 w-40" />
+          <CoinViewLogo className="h-36 w-60" />
         </LogoContainer>
         <RightNavbarContainer>
           <InputContainer>
