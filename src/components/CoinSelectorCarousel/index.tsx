@@ -14,7 +14,7 @@ type ChartSelectorProps = {
 };
 
 type CoinCardProps = {
-  iscurrent: boolean;
+  isCurrent: boolean;
 };
 
 interface Coin {
@@ -52,7 +52,7 @@ const CoinCard = tw.div<CoinCardProps>`
   m-2
   inline-block
   ${(props) =>
-    props.iscurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
+    props.isCurrent ? `bg-d-purple-highlight` : `bg-d-grey-purple-1`}
 `;
 
 const ScrollButton = tw.div`
@@ -110,11 +110,10 @@ ChartSelectorProps) => {
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
         {coins.map((coin: Coin, index: number) => {
           const isCurrent = coin.name === currentChart;
-          console.log(coin);
           return (
             <CoinCard
               key={index}
-              iscurrent={isCurrent}
+              isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
               <Image
