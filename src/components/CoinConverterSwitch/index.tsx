@@ -67,7 +67,7 @@ const StyledButton = tw.button<{
   ${(props) => props.selected === props.buttonposition && "text-white"}
 `;
 
-export const CoinPortfolioSwitch: React.FC = () => {
+export const CoinConverterSwitch: React.FC = () => {
   const [selected, setSelected] = useState("coins");
 
   const [coins, portfolio] = ["coins", "portfolio"];
@@ -76,7 +76,7 @@ export const CoinPortfolioSwitch: React.FC = () => {
     setSelected("coins");
   };
 
-  const handlePorfolioSelection = () => {
+  const handleConverterSelection = () => {
     setSelected("portfolio");
   };
   return (
@@ -94,9 +94,9 @@ export const CoinPortfolioSwitch: React.FC = () => {
           <StyledButton
             selected={selected}
             buttonposition={portfolio}
-            onClick={handlePorfolioSelection}
+            onClick={handleConverterSelection}
           >
-            Portfolio
+            Converter
           </StyledButton>
         </NestedSwitchContainer>
       </SwitchContainer>
