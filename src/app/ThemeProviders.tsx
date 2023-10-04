@@ -2,8 +2,6 @@
 import { ThemeProvider } from "next-themes";
 import { useState, useEffect } from "react";
 
-//adding comment to stage commit, can't find branch in github
-
 export default function Providers({ children }: { children: any }) {
   const [mounted, setMounted] = useState(false);
 
