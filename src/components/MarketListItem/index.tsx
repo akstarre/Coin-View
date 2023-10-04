@@ -57,7 +57,7 @@ export const PercentChangeCell = tw.div`
   text-center
   py-3
   px-4
-  ${(props) => `text-${props.color}`}
+
 `;
 
 export const HorizontalBarCell = tw.div`
