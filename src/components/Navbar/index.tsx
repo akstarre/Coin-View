@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { CoinViewLogo } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
+import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import tw from "tailwind-styled-components";
@@ -104,6 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
         <LogoContainer>
           <CoinViewLogo className="h-36 w-60" />
         </LogoContainer>
+        <HomePortfolioSwitch />
         <RightNavbarContainer>
           <InputContainer>
             <StyledIcon icon={faMagnifyingGlass} />
