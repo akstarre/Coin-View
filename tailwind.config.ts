@@ -18,6 +18,8 @@ const config: Config = {
         "d-grey-purple-2": "#232336",
         "d-grey-purple-border": "#232336",
         "d-grey-text": "#D1D1D1",
+        "d-price-chart": "#191934",
+        "d-volume-chart": "#1F1934",
         "l-dark-purple-background": "#353574",
         "l-light-purple-background": "#EBEBFF",
         "l-light-grey-background": "#F2F5F9",

@@ -41,3 +41,7 @@ export const getCaretAndColor = (num: number) => {
     return { caret: faCaretDown, color: "red-change" };
   }
 };
+
+export const reducePoints = (arr: [number, number][], reduceBy: number) => {
+  return arr.filter((_, i) => i % reduceBy === 0);
+};
