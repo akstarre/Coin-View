@@ -8,6 +8,7 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
