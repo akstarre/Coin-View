@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
 import Image from "next/image";
@@ -44,22 +45,22 @@ const ChartSelectorContainer = tw.div`
 `;
 
 const ChartSelectorInnerContainer = tw.div`
-  flex 
+  flex
   whitespace-nowrap 
   overflow-x-auto 
   scrollbar-hide
   max-w-[100vw]
 `;
 
-const CoinCard = tw.div<CoinCardProps>`
-  flex
+const CoinedCard = tw.div<CoinCardProps>`
+  relative
   items-center
+  justify-start
   p-4
   rounded-lg
   shadow-lg
   cursor-pointer
   m-2
-  w-[400px]
   inline-block
   ${(props) =>
     props.isCurrent
@@ -94,9 +95,19 @@ const CoinPriceDiv = tw.div`
 const CoinInfoDiv = tw.div`
   flex
   flex-col
+  h-[5vh]
+  justify-between
+  items-between
+  pl-4
+  
+  w-3/8
 `;
 
 const PercentChangeContainer = tw.div<PercentChangeProps>`
+  absolute
+  bottom-4
+  right-4
+  w-1/4
   ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
 `;
 
@@ -117,7 +128,7 @@ ChartSelectorProps) => {
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: 200,
+        left: 250,
         behavior: "smooth",
       });
     }
@@ -126,7 +137,7 @@ ChartSelectorProps) => {
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: -200,
+        left: -250,
         behavior: "smooth",
       });
     }
@@ -135,21 +146,23 @@ ChartSelectorProps) => {
   return (
     <ChartSelectorContainer>
       <ChartSelectorInnerContainer ref={scrollContainerRef}>
-        {coins.map((coin: Coin, index: number) => {
+        {coins.map((coin: Coin) => {
           const isCurrent = coin.name === currentChart;
           const CaretColorObject = getCaretAndColor(
             coin.price_change_percentage_24h_in_currency
           );
           return (
-            <CoinCard
+            <CoinedCard
+              //tw-styled-components bug, flex won't apply in styled-components
+              className="flex min-w-[250px]"
               key={coin.symbol}
               isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
               <Image
                 src={`${coin.image}`}
-                width={40}
-                height={40}
+                width={30}
+                height={30}
                 alt={`Image of ${coin.name}'s symbol`}
               />
               <CoinInfoDiv>
@@ -157,14 +170,14 @@ ChartSelectorProps) => {
                   {coin.name} ({coin.symbol})
                 </div>
                 <CoinPriceDiv>
-                  {coin.current_price} {currentCurrency}
+                  {formatNumber(coin.current_price)} {currentCurrency}
                 </CoinPriceDiv>
               </CoinInfoDiv>
               <PercentChangeContainer increase={CaretColorObject.increase}>
                 <FontAwesomeIcon icon={CaretColorObject.caret} />
                 {formatNumber(coin.price_change_percentage_24h_in_currency)}%
               </PercentChangeContainer>
-            </CoinCard>
+            </CoinedCard>
           );
         })}
       </ChartSelectorInnerContainer>
