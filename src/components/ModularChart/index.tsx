@@ -10,7 +10,6 @@ import {
   PointElement,
   LineElement,
   Filler,
-  ChartComponent,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
 import tw from "tailwind-styled-components";

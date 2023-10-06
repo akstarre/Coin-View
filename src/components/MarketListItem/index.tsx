@@ -9,6 +9,8 @@ import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import tw from "tailwind-styled-components";
+import { SparklineChart, CoinDataProps } from "../SparklineChart";
+import { transformSparklineToChartFormat } from "@/utils/conversions";
 
 // type PercentChangeProp = {
 //   color: string;
@@ -68,10 +70,11 @@ export const HorizontalBarCell = tw.div`
 `;
 
 export const SparklineCell = tw.div`
-  max-w-40
-  text-center
-  py-3
-  px-4
+  flex
+  justify-center
+  items-center
+  w-20
+  h-20
 `;
 
 const StyledIcon = tw(FontAwesomeIcon)`
@@ -93,6 +96,12 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
   const sevenDayObject = getCaretAndColor(
     coin.price_change_percentage_7d_in_currency
   );
+  const sparklineData: CoinDataProps = {
+    prices: transformSparklineToChartFormat(
+      coin.sparkline_in_7d.price,
+      coin.last_updated
+    ),
+  };
 
   return (
     <TableRowContainer>
@@ -133,7 +142,13 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
           percentage={getPercentage(coin.circulating_supply, coin.total_supply)}
         />
       </HorizontalBarCell>
-      <SparklineCell>Sparkline Placeholder</SparklineCell>
+      <SparklineCell>
+        <SparklineChart
+          isprice={true}
+          hasAxis={false}
+          coinData={sparklineData}
+        />
+      </SparklineCell>
     </TableRowContainer>
   );
 };
