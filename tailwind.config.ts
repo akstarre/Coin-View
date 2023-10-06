@@ -25,6 +25,8 @@ const config: Config = {
         "l-light-grey-background": "#F2F5F9",
         "l-light-purple-highlight": "#B0B0F0",
         "l-light-purple-border": "#7878FF",
+        "l-price-chart": "#7878FF",
+        "l-volume-chart": "#A860E0",
         "green-change": "#01F1E3",
         "red-change": "#FE2264",
         "bit-orange": "#CE7200",

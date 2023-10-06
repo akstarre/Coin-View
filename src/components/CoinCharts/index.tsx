@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components";
-import { Chart } from "../Chart";
-import { CoinDataProps } from "../Chart";
+import { ModularChart } from "../ModularChart";
+import { CoinDataProps } from "../ModularChart";
 
 const ChartContainer = tw.div`
   flex
@@ -21,8 +21,8 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
 }) => {
   return (
     <ChartContainer>
-      <Chart coinData={coinPriceData} hasAxis={true} isprice={true} />
-      <Chart coinData={coinVolumeData} hasAxis={true} isprice={false} />
+      <ModularChart coinData={coinPriceData} hasAxis={true} isprice={true} />
+      <ModularChart coinData={coinVolumeData} hasAxis={true} isprice={false} />
     </ChartContainer>
   );
 };
