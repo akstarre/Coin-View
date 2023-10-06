@@ -3,7 +3,6 @@ import {
   NumberCell,
   NameCell,
   PriceCell,
-  PercentChangeCell,
   HorizontalBarCell,
   SparklineCell,
 } from "../MarketListItem";
@@ -14,6 +13,12 @@ const MarketTableHeaderContainer = tw.div`
     mx-8
     my-2
     `;
+
+const PercentChangeCell = tw.div`
+  w-28
+  text-center
+  py-3
+  px-4`;
 
 export const MarketTableHeader = () => {
   return (

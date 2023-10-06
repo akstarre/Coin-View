@@ -28,7 +28,7 @@ export type CoinDataProps = {
 };
 
 type ChartProps = {
-  changeIncrease: boolean;
+  increase: boolean;
   coinData: CoinDataProps;
 };
 
@@ -49,7 +49,7 @@ const ChartContainer = tw.div`
 
 export const SparklineChart: React.FC<ChartProps> = ({
   coinData,
-  changeIncrease,
+  increase,
 }) => {
   const chartRef = useRef<ChartJS<"line", number[], [number, number]>>(null);
 
@@ -68,7 +68,7 @@ export const SparklineChart: React.FC<ChartProps> = ({
       const ctx = chartRef.current.canvas.getContext("2d");
       if (ctx) {
         const lineGradient = ctx.createLinearGradient(7, 0, 7, 48);
-        if (changeIncrease) {
+        if (increase) {
           lineGradient.addColorStop(0, "rgba(0,245,228,1)");
           lineGradient.addColorStop(1, "rgba(24,24,38,1)");
         } else {
