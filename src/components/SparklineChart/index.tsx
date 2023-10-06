@@ -28,6 +28,7 @@ export type CoinDataProps = {
 };
 
 type ChartProps = {
+  changeIncrease: boolean;
   coinData: CoinDataProps;
 };
 
@@ -46,15 +47,39 @@ const ChartContainer = tw.div`
   bg-transparent
 `;
 
-export const SparklineChart: React.FC<ChartProps> = ({ coinData }) => {
+export const SparklineChart: React.FC<ChartProps> = ({
+  coinData,
+  changeIncrease,
+}) => {
+  const chartRef = useRef<ChartJS<"line", number[], string>>(null);
+
   const [gradientBackground, setGradientBackground] = useState<
     CanvasGradient | string
-  >("rgba(75, 192, 192, 0.2)");
+  >("rgba(0,245,228,1)");
+  const [borderColor, setBorderColor] = useState<string>("rgba(0,245,228,1)");
 
   const [border, setBorder] = useState<BorderObject>({
     color: "transparent",
     width: 0,
   });
+
+  useEffect(() => {
+    if (chartRef.current) {
+      const ctx = chartRef.current.canvas.getContext("2d");
+      if (ctx) {
+        const lineGradient = ctx.createLinearGradient(7, 0, 7, 48);
+        if (changeIncrease) {
+          lineGradient.addColorStop(0, "rgba(0,245,228,1)");
+          lineGradient.addColorStop(1, "rgba(24,24,38,1)");
+        } else {
+          setBorderColor("rgba(255,0,97,1)");
+          lineGradient.addColorStop(0, "rgba(255,0,97,1)");
+          lineGradient.addColorStop(1, "rgba(24,24,38,1)");
+        }
+        setGradientBackground(lineGradient);
+      }
+    }
+  }, []);
 
   const options = {
     fill: true,
@@ -91,11 +116,11 @@ export const SparklineChart: React.FC<ChartProps> = ({ coinData }) => {
     }),
     datasets: [
       {
-        fill: false,
+        fill: true,
         label: "Coin Price",
         data: reducePoints(coinData.prices, 4).map((price) => price[1]),
         backgroundColor: gradientBackground,
-        borderColor: "rgba(255,255,255,1)",
+        borderColor: borderColor,
         borderWidth: 1,
         borderRadius: 3,
         tension: 0.4,
@@ -105,7 +130,7 @@ export const SparklineChart: React.FC<ChartProps> = ({ coinData }) => {
 
   return (
     <ChartContainer>
-      <Chart type="line" data={data} options={options} />
+      <Chart ref={chartRef} type="line" data={data} options={options} />
     </ChartContainer>
   );
 };

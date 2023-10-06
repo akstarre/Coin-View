@@ -73,7 +73,7 @@ export const SparklineCell = tw.div`
   flex
   justify-center
   items-center
-  w-20
+  w-36
   h-20
 `;
 
@@ -144,9 +144,8 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
       </HorizontalBarCell>
       <SparklineCell>
         <SparklineChart
-          isprice={true}
-          hasAxis={false}
           coinData={sparklineData}
+          changeIncrease={oneHourObject.changeIncrease}
         />
       </SparklineCell>
     </TableRowContainer>
