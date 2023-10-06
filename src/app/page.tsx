@@ -1,19 +1,19 @@
 "use client";
 
-import { Navbar } from "@/components/Navbar";
-import { Chart } from "@/components/Chart";
-import MarketTable from "../components/MarketTable/index";
-import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
-import { CoinPortfolioSwitch } from "@/components/CoinPortfolioSwitch";
 import React, { useEffect } from "react";
+import tw from "tailwind-styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
-import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "./GlobalRedux/store";
-import tw from "tailwind-styled-components";
+import { Navbar } from "@/components/Navbar";
+import { CoinCharts } from "@/components/CoinCharts";
+import MarketTable from "../components/MarketTable/index";
+import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
+import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
+import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { CoinsData } from "./FakeData/CoinsData";
 import { GlobalData } from "./FakeData/GlobalData";
+import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
 
 const PageContainer = tw.div`
   bg-l-light-grey-background
@@ -44,13 +44,14 @@ const Home = () => {
   let loading = false;
   let error = "";
   const coins = CoinsData;
+  const coinPriceData = BitcoinDailyData.prices;
+  const coinVolumeData = BitcoinDailyData.total_volumes;
 
   return (
-
     <PageContainer>
       <Navbar currency={currentCurrency} />
 
-      <div className="flex w-full justify-around items-center p-4">
+      <div className="w-full justify-around items-center p-4">
         <div>
           <CoinSelectorCarousel
             coins={coins}
@@ -59,8 +60,10 @@ const Home = () => {
             handleChartSelection={handleChartSelection}
           />
         </div>
-        <div className="relative w-[calc(50%-16px)]"></div>
-        <div className="relative w-[calc(50%-16px)]"></div>
+        <CoinCharts
+          coinPriceData={{ prices: coinPriceData as [number, number][] }}
+          coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
+        />
       </div>
 
       <div>

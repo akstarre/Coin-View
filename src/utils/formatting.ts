@@ -36,8 +36,12 @@ export const getCurrencySymbol = (currency: string) => {
 
 export const getCaretAndColor = (num: number) => {
   if (num > 0) {
-    return { caret: faCaretUp, color: "green-change" };
+    return { caret: faCaretUp, color: "green-change", changeIncrease: true };
   } else {
-    return { caret: faCaretDown, color: "red-change" };
+    return { caret: faCaretDown, color: "red-change", changeIncrease: false };
   }
+};
+
+export const reducePoints = (arr: [number, number][], reduceBy: number) => {
+  return arr.filter((_, i) => i % reduceBy === 0);
 };
