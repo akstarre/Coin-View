@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import tw from "tailwind-styled-components";
 import { Chart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,7 +13,6 @@ import {
   Filler,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
-import tw from "tailwind-styled-components";
 
 ChartJS.register(
   CategoryScale,
@@ -51,7 +51,7 @@ export const SparklineChart: React.FC<ChartProps> = ({
   coinData,
   changeIncrease,
 }) => {
-  const chartRef = useRef<ChartJS<"line", number[], string>>(null);
+  const chartRef = useRef<ChartJS<"line", number[], [number, number]>>(null);
 
   const [gradientBackground, setGradientBackground] = useState<
     CanvasGradient | string
@@ -107,13 +107,7 @@ export const SparklineChart: React.FC<ChartProps> = ({
   };
 
   const data = {
-    labels: reducePoints(coinData.prices, 4).map((price, i) => {
-      let hour = new Date(price[0]).getHours();
-      const amPm = hour >= 12 ? "PM" : "AM";
-      hour = hour % 12;
-      hour = hour || 12;
-      return (hour < 10 ? "0" : "") + hour;
-    }),
+    labels: reducePoints(coinData.prices, 4),
     datasets: [
       {
         fill: true,

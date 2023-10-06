@@ -1,15 +1,15 @@
 "use client";
 
 import React, { ReactElement } from "react";
+import Image from "next/image";
+import tw from "tailwind-styled-components";
 import { HorizontalBar } from "../HorizontalBar";
+import { SparklineChart, CoinDataProps } from "../SparklineChart";
 import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
 import { formatNumber } from "@/utils/formatting";
 import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import tw from "tailwind-styled-components";
-import { SparklineChart, CoinDataProps } from "../SparklineChart";
 import { transformSparklineToChartFormat } from "@/utils/conversions";
 
 // type PercentChangeProp = {
