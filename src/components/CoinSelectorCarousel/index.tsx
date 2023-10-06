@@ -1,12 +1,12 @@
 "use client";
 import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
+import Image from "next/image";
+import { Url } from "next/dist/shared/lib/router/router";
 import { formatNumber } from "@/utils/formatting";
 import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
-import { Url } from "next/dist/shared/lib/router/router";
 
 type ChartSelectorProps = {
   coins: Coin[];

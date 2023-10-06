@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import tw from "tailwind-styled-components";
 import { Chart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,7 +13,6 @@ import {
   Filler,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
-import tw from "tailwind-styled-components";
 
 ChartJS.register(
   CategoryScale,

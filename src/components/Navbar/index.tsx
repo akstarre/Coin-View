@@ -2,17 +2,17 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import tw from "tailwind-styled-components";
 import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "@/components/Dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CoinViewLogo } from "../../../public/svg";
 import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
 import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import tw from "tailwind-styled-components";
-import { Dropdown } from "@/components/Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type NavbarProps = {
   currency: string;

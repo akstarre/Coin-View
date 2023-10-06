@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { CurrencyDropdownList } from "../CurrencyDropdownList/index";
 import tw from "tailwind-styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCurrencySymbol } from "@/utils/formatting";
+import { CurrencyDropdownList } from "../CurrencyDropdownList/index";
 
 type DropdownProps = {
   handleSelection: (currency: string) => void;

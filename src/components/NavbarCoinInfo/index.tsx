@@ -2,10 +2,10 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import tw from "tailwind-styled-components";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
-import { HorizontalBar } from "../HorizontalBar";
-import { BtcLogo, EthLogo } from "../../../public/svg";
+
 import { formatNumber, getCaretAndColor } from "@/utils/formatting";
 import { getPercentage } from "@/utils/conversions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +14,8 @@ import {
   faBalanceScale,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import tw from "tailwind-styled-components";
+import { HorizontalBar } from "../HorizontalBar";
+import { BtcLogo, EthLogo } from "../../../public/svg";
 
 type NavbarCoinInfoProps = {
   currency: string;
