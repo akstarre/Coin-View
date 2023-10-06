@@ -10,6 +10,7 @@ import {
   PointElement,
   LineElement,
   Filler,
+  ChartComponent,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
 import tw from "tailwind-styled-components";
@@ -45,9 +46,10 @@ type BorderObject = {
 const ChartContainer = tw.div<ChartContainerProps>`
   flex
   justify-center
-  w-1/2
-  h-96
-  p-4
+  w-full
+  pt-40
+  px-4
+  pb-4
   m-4
   bg-white
   rounded-[10px]
@@ -60,7 +62,7 @@ export const ModularChart: React.FC<ChartProps> = ({
   isprice,
   coinData,
 }) => {
-  const chartRef = useRef();
+  const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
 
   const [gradientBackground, setGradientBackground] = useState<
     CanvasGradient | string
@@ -105,14 +107,14 @@ export const ModularChart: React.FC<ChartProps> = ({
   };
 
   useEffect(() => {
-    if (chartRef.current && chartRef.current.canvas) {
+    if (chartRef.current) {
       const ctx = chartRef.current.canvas.getContext("2d");
       if (ctx) {
-        const barGradient = ctx.createLinearGradient(0, 0, 0, 210);
+        const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
         barGradient.addColorStop(0, "rgba(165,94,221, 1)");
         barGradient.addColorStop(1, "rgba(32,25,52, 1)");
 
-        const lineGradient = ctx.createLinearGradient(0, 0, 0, 220);
+        const lineGradient = ctx.createLinearGradient(0, 0, 0, 400);
         lineGradient.addColorStop(0, "rgba(120,120,255,1)");
         lineGradient.addColorStop(1, "rgba(25,25,52,1)");
 
@@ -142,6 +144,7 @@ export const ModularChart: React.FC<ChartProps> = ({
         backgroundColor: gradientBackground,
         borderColor: border.color,
         borderWidth: border.width,
+        borderRadius: 3,
         tension: 0.4,
       },
     ],
