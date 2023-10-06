@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useEffect } from "react";
-import tw from "tailwind-styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
-import { useAppSelector } from "./GlobalRedux/store";
+import tw from "tailwind-styled-components";
 import { Navbar } from "@/components/Navbar";
+import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
+import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { CoinCharts } from "@/components/CoinCharts";
 import MarketTable from "../components/MarketTable/index";
 import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
-import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
-import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
+import { useAppSelector } from "./GlobalRedux/store";
 import { CoinsData } from "./FakeData/CoinsData";
 import { GlobalData } from "./FakeData/GlobalData";
 import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
