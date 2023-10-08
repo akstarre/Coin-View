@@ -20,7 +20,7 @@ const TableRowContainer = tw.div`
   flex
   items-center
   bg-white
-  mx-8
+  
   my-2
   dark:bg-d-grey-purple-1
   rounded-[10px]
