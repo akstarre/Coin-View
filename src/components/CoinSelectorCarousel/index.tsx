@@ -4,10 +4,10 @@ import React, { useRef } from "react";
 import tw from "tailwind-styled-components";
 import Image from "next/image";
 import { Url } from "next/dist/shared/lib/router/router";
-import { formatNumber } from "@/utils/formatting";
+import { formatNumber, getCurrencySymbol } from "@/utils/formatting";
 import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 
 type ChartSelectorProps = {
   coins: Coin[];
@@ -40,28 +40,32 @@ interface Coin {
 
 const ChartSelectorContainer = tw.div`
   relative
+  flex
+  justify-center
+  items-center
   bg-l-light-grey-background
   dark:bg-d-black-purple
 `;
 
 const ChartSelectorInnerContainer = tw.div`
   flex
-  whitespace-nowrap 
   overflow-x-auto 
   scrollbar-hide
-  max-w-[100vw]
+  max-w-[93vw]
+  rounded-[10px]
 `;
 
 const CoinedCard = tw.div<CoinCardProps>`
   relative
+  inline-block
   items-center
   justify-start
-  p-4
+  p-2
+  m-2
   rounded-lg
   shadow-lg
   cursor-pointer
-  m-2
-  inline-block
+  text-lg
   ${(props) =>
     props.isCurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
@@ -79,13 +83,22 @@ const CoinedCard = tw.div<CoinCardProps>`
 
 const ScrollButton = tw.div`
   absolute
-  top-1/2
-  bg-blue-300 
+  flex
+  justify-center
+  items-center
+  top-5/8
+  h-[50px]
+  w-[50px] 
   text-white
-  p-4
   rounded-full
   z-1
   cursor-pointer
+  bg-l-light-purple-highlight
+  dark:bg-d-purple-highlight
+  border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
+  border-l-light-purple-border
+  dark:border-d-purple-border 
+  dark:shadow-light
 `;
 
 const CoinPriceDiv = tw.div`
@@ -95,12 +108,17 @@ const CoinPriceDiv = tw.div`
 const CoinInfoDiv = tw.div`
   flex
   flex-col
-  h-[5vh]
   justify-between
-  items-between
+  items-start
   pl-4
-  
-  w-3/8
+  w-3/4
+`;
+
+const CoinInfo = tw.div`
+  flex
+  flex-col
+  w-[100%]
+  break-normal
 `;
 
 const PercentChangeContainer = tw.div<PercentChangeProps>`
@@ -108,6 +126,7 @@ const PercentChangeContainer = tw.div<PercentChangeProps>`
   bottom-4
   right-4
   w-1/4
+  whitespace-nowrap
   ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
 `;
 
@@ -128,7 +147,7 @@ ChartSelectorProps) => {
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: 250,
+        left: 268,
         behavior: "smooth",
       });
     }
@@ -137,7 +156,7 @@ ChartSelectorProps) => {
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: -250,
+        left: -268,
         behavior: "smooth",
       });
     }
@@ -154,23 +173,24 @@ ChartSelectorProps) => {
           return (
             <CoinedCard
               //tw-styled-components bug, flex won't apply in styled-components
-              className="flex min-w-[250px]"
+              className="flex flex-grow min-w-[250px]"
               key={coin.symbol}
               isCurrent={isCurrent}
               onClick={() => handleSelection(coin.name)}
             >
               <Image
                 src={`${coin.image}`}
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 alt={`Image of ${coin.name}'s symbol`}
               />
-              <CoinInfoDiv>
-                <div>
+              <CoinInfoDiv className="break-all">
+                <CoinInfo>
                   {coin.name} ({coin.symbol})
-                </div>
+                </CoinInfo>
                 <CoinPriceDiv>
-                  {formatNumber(coin.current_price)} {currentCurrency}
+                  {formatNumber(coin.current_price)}{" "}
+                  <FontAwesomeIcon icon={getCurrencySymbol(currentCurrency)} />
                 </CoinPriceDiv>
               </CoinInfoDiv>
               <PercentChangeContainer increase={CaretColorObject.increase}>
@@ -182,10 +202,10 @@ ChartSelectorProps) => {
         })}
       </ChartSelectorInnerContainer>
       <ScrollButton className="right-0" onClick={scrollRight}>
-        <FontAwesomeIcon icon={faArrowRight} />
+        <FontAwesomeIcon icon={faCaretRight} />
       </ScrollButton>
       <ScrollButton className="left-0" onClick={scrollLeft}>
-        <FontAwesomeIcon icon={faArrowLeft} />
+        <FontAwesomeIcon icon={faCaretLeft} />
       </ScrollButton>
     </ChartSelectorContainer>
   );
