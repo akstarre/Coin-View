@@ -131,15 +131,16 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
       </PercentChangeCell>
       <HorizontalBarCell>
         <HorizontalBar
-          percentage={getPercentage(
-            coin.market_cap_change_24h,
-            coin.market_cap
-          )}
+          percentage={getPercentage(coin.total_volume, coin.market_cap)}
+          fillColor={twoFourHourObject.increase ? "#01F1E3" : "#FE2264"}
+          backgroundColor={twoFourHourObject.increase ? "#3D7A76" : "#804058"}
         />
       </HorizontalBarCell>
       <HorizontalBarCell>
         <HorizontalBar
           percentage={getPercentage(coin.circulating_supply, coin.total_supply)}
+          fillColor={twoFourHourObject.increase ? "#01F1E3" : "#FE2264"}
+          backgroundColor={twoFourHourObject.increase ? "#3D7A76" : "#804058"}
         />
       </HorizontalBarCell>
       <SparklineCell>

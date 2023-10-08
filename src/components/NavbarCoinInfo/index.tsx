@@ -129,6 +129,8 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
             global?.total_volume[currency],
             global?.total_market_cap[currency]
           )}
+          fillColor="white"
+          backgroundColor="#797585"
         />
       </MarketInfo>
       <CoinInfo>
@@ -136,14 +138,26 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
           <BtcLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.btc.toFixed(2)}%
-        {global && <HorizontalBar percentage={BtcMCP} />}
+        {global && (
+          <HorizontalBar
+            percentage={BtcMCP}
+            fillColor="#CE7200"
+            backgroundColor="#797585"
+          />
+        )}
       </CoinInfo>
       <CoinInfo>
         <LogoContainer>
           <EthLogoDiv />
         </LogoContainer>
         {global?.market_cap_percentage.eth.toFixed(2)}%
-        {global && <HorizontalBar percentage={EthMCP} />}
+        {global && (
+          <HorizontalBar
+            percentage={EthMCP}
+            fillColor="#5F75C9"
+            backgroundColor="#797585"
+          />
+        )}
       </CoinInfo>
     </NavBarCoinInfoContainer>
   );
