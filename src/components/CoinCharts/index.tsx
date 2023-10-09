@@ -1,9 +1,11 @@
 import tw from "tailwind-styled-components";
+import { ChartSelector } from "@/components/ChartSelector";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 
 const ComponentContainer = tw.div`
   flex
+  flex-col
   justify-center
   items-center
   w-full
@@ -37,6 +39,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           isprice={false}
         />
       </ChartsContainer>
+      <ChartSelector />
     </ComponentContainer>
   );
 };
