@@ -28,7 +28,11 @@ type CoinChartsProps = {
 export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinPriceData,
   coinVolumeData,
+  // handleTimeChartSelection
 }) => {
+  const handleTimeChartSelection = (selection: string) => {
+    handleTimeChartSelection(selection);
+  };
   return (
     <ComponentContainer>
       <ChartsContainer>
@@ -39,7 +43,10 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           isprice={false}
         />
       </ChartsContainer>
-      <ChartSelector />
+      <ChartSelector
+        // handleTimeChartSelection={handleTimeChartSelection}
+        chartSelection={"1D"}
+      />
     </ComponentContainer>
   );
 };
