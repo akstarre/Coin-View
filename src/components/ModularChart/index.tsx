@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import tw from "tailwind-styled-components";
+import { useTheme } from "next-themes";
 import { Chart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -67,16 +68,23 @@ export const ModularChart: React.FC<ChartProps> = ({
     CanvasGradient | string
   >("rgba(75, 192, 192, 0.2)");
 
-  const [border, setBorder] = useState<BorderObject>({
-    color: "transparent",
-    width: 0,
-  });
+  const { theme, setTheme } = useTheme();
 
   const formattedData = () => {
     if (hasAxis) {
       return reducePoints(coinData.prices, 16);
     } else {
       return coinData.prices;
+    }
+  };
+
+  const getChartBackground = () => {
+    if (theme === "dark" && isprice) {
+      return "rgba(25,25,52,1)";
+    } else if (theme === "dark" && !isprice) {
+      return "rgba(32,25,52, 1)";
+    } else {
+      return "rgba(255, 255, 255, 1.0)";
     }
   };
 
@@ -91,18 +99,16 @@ export const ModularChart: React.FC<ChartProps> = ({
         ticks: {
           display: hasAxis,
         },
+        border: {
+          display: false,
+        },
       },
       y: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: false,
-        },
+        display: false,
       },
     },
     pointRadius: 0,
-    borderWidth: 2,
+    borderWidth: 0,
   };
 
   useEffect(() => {
@@ -111,21 +117,16 @@ export const ModularChart: React.FC<ChartProps> = ({
       if (ctx) {
         const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
         barGradient.addColorStop(0, "rgba(165,94,221, 1)");
-        barGradient.addColorStop(1, "rgba(32,25,52, 1)");
+        barGradient.addColorStop(1, getChartBackground());
 
         const lineGradient = ctx.createLinearGradient(0, 0, 0, 400);
         lineGradient.addColorStop(0, "rgba(120,120,255,1)");
-        lineGradient.addColorStop(1, "rgba(25,25,52,1)");
+        lineGradient.addColorStop(1, getChartBackground());
 
-        if (isprice) {
-          setGradientBackground(lineGradient);
-          setBorder({ color: "rgba(120,120,255, 1)", width: 2 });
-        } else {
-          setGradientBackground(barGradient);
-        }
+        setGradientBackground(barGradient);
       }
     }
-  }, [isprice]);
+  }, [theme]);
 
   const data = {
     labels: formattedData().map((price, i) => {
@@ -141,9 +142,6 @@ export const ModularChart: React.FC<ChartProps> = ({
         label: "Coin Price",
         data: formattedData().map((price) => price[1]),
         backgroundColor: gradientBackground,
-        borderColor: border.color,
-        borderWidth: border.width,
-        borderRadius: 3,
         tension: 0.4,
       },
     ],
