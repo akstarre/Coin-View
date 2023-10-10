@@ -103,8 +103,6 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
     global?.market_cap_change_percentage_24h_usd
   );
 
-  console.log(usdChangeObject, "usdChange");
-
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
