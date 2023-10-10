@@ -18,7 +18,7 @@ type ChartSelectorProps = {
 };
 
 type CoinCardProps = {
-  isCurrent: boolean;
+  iscurrent: boolean;
 };
 
 type PercentChangeProps = {
@@ -78,11 +78,12 @@ const CoinedCard = tw.div<CoinCardProps>`
   p-2
   m-2
   rounded-lg
-  shadow-lg
+  shadow-md
   cursor-pointer
   text-lg
+  
   ${(props) =>
-    props.isCurrent
+    props.iscurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
     border-l-light-purple-border
     text-white
@@ -91,7 +92,8 @@ const CoinedCard = tw.div<CoinCardProps>`
     dark:bg-d-purple-highlight
     dark:shadow-light
     `
-      : `text-l-dark-purple
+      : `text-l-dark-purple-background
+      bg-white
       dark:text-white
       dark:bg-d-grey-purple-1`}
 `;
@@ -192,7 +194,7 @@ ChartSelectorProps) => {
                 //tw-styled-components bug, flex won't apply in styled-components
                 className="flex flex-grow min-w-[250px]"
                 key={coin.symbol}
-                isCurrent={isCurrent}
+                iscurrent={isCurrent}
                 onClick={() => handleSelection(coin.name)}
               >
                 <Image
