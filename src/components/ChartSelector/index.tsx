@@ -13,7 +13,6 @@ const ChartSelectorContainer = tw.div`
   items-center
   w-full
   p-12
-  
 `;
 
 const ChartSelectorInnerContainer = tw.div`
@@ -75,14 +74,12 @@ export const ChartSelector: React.FC<ChartSelectorProps> = ({
     setIsTransitioning(true);
     setCurrentSelection(selection);
     setTimeout(() => {
-      // setIsTransitioning(false);
+      setIsTransitioning(false);
     }, 500);
   };
 
   const currentIndex = chartSelections.indexOf(currentSelection);
   const translationAmount = currentIndex * 75;
-
-  console.log(isTransitioning);
 
   return (
     <ChartSelectorContainer>
