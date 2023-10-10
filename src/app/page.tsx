@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTable";
 import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
+import { NavbarCoinInfo } from "@/components/NavbarCoinInfo";
 import { useAppSelector } from "./GlobalRedux/store";
 import MarketTable from "../components/MarketTable/index";
 import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
@@ -19,6 +20,10 @@ const PageContainer = tw.div`
   bg-l-light-grey-background
   dark:bg-d-black-purple
   `;
+
+const PageInnerContainer = tw.div`
+  
+`;
 
 const Home = () => {
   // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
@@ -49,6 +54,7 @@ const Home = () => {
 
   return (
     <PageContainer>
+      <NavbarCoinInfo currency={currentCurrency} />
       <Navbar currency={currentCurrency} />
 
       <div className="w-full justify-around items-center p-4">

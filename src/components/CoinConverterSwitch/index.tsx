@@ -3,7 +3,7 @@ import { useState } from "react";
 import tw from "tailwind-styled-components";
 
 const SwitchComponentContainer = tw.div`
-  w-full
+  w-[75vw]
   p-8
   bg-l-light-grey-background
   dark:bg-d-black-purple
