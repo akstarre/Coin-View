@@ -12,6 +12,9 @@ import {
   PointElement,
   LineElement,
   Filler,
+  registerables,
+  LineController,
+  BarController,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
 
@@ -21,7 +24,9 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
-  Filler
+  Filler,
+  LineController,
+  BarController
 );
 
 export type CoinDataProps = {
