@@ -12,11 +12,13 @@ const ChartSelectorContainer = tw.div`
   justify-center
   items-center
   w-full
-  p-12
+  h-[30vh]
+ 
 `;
 
 const ChartSelectorInnerContainer = tw.div`
-  w-[75vw]    
+  w-[75vw] 
+  h-full   
 `;
 
 const ChartDivContainer = tw.div`
@@ -24,7 +26,9 @@ const ChartDivContainer = tw.div`
   flex
   w-[525px]
   rounded-lg
+  font-medium
   text-l-dark-purple
+  bg-l-light-purple-background
   dark:text-white
   dark:bg-d-grey-purple-1
   m-4
@@ -48,6 +52,8 @@ const ChartSelection = tw.div<{ istransitioning: boolean }>`
   left-1
   w-[75px]
   h-[45px]
+  text-black
+  dark:text-white
   bg-l-light-purple-highlight
   dark:bg-d-purple-highlight
   focus:outline-none
@@ -75,7 +81,7 @@ export const ChartSelector: React.FC<ChartSelectorProps> = ({
     setCurrentSelection(selection);
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 500);
+    }, 300);
   };
 
   const currentIndex = chartSelections.indexOf(currentSelection);
