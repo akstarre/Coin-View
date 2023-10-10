@@ -9,8 +9,8 @@ const ComponentContainer = tw.div`
   justify-center
   items-center
   w-full
-  h-[25vh]
-  my-40
+  h-[30vh]
+  my-44
 `;
 
 const ChartsContainer = tw.div`
