@@ -27,12 +27,18 @@ const LogoContainer = tw.div`
 
 const MainNavbarContainer = tw.div`
   flex 
-  justify-between
+  justify-center
   items-center  
   w-full  
-  p-4
   bg-white
   dark:bg-d-black-purple
+`;
+
+const MainNavbarInnerContainer = tw.div`
+  flex 
+  justify-between
+  items-center  
+  w-[75vw]
 `;
 
 const RightNavbarContainer = tw.div`
@@ -90,6 +96,12 @@ const NavbarContainer = tw.div`
   w-[100vw]
 `;
 
+const CoinConverterSwitchContainer = tw.div`
+  flex
+  justify-center  
+  w-full
+`;
+
 export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
   // const dispatch = useDispatch<AppDispatch>();
   // const { currency } = useSelector((state: RootState) => state.currency);
@@ -100,25 +112,28 @@ export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
 
   return (
     <NavbarContainer>
-      <NavbarCoinInfo currency={currency} />
       <MainNavbarContainer>
-        <LogoContainer>
-          <CoinViewLogo className="h-36 w-60" />
-        </LogoContainer>
-        <HomePortfolioSwitch />
-        <RightNavbarContainer>
-          <InputContainer>
-            <StyledIcon icon={faMagnifyingGlass} />
-            <StyledInput placeholder="Search" />
-          </InputContainer>
-          <RoundedDropdown
-            handleSelection={handleCurrencySelection}
-            currentCurrency={currency}
-          />
-          <ThemeToggle />
-        </RightNavbarContainer>
+        <MainNavbarInnerContainer>
+          <LogoContainer>
+            <CoinViewLogo className="h-36 w-60" />
+          </LogoContainer>
+          <HomePortfolioSwitch />
+          <RightNavbarContainer>
+            <InputContainer>
+              <StyledIcon icon={faMagnifyingGlass} />
+              <StyledInput placeholder="Search" />
+            </InputContainer>
+            <RoundedDropdown
+              handleSelection={handleCurrencySelection}
+              currentCurrency={currency}
+            />
+            <ThemeToggle />
+          </RightNavbarContainer>
+        </MainNavbarInnerContainer>
       </MainNavbarContainer>
-      <CoinConverterSwitch />
+      <CoinConverterSwitchContainer>
+        <CoinConverterSwitch />
+      </CoinConverterSwitchContainer>
     </NavbarContainer>
   );
 };

@@ -10,6 +10,8 @@ import {
 const MarketTableHeaderContainer = tw.div`
     flex
     items-center
+    justify-evenly
+    w-full
     mx-8
     my-2
     `;
