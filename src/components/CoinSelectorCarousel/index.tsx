@@ -13,7 +13,8 @@ type ChartSelectorProps = {
   coins: Coin[];
   currentChart: string;
   currentCurrency: string;
-  handleChartSelection: (selection: string) => void;
+  //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
+  // handleChartSelection: (selection: string) => void;
 };
 
 type CoinCardProps = {
@@ -150,11 +151,11 @@ export const CoinSelectorCarousel = ({
   currentChart,
   currentCurrency,
 }: //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-// handleChartSelection,
+// handleCoinChartSelection,
 ChartSelectorProps) => {
   const handleSelection = (selection: string) => {
     //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-    // handleChartSelection(selection);
+    // handleCoinChartSelection(selection);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);

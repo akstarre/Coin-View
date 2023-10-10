@@ -1,14 +1,16 @@
 import tw from "tailwind-styled-components";
+import { ChartSelector } from "@/components/ChartSelector";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 
 const ComponentContainer = tw.div`
   flex
+  flex-col
   justify-center
   items-center
   w-full
-  h-[25vh]
-  my-40
+  h-[30vh]
+  my-44
 `;
 
 const ChartsContainer = tw.div`
@@ -26,7 +28,11 @@ type CoinChartsProps = {
 export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinPriceData,
   coinVolumeData,
+  // handleTimeChartSelection
 }) => {
+  const handleTimeChartSelection = (selection: string) => {
+    handleTimeChartSelection(selection);
+  };
   return (
     <ComponentContainer>
       <ChartsContainer>
@@ -37,6 +43,10 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           isprice={false}
         />
       </ChartsContainer>
+      <ChartSelector
+        // handleTimeChartSelection={handleTimeChartSelection}
+        chartSelection={"1D"}
+      />
     </ComponentContainer>
   );
 };
