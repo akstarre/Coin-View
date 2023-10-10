@@ -24,6 +24,10 @@ type PercentChangeProps = {
   increase: boolean;
 };
 
+type ScrollButtonProps = {
+  isleft: boolean;
+};
+
 interface Coin {
   name: string;
   symbol: string;
@@ -39,12 +43,22 @@ interface Coin {
 }
 
 const ChartSelectorContainer = tw.div`
+  w-full
+  flex
+  justify-center
+  items-center
+  rounded-[15px]
+`;
+
+const ChartSelectorinnerContainer = tw.div`
   relative
+  w-[73vw]
   flex
   justify-center
   items-center
   bg-l-light-grey-background
   dark:bg-d-black-purple
+  rounded-[15px]
 `;
 
 const ChartSelectorInnerContainer = tw.div`
@@ -81,7 +95,7 @@ const CoinedCard = tw.div<CoinCardProps>`
       dark:bg-d-grey-purple-1`}
 `;
 
-const ScrollButton = tw.div`
+const ScrollButton = tw.div<ScrollButtonProps>`
   absolute
   flex
   justify-center
@@ -99,6 +113,7 @@ const ScrollButton = tw.div`
   border-l-light-purple-border
   dark:border-d-purple-border 
   dark:shadow-light
+  ${(props) => (props.isleft ? "right-[75vw]" : "left-[75vw]")}
 `;
 
 const CoinPriceDiv = tw.div`
@@ -147,7 +162,7 @@ ChartSelectorProps) => {
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: 268,
+        left: 266,
         behavior: "smooth",
       });
     }
@@ -156,7 +171,7 @@ ChartSelectorProps) => {
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: -268,
+        left: -266,
         behavior: "smooth",
       });
     }
@@ -164,49 +179,53 @@ ChartSelectorProps) => {
 
   return (
     <ChartSelectorContainer>
-      <ChartSelectorInnerContainer ref={scrollContainerRef}>
-        {coins.map((coin: Coin) => {
-          const isCurrent = coin.name === currentChart;
-          const CaretColorObject = getCaretAndColor(
-            coin.price_change_percentage_24h_in_currency
-          );
-          return (
-            <CoinedCard
-              //tw-styled-components bug, flex won't apply in styled-components
-              className="flex flex-grow min-w-[250px]"
-              key={coin.symbol}
-              isCurrent={isCurrent}
-              onClick={() => handleSelection(coin.name)}
-            >
-              <Image
-                src={`${coin.image}`}
-                width={40}
-                height={40}
-                alt={`Image of ${coin.name}'s symbol`}
-              />
-              <CoinInfoDiv className="break-all">
-                <CoinInfo>
-                  {coin.name} ({coin.symbol})
-                </CoinInfo>
-                <CoinPriceDiv>
-                  {formatNumber(coin.current_price)}{" "}
-                  <FontAwesomeIcon icon={getCurrencySymbol(currentCurrency)} />
-                </CoinPriceDiv>
-              </CoinInfoDiv>
-              <PercentChangeContainer increase={CaretColorObject.increase}>
-                <FontAwesomeIcon icon={CaretColorObject.caret} />
-                {formatNumber(coin.price_change_percentage_24h_in_currency)}%
-              </PercentChangeContainer>
-            </CoinedCard>
-          );
-        })}
-      </ChartSelectorInnerContainer>
-      <ScrollButton className="right-0" onClick={scrollRight}>
-        <FontAwesomeIcon icon={faCaretRight} />
-      </ScrollButton>
-      <ScrollButton className="left-0" onClick={scrollLeft}>
-        <FontAwesomeIcon icon={faCaretLeft} />
-      </ScrollButton>
+      <ChartSelectorinnerContainer>
+        <ChartSelectorInnerContainer ref={scrollContainerRef}>
+          {coins.map((coin: Coin) => {
+            const isCurrent = coin.name === currentChart;
+            const CaretColorObject = getCaretAndColor(
+              coin.price_change_percentage_24h_in_currency
+            );
+            return (
+              <CoinedCard
+                //tw-styled-components bug, flex won't apply in styled-components
+                className="flex flex-grow min-w-[250px]"
+                key={coin.symbol}
+                isCurrent={isCurrent}
+                onClick={() => handleSelection(coin.name)}
+              >
+                <Image
+                  src={`${coin.image}`}
+                  width={40}
+                  height={40}
+                  alt={`Image of ${coin.name}'s symbol`}
+                />
+                <CoinInfoDiv className="break-all">
+                  <CoinInfo>
+                    {coin.name} ({coin.symbol})
+                  </CoinInfo>
+                  <CoinPriceDiv>
+                    {formatNumber(coin.current_price)}{" "}
+                    <FontAwesomeIcon
+                      icon={getCurrencySymbol(currentCurrency)}
+                    />
+                  </CoinPriceDiv>
+                </CoinInfoDiv>
+                <PercentChangeContainer increase={CaretColorObject.increase}>
+                  <FontAwesomeIcon icon={CaretColorObject.caret} />
+                  {formatNumber(coin.price_change_percentage_24h_in_currency)}%
+                </PercentChangeContainer>
+              </CoinedCard>
+            );
+          })}
+        </ChartSelectorInnerContainer>
+        <ScrollButton isleft={false} onClick={scrollRight}>
+          <FontAwesomeIcon icon={faCaretRight} />
+        </ScrollButton>
+        <ScrollButton isleft={true} onClick={scrollLeft}>
+          <FontAwesomeIcon icon={faCaretLeft} />
+        </ScrollButton>
+      </ChartSelectorinnerContainer>
     </ChartSelectorContainer>
   );
 };
