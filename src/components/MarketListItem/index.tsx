@@ -18,16 +18,18 @@ import { Coin } from "../../../interfaces";
 
 const TableRowContainer = tw.div`
   flex
+  justify-evenly
   items-center
   bg-white
   mx-8
   my-2
+  w-full
   dark:bg-d-grey-purple-1
   rounded-[10px]
 `;
 
 export const NumberCell = tw.div`
-  w-4
+  w-8
   py-3
   px-6
   text-center
@@ -39,7 +41,7 @@ export const NameCell = tw.div`
   flex
   items-center
   justify-start
-  w-44
+  w-52
   py-3
   px-4
   overflow-wrap
@@ -47,7 +49,7 @@ export const NameCell = tw.div`
 `;
 
 export const PriceCell = tw.div`
-  w-32
+  w-36
   py-3
   px-4
   text-center
@@ -55,7 +57,7 @@ export const PriceCell = tw.div`
 `;
 
 export const PercentChangeCell = tw.div`
-  w-28
+  w-36
   text-center
   py-3
   px-4
@@ -63,7 +65,7 @@ export const PercentChangeCell = tw.div`
 `;
 
 export const HorizontalBarCell = tw.div`
-  w-60
+  w-64
   text-center
   py-3
   px-4
@@ -73,7 +75,7 @@ export const SparklineCell = tw.div`
   flex
   justify-center
   items-center
-  w-36
+  w-44
   h-20
 `;
 
