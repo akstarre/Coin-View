@@ -13,6 +13,7 @@ const SwitchContainer = tw.div`
     w-60
     h-full
     justify-between
+    text-l-dark-purple-background
 `;
 
 const TextLogoButton = tw.div<TextLogoContainerProps>`
