@@ -12,9 +12,9 @@ import { SparklineChart, CoinDataProps } from "../SparklineChart";
 import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
 
-// type PercentChangeProp = {
-//   color: string;
-// };
+type PercentChangeProp = {
+  increase: boolean;
+};
 
 const TableRowContainer = tw.div`
   flex
@@ -56,12 +56,13 @@ export const PriceCell = tw.div`
   font-medium
 `;
 
-export const PercentChangeCell = tw.div`
-  w-36
+
+export const PercentChangeCell = tw.div<PercentChangeProp>`
+  w-28
   text-center
   py-3
   px-4
-  ${(props) => `text-${props.color}`}
+  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
 `;
 
 export const HorizontalBarCell = tw.div`
@@ -119,15 +120,15 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
         {coin.name} ({coin.symbol})
       </NameCell>
       <PriceCell>{coin.current_price.toFixed(2)}</PriceCell>
-      <PercentChangeCell className={`text-${oneHourObject.color}`}>
+      <PercentChangeCell increase={oneHourObject.increase}>
         <StyledIcon icon={oneHourObject.caret} />
         {formatNumber(coin.price_change_percentage_1h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell className={`text-${twoFourHourObject.color}`}>
+      <PercentChangeCell increase={twoFourHourObject.increase}>
         <StyledIcon icon={twoFourHourObject.caret} />
         {formatNumber(coin.price_change_percentage_24h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell className={`text-${sevenDayObject.color}`}>
+      <PercentChangeCell increase={sevenDayObject.increase}>
         <StyledIcon icon={sevenDayObject.caret} />
         {formatNumber(coin.price_change_percentage_7d_in_currency)}
       </PercentChangeCell>
@@ -147,7 +148,7 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
       <SparklineCell>
         <SparklineChart
           coinData={sparklineData}
-          changeIncrease={oneHourObject.changeIncrease}
+          increase={oneHourObject.increase}
         />
       </SparklineCell>
     </TableRowContainer>

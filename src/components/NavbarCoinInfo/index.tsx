@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
-
 import { formatNumber, getCaretAndColor } from "@/utils/formatting";
 import { getPercentage } from "@/utils/conversions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +18,10 @@ import { BtcLogo, EthLogo } from "../../../public/svg";
 
 type NavbarCoinInfoProps = {
   currency: string;
+};
+
+type FontAwesomeProps = {
+  increase: boolean;
 };
 
 const NavBarCoinInfoContainer = tw.div`
@@ -59,9 +62,9 @@ const Icon = tw(FontAwesomeIcon)`
   text-white
 `;
 
-const Caret = tw(FontAwesomeIcon)`
+const Caret = tw(FontAwesomeIcon)<FontAwesomeProps>`
   p-2
-  ${(props) => `text-${props.color}`}
+  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
 `;
 
 const LogoContainer = tw.div`
@@ -99,6 +102,9 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const usdChangeObject = getCaretAndColor(
     global?.market_cap_change_percentage_24h_usd
   );
+
+  console.log(usdChangeObject, "usdChange");
+
   return (
     <NavBarCoinInfoContainer>
       <CoinInfo>
@@ -110,8 +116,11 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
         Exchange: {global?.markets}
       </CoinInfo>
       <CoinInfo>
-        <Caret icon={usdChangeObject.caret} color={usdChangeObject.color} /> $
-        {formatNumber(global?.total_volume[currency] || 0)}
+        <Caret
+          icon={usdChangeObject.caret}
+          increase={usdChangeObject.increase}
+        />{" "}
+        ${formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>
       <MarketInfo>
         <span>${formatNumber(global?.total_market_cap[currency] || 0)}</span>

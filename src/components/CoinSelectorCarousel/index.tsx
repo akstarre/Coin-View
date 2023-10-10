@@ -19,6 +19,10 @@ type CoinCardProps = {
   isCurrent: boolean;
 };
 
+type PercentChangeProps = {
+  increase: boolean;
+};
+
 interface Coin {
   name: string;
   symbol: string;
@@ -92,8 +96,8 @@ const CoinInfoDiv = tw.div`
   flex-col
 `;
 
-const StyledIcon = tw(FontAwesomeIcon)`
-    ${(props) => `text-${props.color}`}
+const PercentChangeContainer = tw.div<PercentChangeProps>`
+  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
 `;
 
 export const CoinSelectorCarousel = ({
@@ -156,13 +160,10 @@ ChartSelectorProps) => {
                   {coin.current_price} {currentCurrency}
                 </CoinPriceDiv>
               </CoinInfoDiv>
-              <div>
-                <StyledIcon
-                  icon={CaretColorObject.caret}
-                  color={CaretColorObject.color}
-                />
+              <PercentChangeContainer increase={CaretColorObject.increase}>
+                <FontAwesomeIcon icon={CaretColorObject.caret} />
                 {formatNumber(coin.price_change_percentage_24h_in_currency)}%
-              </div>
+              </PercentChangeContainer>
             </CoinCard>
           );
         })}
