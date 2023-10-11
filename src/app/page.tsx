@@ -56,6 +56,7 @@ const Home = () => {
   const coins = CoinsData;
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
+  const currentCoin = coins[0];
 
   return (
     <PageContainer>
@@ -75,8 +76,9 @@ const Home = () => {
         <CoinCharts
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
-          // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
-          // handleTimeChartSelection={handleTimeChartSelection}
+          currentCoin={currentCoin}
+          currentCurrency={currentCurrency}
+
         />
       </div>
 

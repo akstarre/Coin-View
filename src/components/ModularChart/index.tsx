@@ -49,6 +49,7 @@ type BorderObject = {
 };
 
 const ChartContainer = tw.div<ChartContainerProps>`
+  relative
   flex
   justify-center
   w-full
@@ -60,6 +61,10 @@ const ChartContainer = tw.div<ChartContainerProps>`
   rounded-[10px]
   ${(props) =>
     props.isprice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
+`;
+
+const ChartInfoContainer = tw.div`
+    absolute
 `;
 
 export const ModularChart: React.FC<ChartProps> = ({
@@ -154,6 +159,7 @@ export const ModularChart: React.FC<ChartProps> = ({
 
   return (
     <ChartContainer isprice={isprice}>
+      <ChartInfoContainer></ChartInfoContainer>
       <Chart
         ref={chartRef}
         type={isprice ? "line" : "bar"}
