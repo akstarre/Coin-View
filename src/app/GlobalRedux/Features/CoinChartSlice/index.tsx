@@ -31,7 +31,6 @@ export const fetchCoinChart = createAsyncThunk(
     const COIN_URL = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=${timePeriod}`;
     const response = await fetch(COIN_URL);
     const data = await response.json();
-    console.log("fetch requested:", data);
     return data;
   }
 );
