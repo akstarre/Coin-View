@@ -56,11 +56,11 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
         handleCoinChartSelection={handleCoinChartSelection}
       />
       <ChartsContainer>
-        <ModularChart coinData={coinPriceData} hasAxis={true} isprice={true} />
+        <ModularChart coinData={coinPriceData} hasAxis={true} isPrice={true} />
         <ModularChart
           coinData={coinVolumeData}
           hasAxis={true}
-          isprice={false}
+          isPrice={false}
         />
       </ChartsContainer>
       <ChartSelector chartSelection={"1D"} />
