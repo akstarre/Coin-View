@@ -13,7 +13,7 @@ import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
 
 type PercentChangeProp = {
-  increase: boolean;
+  $increase: boolean;
 };
 
 const TableRowContainer = tw.div`
@@ -56,13 +56,12 @@ export const PriceCell = tw.div`
   font-medium
 `;
 
-
 export const PercentChangeCell = tw.div<PercentChangeProp>`
   w-28
   text-center
   py-3
   px-4
-  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
+  ${(props) => (props.$increase ? "text-green-change" : "text-red-change")}
 `;
 
 export const HorizontalBarCell = tw.div`
@@ -120,15 +119,15 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
         {coin.name} ({coin.symbol})
       </NameCell>
       <PriceCell>{coin.current_price.toFixed(2)}</PriceCell>
-      <PercentChangeCell increase={oneHourObject.increase}>
+      <PercentChangeCell $increase={oneHourObject.increase}>
         <StyledIcon icon={oneHourObject.caret} />
         {formatNumber(coin.price_change_percentage_1h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell increase={twoFourHourObject.increase}>
+      <PercentChangeCell $increase={twoFourHourObject.increase}>
         <StyledIcon icon={twoFourHourObject.caret} />
         {formatNumber(coin.price_change_percentage_24h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell increase={sevenDayObject.increase}>
+      <PercentChangeCell $increase={sevenDayObject.increase}>
         <StyledIcon icon={sevenDayObject.caret} />
         {formatNumber(coin.price_change_percentage_7d_in_currency)}
       </PercentChangeCell>
