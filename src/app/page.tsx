@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <PageContainer>
       <NavbarCoinInfo currency={currentCurrency} />
-      <Navbar currency={currentCurrency} />
+      <Navbar />
 
       <div className="w-full justify-around items-center p-4">
         <CoinCharts

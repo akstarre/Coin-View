@@ -14,9 +14,7 @@ import { ThemeToggle } from "../ThemeToggle/index";
 import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
 
-type NavbarProps = {
-  currency: string;
-};
+type NavbarProps = {};
 
 const LogoContainer = tw.div`
   flex
@@ -102,7 +100,7 @@ const CoinConverterSwitchContainer = tw.div`
   w-full
 `;
 
-export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { currency } = useSelector((state: RootState) => state.currency);
 
