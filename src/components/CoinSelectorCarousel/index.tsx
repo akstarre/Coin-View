@@ -13,8 +13,7 @@ type ChartSelectorProps = {
   coins: Coin[];
   currentChart: string;
   currentCurrency: string;
-  //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-  // handleChartSelection: (selection: string) => void;
+  handleCoinChartSelection: (selection: string) => void;
 };
 
 type CoinCardProps = {
@@ -26,7 +25,7 @@ type PercentChangeProps = {
 };
 
 type ScrollButtonProps = {
-  isleft: boolean;
+  isLeft: boolean;
 };
 
 interface Coin {
@@ -116,7 +115,7 @@ const ScrollButton = tw.div<ScrollButtonProps>`
   border-l-light-purple-border
   dark:border-d-purple-border 
   dark:shadow-light
-  ${(props) => (props.isleft ? "right-[75vw]" : "left-[75vw]")}
+  ${(props) => (props.isLeft ? "right-[75vw]" : "left-[75vw]")}
 `;
 
 const CoinPriceDiv = tw.div`
@@ -152,12 +151,10 @@ export const CoinSelectorCarousel = ({
   coins,
   currentChart,
   currentCurrency,
-}: //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-// handleCoinChartSelection,
-ChartSelectorProps) => {
+  handleCoinChartSelection,
+}: ChartSelectorProps) => {
   const handleSelection = (selection: string) => {
-    //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-    // handleCoinChartSelection(selection);
+    handleCoinChartSelection(selection);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -222,10 +219,10 @@ ChartSelectorProps) => {
             );
           })}
         </ChartSelectorInnerContainer>
-        <ScrollButton isleft={false} onClick={scrollRight}>
+        <ScrollButton isLeft={false} onClick={scrollRight}>
           <FontAwesomeIcon icon={faCaretRight} />
         </ScrollButton>
-        <ScrollButton isleft={true} onClick={scrollLeft}>
+        <ScrollButton isLeft={true} onClick={scrollLeft}>
           <FontAwesomeIcon icon={faCaretLeft} />
         </ScrollButton>
       </ChartSelectorinnerContainer>

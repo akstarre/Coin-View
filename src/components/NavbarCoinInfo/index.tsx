@@ -87,11 +87,12 @@ const EthLogoDiv = tw(EthLogo)`
 
 export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { data: global } = useSelector((state: RootState) => state.globalData);
 
   useEffect(() => {
     dispatch(fetchGlobal());
   }, []);
+
+  const { data: global } = useSelector((state: RootState) => state.globalData);
 
   if (!global) {
     return <div>Loading..</div>;
