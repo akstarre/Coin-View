@@ -29,7 +29,7 @@ const NestedSwitchContainer = tw.div`
   rounded-[10px]
 `;
 
-const ButtonSwitch = tw.button<{ selected: string }>`
+const ButtonSwitch = tw.button<{ $selected: string }>`
   absolute
   top-0
   left-0
@@ -48,11 +48,11 @@ const ButtonSwitch = tw.button<{ selected: string }>`
   dark:border-d-purple-border 
   dark:shadow-light
   ${(props) =>
-    props.selected === "portfolio" && "transform translate-x-[96%]"} `;
+    props.$selected === "portfolio" && "transform translate-x-[96%]"} `;
 
 const StyledButton = tw.button<{
-  buttonposition: string;
-  selected: string;
+  $buttonPosition: string;
+  $selected: string;
 }>`
   absolute
   top-0
@@ -63,8 +63,8 @@ const StyledButton = tw.button<{
   justify-center
   text-l-dark-purple
   dark:text-white
-  ${(props) => (props.buttonposition === "coins" ? "left-0" : "left-1/2")}
-  ${(props) => props.selected === props.buttonposition && "text-white"}
+  ${(props) => (props.$buttonPosition === "coins" ? "left-0" : "left-1/2")}
+  ${(props) => props.$selected === props.$buttonPosition && "text-white"}
 `;
 
 export const CoinConverterSwitch: React.FC = () => {
@@ -83,17 +83,17 @@ export const CoinConverterSwitch: React.FC = () => {
     <SwitchComponentContainer>
       <SwitchContainer>
         <NestedSwitchContainer>
-          <ButtonSwitch selected={selected} />
+          <ButtonSwitch $selected={selected} />
           <StyledButton
-            selected={selected}
-            buttonposition={coins}
+            $selected={selected}
+            $buttonPosition={coins}
             onClick={handleCoinsSelection}
           >
             Coins
           </StyledButton>
           <StyledButton
-            selected={selected}
-            buttonposition={portfolio}
+            $selected={selected}
+            $buttonPosition={portfolio}
             onClick={handleConverterSelection}
           >
             Converter
