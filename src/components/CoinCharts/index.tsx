@@ -1,4 +1,7 @@
 import tw from "tailwind-styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+import { useAppSelector } from "@/app/GlobalRedux/store";
 import { ChartSelector } from "@/components/ChartSelector";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
@@ -28,11 +31,9 @@ type CoinChartsProps = {
 export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinPriceData,
   coinVolumeData,
-  // handleTimeChartSelection
 }) => {
-  const handleTimeChartSelection = (selection: string) => {
-    handleTimeChartSelection(selection);
-  };
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <ComponentContainer>
       <ChartsContainer>
@@ -43,10 +44,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           isprice={false}
         />
       </ChartsContainer>
-      <ChartSelector
-        // handleTimeChartSelection={handleTimeChartSelection}
-        chartSelection={"1D"}
-      />
+      <ChartSelector chartSelection={"1D"} />
     </ComponentContainer>
   );
 };

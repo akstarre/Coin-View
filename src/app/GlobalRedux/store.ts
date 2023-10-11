@@ -1,8 +1,9 @@
 `use client`;
 
 import { configureStore } from "@reduxjs/toolkit";
-import marketTableReducer from "./Features/MarketTable";
+import marketTableReducer from "./Features/MarketTableSlice";
 import currencyReducer from "./Features/CurrencySlice";
+import coinChartReducer from "./Features/CoinChartSlice";
 import globalReducer from "./Features/GlobalSlice";
 import { useSelector, TypedUseSelectorHook } from "react-redux";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     marketTable: marketTableReducer,
     currency: currencyReducer,
     globalData: globalReducer,
+    coinChart: coinChartReducer,
   },
 });
 
