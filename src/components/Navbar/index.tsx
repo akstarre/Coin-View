@@ -103,11 +103,11 @@ const CoinConverterSwitchContainer = tw.div`
 `;
 
 export const Navbar: React.FC<NavbarProps> = ({ currency }) => {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const { currency } = useSelector((state: RootState) => state.currency);
+  const dispatch = useDispatch<AppDispatch>();
+  const { currency } = useSelector((state: RootState) => state.currency);
 
   const handleCurrencySelection = (selection: string) => {
-    // dispatch(changeCurrency(selection.toLowerCase()));
+    dispatch(changeCurrency(selection.toLowerCase()));
   };
 
   return (

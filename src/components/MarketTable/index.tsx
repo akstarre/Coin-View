@@ -30,6 +30,7 @@ const TableHeadCell = tw.div`
 `;
 
 const MarketTable: React.FC<MarketTableProps> = ({ coins, loading, error }) => {
+  console.log(coins, loading, error);
   return (
     <MarketTableContainer>
       {loading ? (

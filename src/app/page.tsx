@@ -8,7 +8,6 @@ import { useAppSelector } from "@/app/GlobalRedux/store";
 import { Navbar } from "@/components/Navbar";
 import { CoinCharts } from "@/components/CoinCharts";
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTableSlice";
-import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
 import { NavbarCoinInfo } from "@/components/NavbarCoinInfo";
 import MarketTable from "../components/MarketTable/index";
@@ -38,10 +37,6 @@ const Home = () => {
     dispatch(fetchCoins(currentCurrency));
   }, [currentCurrency, dispatch]);
 
-  const handleCoinChartSelection = (selection: string) => {
-    dispatch(changeChart(selection));
-  };
-
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
 
@@ -51,15 +46,8 @@ const Home = () => {
       <Navbar currency={currentCurrency} />
 
       <div className="w-full justify-around items-center p-4">
-        <div>
-          <CoinSelectorCarousel
-            coins={coins}
-            currentChart={currentChart}
-            currentCurrency={currentCurrency}
-            handleCoinChartSelection={handleCoinChartSelection}
-          />
-        </div>
         <CoinCharts
+          coins={coins}
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
         />

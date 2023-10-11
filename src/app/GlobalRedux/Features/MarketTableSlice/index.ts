@@ -30,6 +30,7 @@ const marketTableSlice = createSlice({
         state.error = "";
       })
       .addCase(fetchCoins.fulfilled, (state, action) => {
+        state.loading = false;
         state.coins = action.payload;
       })
       .addCase(fetchCoins.rejected, (state, action) => {
