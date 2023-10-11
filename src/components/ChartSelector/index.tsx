@@ -43,7 +43,7 @@ const ChartButton = tw.button`
   w-[75px]
 `;
 
-const ChartSelection = tw.div<{ istransitioning: boolean }>`
+const ChartSelection = tw.div<{ $isTransitioning: boolean }>`
   absolute
   flex
   justify-center
@@ -65,7 +65,7 @@ const ChartSelection = tw.div<{ istransitioning: boolean }>`
   border-l-light-purple-border
   dark:border-d-purple-border 
   dark:shadow-light
-  ${(props) => (props.istransitioning ? "text-opacity-0" : "text-opactiy-100")}
+  ${(props) => (props.$isTransitioning ? "text-opacity-0" : "text-opactiy-100")}
 `;
 
 export const ChartSelector: React.FC<ChartSelectorProps> = ({
@@ -92,12 +92,11 @@ export const ChartSelector: React.FC<ChartSelectorProps> = ({
       <ChartSelectorInnerContainer>
         <ChartDivContainer>
           <ChartSelection
-            istransitioning={isTransitioning}
+            $isTransitioning={isTransitioning}
             style={{ transform: `translateX(${translationAmount}px)` }}
           >
             {currentSelection}
           </ChartSelection>
-
           {chartSelections.map((chart) => {
             return (
               <ChartButton key={chart} onClick={() => handleSelection(chart)}>
