@@ -13,11 +13,12 @@ type ChartSelectorProps = {
   coins: Coin[];
   currentChart: string;
   currentCurrency: string;
-  handleChartSelection: (selection: string) => void;
+  //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
+  // handleChartSelection: (selection: string) => void;
 };
 
 type CoinCardProps = {
-  isCurrent: boolean;
+  iscurrent: boolean;
 };
 
 type PercentChangeProps = {
@@ -77,11 +78,12 @@ const CoinedCard = tw.div<CoinCardProps>`
   p-2
   m-2
   rounded-lg
-  shadow-lg
+  shadow-md
   cursor-pointer
   text-lg
+  
   ${(props) =>
-    props.isCurrent
+    props.iscurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
     border-l-light-purple-border
     text-white
@@ -90,7 +92,8 @@ const CoinedCard = tw.div<CoinCardProps>`
     dark:bg-d-purple-highlight
     dark:shadow-light
     `
-      : `text-l-dark-purple
+      : `text-l-dark-purple-background
+      bg-white
       dark:text-white
       dark:bg-d-grey-purple-1`}
 `;
@@ -150,11 +153,11 @@ export const CoinSelectorCarousel = ({
   currentChart,
   currentCurrency,
 }: //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-// handleChartSelection,
+// handleCoinChartSelection,
 ChartSelectorProps) => {
   const handleSelection = (selection: string) => {
     //COMMENTED OUT TO HOOK UP FAKE DATA, WILL ADD BACK WHEN USING API AGAIN
-    // handleChartSelection(selection);
+    // handleCoinChartSelection(selection);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -191,7 +194,7 @@ ChartSelectorProps) => {
                 //tw-styled-components bug, flex won't apply in styled-components
                 className="flex flex-grow min-w-[250px]"
                 key={coin.symbol}
-                isCurrent={isCurrent}
+                iscurrent={isCurrent}
                 onClick={() => handleSelection(coin.name)}
               >
                 <Image

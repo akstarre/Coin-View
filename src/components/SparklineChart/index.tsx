@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import tw from "tailwind-styled-components";
+import { useTheme } from "next-themes";
 import { Chart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -58,10 +59,15 @@ export const SparklineChart: React.FC<ChartProps> = ({
   >("rgba(0,245,228,1)");
   const [borderColor, setBorderColor] = useState<string>("rgba(0,245,228,1)");
 
-  const [border, setBorder] = useState<BorderObject>({
-    color: "transparent",
-    width: 0,
-  });
+  const { theme, setTheme } = useTheme();
+
+  const getChartBackground = () => {
+    if (theme === "dark") {
+      return "rgba(24,24,38,1)";
+    } else {
+      return "rgba(255, 255, 255, 1.0)";
+    }
+  };
 
   useEffect(() => {
     if (chartRef.current) {
@@ -70,16 +76,16 @@ export const SparklineChart: React.FC<ChartProps> = ({
         const lineGradient = ctx.createLinearGradient(7, 0, 7, 48);
         if (increase) {
           lineGradient.addColorStop(0, "rgba(0,245,228,1)");
-          lineGradient.addColorStop(1, "rgba(24,24,38,1)");
+          lineGradient.addColorStop(1, getChartBackground());
         } else {
           setBorderColor("rgba(255,0,97,1)");
           lineGradient.addColorStop(0, "rgba(255,0,97,1)");
-          lineGradient.addColorStop(1, "rgba(24,24,38,1)");
+          lineGradient.addColorStop(1, getChartBackground());
         }
         setGradientBackground(lineGradient);
       }
     }
-  }, []);
+  }, [theme]);
 
   const options = {
     fill: true,
@@ -92,12 +98,18 @@ export const SparklineChart: React.FC<ChartProps> = ({
         ticks: {
           display: false,
         },
+        border: {
+          display: false,
+        },
       },
       y: {
         grid: {
           display: false,
         },
         ticks: {
+          display: false,
+        },
+        border: {
           display: false,
         },
       },

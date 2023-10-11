@@ -39,9 +39,14 @@ const Home = () => {
   //   dispatch(fetchCoins(currentCurrency));
   // }, [currentCurrency, dispatch]);
 
-  const handleChartSelection = (selection: string) => {
+  const handleCoinChartSelection = (selection: string) => {
     // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
     // dispatch(changeChart(selection));
+  };
+
+  const handleTimeChartSelection = (selection: string) => {
+    // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
+    // dispatch()
   };
 
   let currentChart = "bitcoin";
@@ -64,7 +69,8 @@ const Home = () => {
             coins={coins}
             currentChart={currentChart}
             currentCurrency={currentCurrency}
-            handleChartSelection={handleChartSelection}
+            // THIS IS FOR MAKING REQUESTS TO API, COMMENTING OUT TO HOOK UP FAKE DATA
+            // handleCoinChartSelection={handleCoinChartSelection}
           />
         </div>
         <CoinCharts
@@ -72,6 +78,7 @@ const Home = () => {
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
           currentCoin={currentCoin}
           currentCurrency={currentCurrency}
+
         />
       </div>
 

@@ -5,6 +5,7 @@ import {
   getCurrencySymbol,
 } from "@/utils/formatting";
 import { ChartInfo } from "../ChartInfo";
+import { ChartSelector } from "@/components/ChartSelector";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 import { Coin } from "../../../interfaces";
@@ -19,11 +20,12 @@ type CoinChartsProps = {
 
 const ComponentContainer = tw.div`
   flex
+  flex-col
   justify-center
   items-center
   w-full
-  h-[25vh]
-  my-40
+  h-[30vh]
+  my-44
 `;
 
 const ChartsContainer = tw.div`
@@ -74,7 +76,11 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinVolumeData,
   currentCoin,
   currentCurrency,
+
 }) => {
+  const handleTimeChartSelection = (selection: string) => {
+    handleTimeChartSelection(selection);
+  };
   return (
     <ComponentContainer>
       <ChartsContainer>
@@ -103,6 +109,10 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           />
         </SingleChartContainer>
       </ChartsContainer>
+      <ChartSelector
+        // handleTimeChartSelection={handleTimeChartSelection}
+        chartSelection={"1D"}
+      />
     </ComponentContainer>
   );
 };
