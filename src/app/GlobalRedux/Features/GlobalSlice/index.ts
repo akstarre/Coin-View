@@ -1,6 +1,7 @@
 `use client`;
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchData } from "@/utils/conversions";
 
 interface MarketCap {
   [key: string]: number;
@@ -37,9 +38,7 @@ export const fetchGlobal = createAsyncThunk(
   "global/getData",
   async (thunkApi) => {
     const GLOBAL_URL = `https://api.coingecko.com/api/v3/global`;
-    const response = await fetch(GLOBAL_URL);
-    const data = await response.json();
-    return data;
+    return fetchData(GLOBAL_URL);
   }
 );
 
