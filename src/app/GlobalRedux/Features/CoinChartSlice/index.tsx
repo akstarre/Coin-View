@@ -1,6 +1,7 @@
 `use client`;
 
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { fetchData } from "@/utils/conversions";
 
 interface ChartData {
   prices: number[][];
@@ -29,9 +30,7 @@ export const fetchCoinChart = createAsyncThunk(
     thunkApi
   ) => {
     const COIN_URL = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=${timePeriod}`;
-    const response = await fetch(COIN_URL);
-    const data = await response.json();
-    return data;
+    return fetchData(COIN_URL);
   }
 );
 
