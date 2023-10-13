@@ -21,7 +21,7 @@ type NavbarCoinInfoProps = {
 };
 
 type FontAwesomeProps = {
-  increase: boolean;
+  $increase: boolean;
 };
 
 const NavBarCoinInfoContainer = tw.div`
@@ -64,7 +64,7 @@ const Icon = tw(FontAwesomeIcon)`
 
 const Caret = tw(FontAwesomeIcon)<FontAwesomeProps>`
   p-2
-  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
+  ${(props) => (props.$increase ? "text-green-change" : "text-red-change")}
 `;
 
 const LogoContainer = tw.div`
@@ -117,7 +117,7 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
       <CoinInfo>
         <Caret
           icon={usdChangeObject.caret}
-          increase={usdChangeObject.increase}
+          $increase={usdChangeObject.increase}
         />{" "}
         ${formatNumber(global?.total_volume[currency] || 0)}
       </CoinInfo>

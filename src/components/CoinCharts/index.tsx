@@ -115,6 +115,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
         handleCoinChartSelection={handleCoinChartSelection}
       />
       <ChartsContainer>
+
         <SingleChartContainer>
           <ModularChart
             coinData={coinPriceData}

@@ -14,9 +14,7 @@ import { ThemeToggle } from "../ThemeToggle/index";
 import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
 
-type NavbarProps = {
-  currency: string;
-};
+type NavbarProps = {};
 
 const LogoContainer = tw.div`
   flex

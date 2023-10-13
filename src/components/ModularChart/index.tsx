@@ -35,12 +35,12 @@ export type CoinDataProps = {
 
 type ChartProps = {
   hasAxis: boolean;
-  isprice: boolean;
+  isPrice: boolean;
   coinData: CoinDataProps;
 };
 
 type ChartContainerProps = {
-  isprice: boolean;
+  $isPrice: boolean;
 };
 
 type BorderObject = {
@@ -60,7 +60,7 @@ const ChartContainer = tw.div<ChartContainerProps>`
   bg-white
   rounded-[10px]
   ${(props) =>
-    props.isprice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
+    props.$isPrice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
 `;
 
 const ChartInfoContainer = tw.div`
@@ -69,7 +69,7 @@ const ChartInfoContainer = tw.div`
 
 export const ModularChart: React.FC<ChartProps> = ({
   hasAxis,
-  isprice,
+  isPrice,
   coinData,
 }) => {
   const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
@@ -89,9 +89,9 @@ export const ModularChart: React.FC<ChartProps> = ({
   };
 
   const getChartBackground = () => {
-    if (theme === "dark" && isprice) {
+    if (theme === "dark" && isPrice) {
       return "rgba(25,25,52,1)";
-    } else if (theme === "dark" && !isprice) {
+    } else if (theme === "dark" && !isPrice) {
       return "rgba(32,25,52, 1)";
     } else {
       return "rgba(255, 255, 255, 1.0)";
@@ -158,11 +158,13 @@ export const ModularChart: React.FC<ChartProps> = ({
   };
 
   return (
+
     <ChartContainer isprice={isprice}>
       <ChartInfoContainer></ChartInfoContainer>
+
       <Chart
         ref={chartRef}
-        type={isprice ? "line" : "bar"}
+        type={isPrice ? "line" : "bar"}
         data={data}
         options={options}
       />

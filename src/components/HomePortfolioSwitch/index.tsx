@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 
 type TextLogoContainerProps = {
-  selected: string;
-  selection: string;
+  $selected: string;
+  $selection: string;
 };
 
 const SwitchContainer = tw.div`
@@ -20,7 +20,7 @@ const SwitchContainer = tw.div`
 const TextLogoButton = tw.div<TextLogoContainerProps>`
     w-1/2
     cursor-pointer
-    ${(props) => props.selection !== props.selected && `opacity-50`}
+    ${(props) => props.$selection !== props.$selected && `opacity-50`}
 `;
 
 const StyledSpan = tw.span`
@@ -43,16 +43,16 @@ export const HomePortfolioSwitch = () => {
     <SwitchContainer>
       <TextLogoButton
         onClick={handleSelection}
-        selection={home}
-        selected={selected}
+        $selection={home}
+        $selected={selected}
       >
         <FontAwesomeIcon icon={faHouse} />
         <StyledSpan>Home</StyledSpan>
       </TextLogoButton>
       <TextLogoButton
         onClick={handleSelection}
-        selection={portfolio}
-        selected={selected}
+        $selection={portfolio}
+        $selected={selected}
       >
         <FontAwesomeIcon icon={faLayerGroup} />
         <StyledSpan>Portfolio</StyledSpan>

@@ -21,11 +21,11 @@ type CoinCardProps = {
 };
 
 type PercentChangeProps = {
-  increase: boolean;
+  $increase: boolean;
 };
 
 type ScrollButtonProps = {
-  isLeft: boolean;
+  $isLeft: boolean;
 };
 
 interface Coin {
@@ -115,7 +115,7 @@ const ScrollButton = tw.div<ScrollButtonProps>`
   border-l-light-purple-border
   dark:border-d-purple-border 
   dark:shadow-light
-  ${(props) => (props.isLeft ? "right-[75vw]" : "left-[75vw]")}
+  ${(props) => (props.$isLeft ? "right-[75vw]" : "left-[75vw]")}
 `;
 
 const CoinPriceDiv = tw.div`
@@ -144,7 +144,7 @@ const PercentChangeContainer = tw.div<PercentChangeProps>`
   right-4
   w-1/4
   whitespace-nowrap
-  ${(props) => (props.increase ? "text-green-change" : "text-red-change")}
+  ${(props) => (props.$increase ? "text-green-change" : "text-red-change")}
 `;
 
 export const CoinSelectorCarousel = ({
@@ -211,7 +211,7 @@ export const CoinSelectorCarousel = ({
                     />
                   </CoinPriceDiv>
                 </CoinInfoDiv>
-                <PercentChangeContainer increase={CaretColorObject.increase}>
+                <PercentChangeContainer $increase={CaretColorObject.increase}>
                   <FontAwesomeIcon icon={CaretColorObject.caret} />
                   {formatNumber(coin.price_change_percentage_24h_in_currency)}%
                 </PercentChangeContainer>
@@ -219,10 +219,10 @@ export const CoinSelectorCarousel = ({
             );
           })}
         </ChartSelectorInnerContainer>
-        <ScrollButton isLeft={false} onClick={scrollRight}>
+        <ScrollButton $isLeft={false} onClick={scrollRight}>
           <FontAwesomeIcon icon={faCaretRight} />
         </ScrollButton>
-        <ScrollButton isLeft={true} onClick={scrollLeft}>
+        <ScrollButton $isLeft={true} onClick={scrollLeft}>
           <FontAwesomeIcon icon={faCaretLeft} />
         </ScrollButton>
       </ChartSelectorinnerContainer>
