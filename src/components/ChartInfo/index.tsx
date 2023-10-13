@@ -6,6 +6,7 @@ import {
 } from "@/utils/formatting";
 import { Coin } from "../../../interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { current } from "@reduxjs/toolkit";
 
 type ChartInfoProps = {
   currentCoin: Coin;
@@ -53,13 +54,15 @@ export const ChartInfo: React.FC<ChartInfoProps> = ({
   return (
     <ChartInfoDiv>
       <ChartName>
-        {isprice ? `${currentCoin.name} (${currentCoin.symbol})` : "Volume 24H"}
+        {isprice
+          ? `${currentCoin?.name} (${currentCoin?.symbol})`
+          : "Volume 24H"}
       </ChartName>
       <ChartMarketInfo>
         <FontAwesomeIcon icon={getCurrencySymbol(currentCurrency)} />
-        {isprice
-          ? formatChartNumber(currentCoin.market_cap)
-          : formatChartNumber(currentCoin.market_cap_change_24h)}
+        {isprice && currentCoin?.market_cap
+          ? formatChartNumber(currentCoin?.market_cap)
+          : formatChartNumber(currentCoin?.market_cap_change_24h)}
       </ChartMarketInfo>
       <ChartDate>{formatDate(todaysDate)}</ChartDate>
     </ChartInfoDiv>

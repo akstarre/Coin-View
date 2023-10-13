@@ -18,7 +18,6 @@ import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 import { Coin } from "../../../interfaces";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CoinChartsProps = {
@@ -26,8 +25,8 @@ type CoinChartsProps = {
   coinVolumeData: CoinDataProps;
   currentCoin: Coin;
   currentCurrency: string;
+  coins: Coin[];
 };
-
 
 const ComponentContainer = tw.div`
   flex
@@ -45,12 +44,6 @@ const ChartsContainer = tw.div`
   align-center
   w-[75vw]
 `;
-
-
-type CoinChartsProps = {
-  coins: Coin[];
-  coinPriceData: CoinDataProps;
-  coinVolumeData: CoinDataProps;
 
 const SingleChartContainer = tw.div`
   relative
@@ -88,14 +81,11 @@ const ChartDate = tw.div`
   dark:text-opacity-50
 `;
 
-
 export const CoinCharts: React.FC<CoinChartsProps> = ({
   coins,
   coinPriceData,
   coinVolumeData,
   currentCoin,
-  currentCurrency,
-
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { currency: currentCurrency, currentChart } = useAppSelector(
@@ -115,30 +105,33 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
         handleCoinChartSelection={handleCoinChartSelection}
       />
       <ChartsContainer>
-
         <SingleChartContainer>
           <ModularChart
             coinData={coinPriceData}
             hasAxis={true}
-            isprice={true}
+            isPrice={true}
           />
-          <ChartInfo
-            currentCoin={currentCoin}
-            currentCurrency={currentCurrency}
-            isprice={true}
-          />
+          {currentCoin && (
+            <ChartInfo
+              currentCoin={currentCoin}
+              currentCurrency={currentCurrency}
+              isprice={true}
+            />
+          )}
         </SingleChartContainer>
         <SingleChartContainer>
           <ModularChart
             coinData={coinVolumeData}
             hasAxis={true}
-            isprice={false}
+            isPrice={false}
           />
-          <ChartInfo
-            currentCoin={currentCoin}
-            currentCurrency={currentCurrency}
-            isprice={false}
-          />
+          {currentCoin && (
+            <ChartInfo
+              currentCoin={currentCoin}
+              currentCurrency={currentCurrency}
+              isprice={false}
+            />
+          )}
         </SingleChartContainer>
       </ChartsContainer>
       <ChartSelector chartSelection={"1D"} />

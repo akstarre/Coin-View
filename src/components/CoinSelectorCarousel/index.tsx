@@ -17,7 +17,7 @@ type ChartSelectorProps = {
 };
 
 type CoinCardProps = {
-  iscurrent: boolean;
+  $isCurrent: boolean;
 };
 
 type PercentChangeProps = {
@@ -82,7 +82,7 @@ const CoinedCard = tw.div<CoinCardProps>`
   text-lg
   
   ${(props) =>
-    props.iscurrent
+    props.$isCurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
     border-l-light-purple-border
     text-white
@@ -191,7 +191,7 @@ export const CoinSelectorCarousel = ({
                 //tw-styled-components bug, flex won't apply in styled-components
                 className="flex flex-grow min-w-[250px]"
                 key={coin.symbol}
-                iscurrent={isCurrent}
+                $isCurrent={isCurrent}
                 onClick={() => handleSelection(coin.name)}
               >
                 <Image

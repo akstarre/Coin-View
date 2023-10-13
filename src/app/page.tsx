@@ -20,22 +20,27 @@ const PageContainer = tw.div`
   dark:bg-d-black-purple
   `;
 
-const PageInnerContainer = tw.div`
-  
+const CoinChartsContainer = tw.div`
+  w-full 
+  justify-around 
+  items-center 
+  p-4
 `;
 
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   const { currency: currentCurrency, currentChart } = useAppSelector(
     (state) => state.currency
-  );
-  const { coins, loading, error } = useSelector(
-    (state: RootState) => state.marketTable
   );
 
   useEffect(() => {
     dispatch(fetchCoins(currentCurrency));
-  }, [currentCurrency, dispatch]);
+  }, [currentCurrency]);
+
+  const { coins, loading, error } = useSelector(
+    (state: RootState) => state.marketTable
+  );
 
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
@@ -45,18 +50,15 @@ const Home = () => {
     <PageContainer>
       <NavbarCoinInfo currency={currentCurrency} />
       <Navbar />
-
-      <div className="w-full justify-around items-center p-4">
+      <CoinChartsContainer>
         <CoinCharts
           coins={coins}
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
           currentCoin={currentCoin}
           currentCurrency={currentCurrency}
-
-
         />
-      </div>
+      </CoinChartsContainer>
 
       <div>
         <MarketTable coins={coins} loading={loading} error={error} />

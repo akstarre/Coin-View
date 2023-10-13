@@ -63,10 +63,6 @@ const ChartContainer = tw.div<ChartContainerProps>`
     props.$isPrice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
 `;
 
-const ChartInfoContainer = tw.div`
-    absolute
-`;
-
 export const ModularChart: React.FC<ChartProps> = ({
   hasAxis,
   isPrice,
@@ -158,10 +154,7 @@ export const ModularChart: React.FC<ChartProps> = ({
   };
 
   return (
-
-    <ChartContainer isprice={isprice}>
-      <ChartInfoContainer></ChartInfoContainer>
-
+    <ChartContainer $isPrice={isPrice}>
       <Chart
         ref={chartRef}
         type={isPrice ? "line" : "bar"}
