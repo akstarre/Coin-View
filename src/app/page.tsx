@@ -39,6 +39,7 @@ const Home = () => {
 
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
+  const currentCoin = coins[0];
 
   return (
     <PageContainer>
@@ -50,6 +51,10 @@ const Home = () => {
           coins={coins}
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
+          currentCoin={currentCoin}
+          currentCurrency={currentCurrency}
+
+
         />
       </div>
 
