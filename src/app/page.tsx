@@ -52,7 +52,6 @@ const Home = () => {
       <Navbar />
       <CoinChartsContainer>
         <CoinCharts
-          coins={coins}
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
           currentCoin={currentCoin}

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import tw from "tailwind-styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "@/app/GlobalRedux/store";
-
 import {
   formatDate,
   formatChartNumber,
@@ -87,7 +85,9 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinVolumeData,
   currentCoin,
 }) => {
+  const [currentChartData, setCurrentChartData] = useState([]);
   const dispatch = useDispatch<AppDispatch>();
+
   const { currency, currentChart } = useAppSelector((state) => state.currency);
 
   const { coins, loading, error } = useSelector(
@@ -98,11 +98,17 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
 
   const timePeriod = "1D";
 
-  const handleCoinChartSelection = (selections: string[]) => {
-    selections.forEach((selection) => {
-      if (!charts[selection][timePeriod]) {
-        dispatch(fetchCoinChart({ coinId: selection, currency, timePeriod }));
+  const handleCoinChartSelection = async (selections: string[]) => {
+    for (const selection of selections) {
+      if (!charts[selection] || !charts[selection][timePeriod]) {
+        await dispatch(
+          fetchCoinChart({ coinId: selection, currency, timePeriod })
+        );
       }
+    }
+
+    const currentChartDataArray = selections.map((selection) => {
+      return charts[selection][timePeriod];
     });
   };
 
