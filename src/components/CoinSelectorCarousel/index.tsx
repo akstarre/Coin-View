@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import Image from "next/image";
 import { Url } from "next/dist/shared/lib/router/router";
@@ -13,7 +13,7 @@ type ChartSelectorProps = {
   coins: Coin[];
   currentChart: string;
   currentCurrency: string;
-  handleCoinChartSelection: (selection: string) => void;
+  handleCoinChartSelection: (selection: string[]) => void;
 };
 
 type CoinCardProps = {
@@ -153,8 +153,20 @@ export const CoinSelectorCarousel = ({
   currentCurrency,
   handleCoinChartSelection,
 }: ChartSelectorProps) => {
+  const [selectedCoins, setSelectedCoins] = useState<string[]>([]);
+
   const handleSelection = (selection: string) => {
-    handleCoinChartSelection(selection);
+    let currentCharts = [...selectedCoins];
+    if (currentCharts.includes(selection)) {
+      currentCharts = currentCharts.filter((el) => el !== selection);
+    } else {
+      if (currentChart.length >= 3) {
+        currentCharts.shift();
+      }
+    }
+    currentCharts.push(selection);
+    handleCoinChartSelection(currentCharts);
+    setSelectedCoins(currentCharts);
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -182,7 +194,7 @@ export const CoinSelectorCarousel = ({
       <ChartSelectorinnerContainer>
         <ChartSelectorInnerContainer ref={scrollContainerRef}>
           {coins.map((coin: Coin) => {
-            const isCurrent = coin.name === currentChart;
+            const isCurrent = selectedCoins.includes(coin.name);
             const CaretColorObject = getCaretAndColor(
               coin.price_change_percentage_24h_in_currency
             );
