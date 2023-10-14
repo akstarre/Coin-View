@@ -34,7 +34,6 @@ export type CoinDataProps = {
 };
 
 type ChartProps = {
-  hasAxis: boolean;
   isPrice: boolean;
   coinData: CoinDataProps;
 };
@@ -63,11 +62,7 @@ const ChartContainer = tw.div<ChartContainerProps>`
     props.$isPrice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
 `;
 
-export const ModularChart: React.FC<ChartProps> = ({
-  hasAxis,
-  isPrice,
-  coinData,
-}) => {
+export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
   const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
 
   const [gradientBackground, setGradientBackground] = useState<
@@ -77,11 +72,7 @@ export const ModularChart: React.FC<ChartProps> = ({
   const { theme, setTheme } = useTheme();
 
   const formattedData = () => {
-    if (hasAxis) {
-      return reducePoints(coinData.prices, 16);
-    } else {
-      return coinData.prices;
-    }
+    return reducePoints(coinData.prices, 16);
   };
 
   const getChartBackground = () => {
