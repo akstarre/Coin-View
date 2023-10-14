@@ -94,7 +94,7 @@ export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
           display: false,
         },
         ticks: {
-          display: hasAxis,
+          display: true,
         },
         border: {
           display: false,
