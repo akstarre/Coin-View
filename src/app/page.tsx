@@ -34,13 +34,13 @@ const Home = () => {
     (state) => state.currency
   );
 
-  useEffect(() => {
-    dispatch(fetchCoins(currentCurrency));
-  }, [currentCurrency]);
-
   const { coins, loading, error } = useSelector(
     (state: RootState) => state.marketTable
   );
+
+  useEffect(() => {
+    dispatch(fetchCoins(currentCurrency));
+  }, [currentCurrency]);
 
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
