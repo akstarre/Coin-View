@@ -13,7 +13,7 @@ import {
 import { ChartInfo } from "../ChartInfo";
 
 import { ChartSelector } from "@/components/ChartSelector";
-import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
+import { changeChart } from "@/app/GlobalRedux/Features/APIStateSlice";
 import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";

@@ -3,7 +3,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
-import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+
+import {
+  AppDispatch,
+  RootState,
+  useAppSelector,
+} from "@/app/GlobalRedux/store";
 import { fetchGlobal } from "@/app/GlobalRedux/Features/GlobalSlice";
 import { formatNumber, getCaretAndColor } from "@/utils/formatting";
 import { getPercentage } from "@/utils/conversions";
@@ -16,9 +21,7 @@ import {
 import { HorizontalBar } from "../HorizontalBar";
 import { BtcLogo, EthLogo } from "../../../public/svg";
 
-type NavbarCoinInfoProps = {
-  currency: string;
-};
+type NavbarCoinInfoProps = {};
 
 type FontAwesomeProps = {
   $increase: boolean;
@@ -85,8 +88,10 @@ const EthLogoDiv = tw(EthLogo)`
   w-4
 `;
 
-export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = ({ currency }) => {
+export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const { currency } = useAppSelector((state) => state.currency);
 
   useEffect(() => {
     dispatch(fetchGlobal());

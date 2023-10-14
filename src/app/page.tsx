@@ -34,13 +34,14 @@ const Home = () => {
     (state) => state.currency
   );
 
-  useEffect(() => {
-    dispatch(fetchCoins(currentCurrency));
-  }, [currentCurrency]);
-
   const { coins, loading, error } = useSelector(
     (state: RootState) => state.marketTable
   );
+
+  useEffect(() => {
+    dispatch(fetchCoins(currentCurrency));
+    console.log("Home page rerendered");
+  }, []);
 
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
@@ -48,8 +49,6 @@ const Home = () => {
 
   return (
     <PageContainer>
-      <NavbarCoinInfo currency={currentCurrency} />
-      <Navbar />
       <CoinChartsContainer>
         <CoinCharts
           coins={coins}
@@ -61,7 +60,7 @@ const Home = () => {
       </CoinChartsContainer>
 
       <div>
-        <MarketTable coins={coins} loading={loading} error={error} />
+        <MarketTable />
       </div>
     </PageContainer>
   );
