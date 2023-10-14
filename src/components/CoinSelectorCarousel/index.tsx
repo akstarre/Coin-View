@@ -163,8 +163,8 @@ export const CoinSelectorCarousel = ({
       if (currentChart.length >= 3) {
         currentCharts.shift();
       }
+      currentCharts.push(selection);
     }
-    currentCharts.push(selection);
     handleCoinChartSelection(currentCharts);
     setSelectedCoins(currentCharts);
   };
