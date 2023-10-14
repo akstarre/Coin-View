@@ -10,10 +10,12 @@ import {
   formatChartNumber,
   getCurrencySymbol,
 } from "@/utils/formatting";
-import { ChartInfo } from "../ChartInfo";
-
+import { fetchCoinChart } from "@/app/GlobalRedux/Features/CoinChartSlice";
 import { ChartSelector } from "@/components/ChartSelector";
-import { changeChart } from "@/app/GlobalRedux/Features/CurrencySlice";
+import CurrencySlice, {
+  changeChart,
+} from "@/app/GlobalRedux/Features/CurrencySlice";
+import { ChartInfo } from "../ChartInfo";
 import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
@@ -25,7 +27,6 @@ type CoinChartsProps = {
   coinVolumeData: CoinDataProps;
   currentCoin: Coin;
   currentCurrency: string;
-  coins: Coin[];
 };
 
 const ComponentContainer = tw.div`
@@ -82,18 +83,27 @@ const ChartDate = tw.div`
 `;
 
 export const CoinCharts: React.FC<CoinChartsProps> = ({
-  coins,
   coinPriceData,
   coinVolumeData,
   currentCoin,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { currency: currentCurrency, currentChart } = useAppSelector(
-    (state) => state.currency
+  const { currency, currentChart } = useAppSelector((state) => state.currency);
+
+  const { coins, loading, error } = useSelector(
+    (state: RootState) => state.marketTable
   );
 
-  const handleCoinChartSelection = (selection: string) => {
-    dispatch(changeChart(selection));
+  const { charts } = useSelector((state: RootState) => state.coinChart);
+
+  const timePeriod = "1D";
+
+  const handleCoinChartSelection = (selections: string[]) => {
+    selections.forEach((selection) => {
+      if (!charts[selection][timePeriod]) {
+        dispatch(fetchCoinChart({ coinId: selection, currency, timePeriod }));
+      }
+    });
   };
 
   return (
@@ -101,7 +111,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
       <CoinSelectorCarousel
         coins={coins}
         currentChart={currentChart}
-        currentCurrency={currentCurrency}
+        currentCurrency={currency}
         handleCoinChartSelection={handleCoinChartSelection}
       />
       <ChartsContainer>
@@ -114,7 +124,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
-              currentCurrency={currentCurrency}
+              currentCurrency={currency}
               isprice={true}
             />
           )}
@@ -128,7 +138,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
-              currentCurrency={currentCurrency}
+              currentCurrency={currency}
               isprice={false}
             />
           )}
