@@ -8,7 +8,10 @@ import {
   formatChartNumber,
   getCurrencySymbol,
 } from "@/utils/formatting";
-import { fetchCoinChart } from "@/app/GlobalRedux/Features/CoinChartSlice";
+import {
+  fetchCoinChart,
+  ChartData,
+} from "@/app/GlobalRedux/Features/CoinChartSlice";
 import { ChartSelector } from "@/components/ChartSelector";
 import CurrencySlice, {
   changeChart,
@@ -85,7 +88,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
   coinVolumeData,
   currentCoin,
 }) => {
-  const [currentChartData, setCurrentChartData] = useState([]);
+  const [currentChartData, setCurrentChartData] = useState<ChartData[]>([]);
   const dispatch = useDispatch<AppDispatch>();
 
   const { currency, currentChart } = useAppSelector((state) => state.currency);
@@ -110,6 +113,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
     const currentChartDataArray = selections.map((selection) => {
       return charts[selection][timePeriod];
     });
+    setCurrentChartData(currentChartDataArray);
   };
 
   return (

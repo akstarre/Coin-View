@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { fetchData } from "@/utils/conversions";
 
-interface ChartData {
+export interface ChartData {
   prices: number[][];
   market_caps: number[][];
   total_volumes: number[][];
