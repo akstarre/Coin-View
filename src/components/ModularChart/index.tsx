@@ -141,7 +141,7 @@ export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
   const retreiveData = (index: number) => {
     if (coinData[index]) {
       if (isLine) {
-        return reducePoints(coinData[index].prices as [number, number][], 8);
+        return reducePoints(coinData[index].prices as [number, number][], 16);
       } else {
         return reducePoints(
           coinData[index].total_volumes as [number, number][],

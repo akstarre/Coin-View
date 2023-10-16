@@ -30,7 +30,7 @@ export const formatChartNumber = (num: number) => {
     const finalNum = (num / 1000000000000).toFixed(3);
     return `${finalNum} tln`;
   }
-  if (num > 1000000) {
+  if (num > 1000000000) {
     const finalNum = (num / 1000000000).toFixed(3);
     return `${finalNum} bln`;
   }
