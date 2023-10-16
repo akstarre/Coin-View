@@ -76,7 +76,6 @@ export const ChartSelector: React.FC<ChartSelectorProps> = ({
 
   const handleSelection = (selection: string) => {
     if (selection === currentSelection) return;
-
     setIsTransitioning(true);
     setCurrentSelection(selection);
     setTimeout(() => {

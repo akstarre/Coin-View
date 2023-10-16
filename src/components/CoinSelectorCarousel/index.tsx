@@ -68,7 +68,6 @@ const CoinedCard = tw.div<CoinCardProps>`
   shadow-md
   cursor-pointer
   text-lg
-  
   ${(props) =>
     props.$isCurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50

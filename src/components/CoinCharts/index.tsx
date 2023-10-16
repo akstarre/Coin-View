@@ -4,24 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "@/app/GlobalRedux/store";
 import {
-  formatDate,
-  formatChartNumber,
-  getCurrencySymbol,
-} from "@/utils/formatting";
-import {
   fetchCoinChart,
   ChartData,
 } from "@/app/GlobalRedux/Features/CoinChartSlice";
 import { ChartSelector } from "@/components/ChartSelector";
-import CurrencySlice, {
-  changeChart,
-} from "@/app/GlobalRedux/Features/CurrencySlice";
+import CurrencySlice from "@/app/GlobalRedux/Features/CurrencySlice";
 import { ChartInfo } from "../ChartInfo";
 import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 import { Coin } from "../../../interfaces";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CoinChartsProps = {
   coinPriceData: CoinDataProps;
@@ -107,21 +99,20 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
   const timePeriod = "1";
 
   useEffect(() => {
-    const fetchChartDataForStore = async () => {
-      for (const chart of currentCharts) {
-        if (!charts[chart] || !charts[chart][timePeriod]) {
-          await dispatch(
-            fetchCoinChart({
-              coinId: chart,
-              currency,
-              timePeriod,
-            })
-          );
-        }
-      }
+    const fetchChartDataForStore = async (chart: string) => {
+      await dispatch(
+        fetchCoinChart({
+          coinId: chart,
+          currency,
+          timePeriod,
+        })
+      );
     };
-    fetchChartDataForStore();
-
+    for (const chart of currentCharts) {
+      if (!charts[chart] || !charts[chart][timePeriod]) {
+        fetchChartDataForStore(chart);
+      }
+    }
     const currentChartDataArray = currentCharts.map((chart) => {
       if (charts[chart] && charts[chart][timePeriod]) {
         return charts[chart][timePeriod];
@@ -135,7 +126,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
       <CoinSelectorCarousel coins={coins} currentCurrency={currency} />
       <ChartsContainer>
         <SingleChartContainer>
-          <ModularChart coinData={currentChartData} isPrice={true} />
+          <ModularChart coinData={currentChartData} isLine={true} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
@@ -145,7 +136,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           )}
         </SingleChartContainer>
         <SingleChartContainer>
-          <ModularChart coinData={currentChartData} isPrice={false} />
+          <ModularChart coinData={currentChartData} isLine={false} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}

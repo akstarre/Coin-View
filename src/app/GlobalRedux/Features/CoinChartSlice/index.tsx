@@ -53,7 +53,6 @@ const coinChartSlice = createSlice({
         state.error = "";
       })
       .addCase(fetchCoinChart.fulfilled, (state, action) => {
-        console.log(action.payload);
         const { coinId, timePeriod, data } = action.payload;
         if (!state.charts[coinId]) {
           state.charts[coinId] = {};

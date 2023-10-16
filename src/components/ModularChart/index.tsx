@@ -19,6 +19,43 @@ import {
 import { reducePoints } from "@/utils/formatting";
 import { ChartData } from "@/app/GlobalRedux/Features/CoinChartSlice";
 
+const options = {
+  responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+      ticks: {
+        display: true,
+      },
+      border: {
+        display: false,
+      },
+    },
+    "y-axis-1": {
+      display: false,
+      ticks: {
+        display: false,
+      },
+    },
+    "y-axis-2": {
+      display: false,
+      ticks: {
+        display: false,
+      },
+    },
+    "y-axis-3": {
+      display: false,
+      ticks: {
+        display: false,
+      },
+    },
+  },
+  pointRadius: 0,
+  borderWidth: 0,
+};
+
 ChartJS.register(
   CategoryScale,
   BarElement,
@@ -35,17 +72,29 @@ export type CoinDataProps = {
 };
 
 type ChartProps = {
-  isPrice: boolean;
+  isLine: boolean;
   coinData: ChartData[];
 };
 
 type ChartContainerProps = {
-  $isPrice: boolean;
+  $isLine: boolean;
 };
 
 type BorderObject = {
   color: string;
   width: number;
+}[];
+
+type ChartDataSetting = {
+  fill: boolean;
+  label: string;
+  data: number[];
+  backgroundColor: CanvasGradient | string;
+  borderColor: string;
+  borderWidth: number;
+  tension: number;
+  order?: number;
+  yAxisID?: string;
 };
 
 const ChartContainer = tw.div<ChartContainerProps>`
@@ -60,75 +109,117 @@ const ChartContainer = tw.div<ChartContainerProps>`
   bg-white
   rounded-[10px]
   ${(props) =>
-    props.$isPrice ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
+    props.$isLine ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
 `;
 
-export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
+const barFillColors = [
+  "rgba(165,94,221, 1)",
+  "rgba(255,168,0, 1)",
+  "rgba(245,235,0, 1)",
+];
+const lineFillColors = [
+  "rgba(120,120,255,0.33)",
+  "rgba(255,168,0, 0.33)",
+  "rgba(245,235,0, 0.33)",
+];
+
+export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
   const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
-
+  const [finalChartData, setFinalChartData] = useState<ChartDataSetting[]>([]);
+  const [border, setBorder] = useState<BorderObject>([
+    {
+      color: "transparent",
+      width: 0,
+    },
+  ]);
   const [gradientBackground, setGradientBackground] = useState<
-    CanvasGradient | string
-  >("rgba(75, 192, 192, 0.2)");
-
+    CanvasGradient[] | string[]
+  >(["rgba(75, 192, 192, 0.2)"]);
   const { theme, setTheme } = useTheme();
 
   const retreiveData = (index: number) => {
     if (coinData[index]) {
-      return reducePoints(coinData[index].prices as [number, number][], 16);
+      if (isLine) {
+        return reducePoints(coinData[index].prices as [number, number][], 8);
+      } else {
+        return reducePoints(coinData[index].prices as [number, number][], 16);
+      }
     } else {
-      return ["", ""];
+      return [[0, 0]];
     }
   };
 
   const getChartBackground = () => {
-    if (theme === "dark" && isPrice) {
+    if (theme === "dark" && isLine) {
       return "rgba(25,25,52,1)";
-    } else if (theme === "dark" && !isPrice) {
+    } else if (theme === "dark" && !isLine) {
       return "rgba(32,25,52, 1)";
     } else {
       return "rgba(255, 255, 255, 1.0)";
     }
   };
 
-  const options = {
-    fill: true,
-    responsive: true,
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          display: true,
-        },
-        border: {
-          display: false,
-        },
-      },
-      y: {
-        display: false,
-      },
-    },
-    pointRadius: 0,
-    borderWidth: 0,
+  const isEmptyData = (data: ChartData) => {
+    return data.prices[0][0] === 0 && data.prices[0][1] === 0;
+  };
+
+  const populateDataSet = (coinData: ChartData[]): ChartDataSetting[] => {
+    let dataSet: ChartDataSetting[] = [];
+    console.log("incomeing Coin:", coinData);
+    coinData.forEach((coin, i) => {
+      if (!isEmptyData(coinData[i]) && border[i]) {
+        const currentData = {
+          fill: true,
+          label: `Coin Price ${i + 1}`,
+          data: retreiveData(i).map((price) => price[1]),
+          backgroundColor: gradientBackground[i],
+          borderColor: border[i].color,
+          borderWidth: border[i].width,
+          tension: 0.4,
+          order: i + 1,
+          yAxisID: `y-axis-${i + 1}`,
+        };
+        dataSet.push(currentData);
+      }
+      console.log("outgoing data:", dataSet);
+    });
+    return dataSet;
+  };
+
+  const finalDataChecker = () => {
+    if (finalChartData) {
+      return finalChartData;
+    } else return [];
   };
 
   useEffect(() => {
     if (chartRef.current) {
       const ctx = chartRef.current.canvas.getContext("2d");
       if (ctx) {
-        const barGradient = ctx.createLinearGradient(0, 0, 0, 400);
-        barGradient.addColorStop(0, "rgba(165,94,221, 1)");
-        barGradient.addColorStop(1, getChartBackground());
-
-        const lineGradient = ctx.createLinearGradient(0, 0, 0, 400);
-        lineGradient.addColorStop(0, "rgba(120,120,255,1)");
-        lineGradient.addColorStop(1, getChartBackground());
-
-        setGradientBackground(barGradient);
+        let gradientArray = [];
+        let borderArray = [];
+        for (let i = 0; i < coinData.length; i++) {
+          const startingGradient = ctx.createLinearGradient(0, 0, 0, 400);
+          if (isLine) {
+            startingGradient.addColorStop(0, lineFillColors[i]);
+            startingGradient.addColorStop(1, getChartBackground());
+            borderArray.push({ color: lineFillColors[i], width: 2 });
+          } else {
+            startingGradient.addColorStop(0, barFillColors[i]);
+            startingGradient.addColorStop(1, getChartBackground());
+            borderArray.push({ color: "transparent", width: 0 });
+          }
+          gradientArray.push(startingGradient);
+        }
+        setGradientBackground(gradientArray);
+        setBorder(borderArray);
       }
     }
-  }, [theme]);
+  }, [theme, coinData]);
+
+  useEffect(() => {
+    setFinalChartData(populateDataSet(coinData));
+  }, [border]);
 
   const data = {
     labels: retreiveData(0).map((price, i) => {
@@ -138,36 +229,14 @@ export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
       hour = hour || 12;
       return (hour < 10 ? "0" : "") + hour;
     }),
-    datasets: [
-      {
-        fill: true,
-        label: "Coin Price",
-        data: retreiveData(0).map((price) => price[1]),
-        backgroundColor: gradientBackground,
-        tension: 0.4,
-      },
-      {
-        fill: true,
-        label: "Coin Price",
-        data: retreiveData(1).map((price) => price[1]),
-        backgroundColor: gradientBackground,
-        tension: 0.4,
-      },
-      {
-        fill: true,
-        label: "Coin Price",
-        data: retreiveData(2).map((price) => price[1]),
-        backgroundColor: gradientBackground,
-        tension: 0.4,
-      },
-    ],
+    datasets: finalDataChecker(),
   };
 
   return (
-    <ChartContainer $isPrice={isPrice}>
+    <ChartContainer $isLine={isLine}>
       <Chart
         ref={chartRef}
-        type={isPrice ? "line" : "bar"}
+        type={isLine ? "line" : "bar"}
         data={data}
         options={options}
       />

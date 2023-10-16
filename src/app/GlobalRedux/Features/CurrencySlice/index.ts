@@ -1,28 +1,28 @@
 `use client`;
 
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
-
-
-const initialState = {
-    currency: "usd",
-    currentChart: "bitcoin",
-    loading: false,
-    error: "",
+interface CurrencyState {
+  currency: string;
+  loading: boolean;
+  error: string;
 }
 
-const currencySlice = createSlice({
-    name: "currency",
-    initialState,
-    reducers: {
-            changeCurrency (state, action) {
-                state.currency = action.payload
-            },
-            changeChart (state, action) {
-                state.currentChart = action.payload
-            }
-    }
-})
+const initialState: CurrencyState = {
+  currency: "usd",
+  loading: false,
+  error: "",
+};
 
-export const {changeCurrency, changeChart} = currencySlice.actions
-export default currencySlice.reducer
+const currencySlice = createSlice({
+  name: "currency",
+  initialState,
+  reducers: {
+    changeCurrency(state, action) {
+      state.currency = action.payload;
+    },
+  },
+});
+
+export const { changeCurrency } = currencySlice.actions;
+export default currencySlice.reducer;
