@@ -56,6 +56,17 @@ const options = {
   borderWidth: 0,
 };
 
+const barFillColors = [
+  "rgba(165,94,221, 1)",
+  "rgba(255,168,0, 1)",
+  "rgba(245,235,0, 1)",
+];
+const lineFillColors = [
+  "rgba(120,120,255,0.33)",
+  "rgba(255,168,0, 0.33)",
+  "rgba(245,235,0, 0.33)",
+];
+
 ChartJS.register(
   CategoryScale,
   BarElement,
@@ -112,17 +123,6 @@ const ChartContainer = tw.div<ChartContainerProps>`
     props.$isLine ? "dark:bg-d-price-chart" : "dark:bg-d-volume-chart"}
 `;
 
-const barFillColors = [
-  "rgba(165,94,221, 1)",
-  "rgba(255,168,0, 1)",
-  "rgba(245,235,0, 1)",
-];
-const lineFillColors = [
-  "rgba(120,120,255,0.33)",
-  "rgba(255,168,0, 0.33)",
-  "rgba(245,235,0, 0.33)",
-];
-
 export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
   const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
   const [finalChartData, setFinalChartData] = useState<ChartDataSetting[]>([]);
@@ -142,7 +142,10 @@ export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
       if (isLine) {
         return reducePoints(coinData[index].prices as [number, number][], 8);
       } else {
-        return reducePoints(coinData[index].prices as [number, number][], 16);
+        return reducePoints(
+          coinData[index].total_volumes as [number, number][],
+          16
+        );
       }
     } else {
       return [[0, 0]];
@@ -165,7 +168,6 @@ export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
 
   const populateDataSet = (coinData: ChartData[]): ChartDataSetting[] => {
     let dataSet: ChartDataSetting[] = [];
-    console.log("incomeing Coin:", coinData);
     coinData.forEach((coin, i) => {
       if (!isEmptyData(coinData[i]) && border[i]) {
         const currentData = {
@@ -181,7 +183,6 @@ export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
         };
         dataSet.push(currentData);
       }
-      console.log("outgoing data:", dataSet);
     });
     return dataSet;
   };

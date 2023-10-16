@@ -138,8 +138,6 @@ export const CoinSelectorCarousel = ({
   coins,
   currentCurrency,
 }: ChartSelectorProps) => {
-  const [selectedCoins, setSelectedCoins] = useState<string[]>([]);
-
   const dispatch = useDispatch();
 
   const { currentCharts } = useAppSelector((state) => state.currentCharts);

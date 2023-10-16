@@ -81,13 +81,11 @@ const ChartDate = tw.div`
   dark:text-opacity-50
 `;
 
-export const CoinCharts: React.FC<CoinChartsProps> = ({
-  coinPriceData,
-  coinVolumeData,
-  currentCoin,
-}) => {
-  const [currentChartData, setCurrentChartData] = useState<ChartData[]>([]);
+export const CoinCharts: React.FC<CoinChartsProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const [currentChartData, setCurrentChartData] = useState<ChartData[]>([]);
+  const [currentCoin, setCurrentCoin] = useState<Coin>();
 
   const { currency } = useAppSelector((state) => state.currency);
   const { charts } = useAppSelector((state) => state.coinChart);
@@ -118,6 +116,14 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
         return charts[chart][timePeriod];
       } else return EmptyChartData;
     });
+
+    if (coins && currentCharts[0]) {
+      const currentCoinHolder = coins.find(
+        (coin) => coin.id === currentCharts[0]
+      );
+      setCurrentCoin(currentCoinHolder);
+    }
+
     setCurrentChartData(currentChartDataArray);
   }, [currentCharts, charts]);
 
