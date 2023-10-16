@@ -90,9 +90,9 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
   const { currency } = useAppSelector((state) => state.currency);
   const { charts } = useAppSelector((state) => state.coinChart);
   const { currentCharts } = useAppSelector((state) => state.currentCharts);
-  const { coins, loading, error } = useAppSelector(
-    (state) => state.marketTable
-  );
+  const { coins } = useAppSelector((state) => state.marketTable) as {
+    coins: Coin[];
+  };
 
   const timePeriod = "1";
 
