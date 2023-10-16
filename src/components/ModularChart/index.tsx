@@ -32,6 +32,7 @@ const options = {
       border: {
         display: false,
       },
+      stacked: true,
     },
     "y-axis-1": {
       display: false,
@@ -57,14 +58,14 @@ const options = {
 };
 
 const barFillColors = [
-  "rgba(165,94,221, 1)",
-  "rgba(255,168,0, 1)",
+  "rgba(165,94,221, .5)",
+  "rgba(120,120,255,.5)",
   "rgba(245,235,0, 1)",
 ];
 const lineFillColors = [
-  "rgba(120,120,255,0.33)",
-  "rgba(255,168,0, 0.33)",
-  "rgba(245,235,0, 0.33)",
+  "rgba(120,120,255,0.28)",
+  "rgba(165,94,221, .28)",
+  "rgba(245,235,0, .28)",
 ];
 
 ChartJS.register(
@@ -204,7 +205,7 @@ export const ModularChart: React.FC<ChartProps> = ({ isLine, coinData }) => {
           if (isLine) {
             startingGradient.addColorStop(0, lineFillColors[i]);
             startingGradient.addColorStop(1, getChartBackground());
-            borderArray.push({ color: lineFillColors[i], width: 2 });
+            borderArray.push({ color: lineFillColors[i], width: 4 });
           } else {
             startingGradient.addColorStop(0, barFillColors[i]);
             startingGradient.addColorStop(1, getChartBackground());
