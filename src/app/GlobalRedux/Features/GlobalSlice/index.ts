@@ -38,6 +38,7 @@ export const fetchGlobal = createAsyncThunk(
   "global/getData",
   async (thunkApi) => {
     const GLOBAL_URL = `https://api.coingecko.com/api/v3/global`;
+    console.log("Global fetch requested");
     return fetchData(GLOBAL_URL);
   }
 );

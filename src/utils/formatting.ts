@@ -62,7 +62,10 @@ export const getCaretAndColor = (num: number) => {
   }
 };
 
-export const reducePoints = (arr: [number, number][], reduceBy: number) => {
+export const reducePoints = (
+  arr: [number, number][] = [],
+  reduceBy: number
+) => {
   return arr.filter((_, i) => i % reduceBy === 0);
 };
 

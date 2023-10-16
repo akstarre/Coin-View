@@ -17,6 +17,7 @@ import {
   BarController,
 } from "chart.js";
 import { reducePoints } from "@/utils/formatting";
+import { ChartData } from "@/app/GlobalRedux/Features/CoinChartSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -35,7 +36,7 @@ export type CoinDataProps = {
 
 type ChartProps = {
   isPrice: boolean;
-  coinData: CoinDataProps;
+  coinData: ChartData[];
 };
 
 type ChartContainerProps = {
@@ -71,8 +72,12 @@ export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
 
   const { theme, setTheme } = useTheme();
 
-  const formattedData = () => {
-    return reducePoints(coinData.prices, 16);
+  const retreiveData = (index: number) => {
+    if (coinData[index]) {
+      return reducePoints(coinData[index].prices as [number, number][], 16);
+    } else {
+      return ["", ""];
+    }
   };
 
   const getChartBackground = () => {
@@ -126,7 +131,7 @@ export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
   }, [theme]);
 
   const data = {
-    labels: formattedData().map((price, i) => {
+    labels: retreiveData(0).map((price, i) => {
       let hour = new Date(price[0]).getHours();
       const amPm = hour >= 12 ? "PM" : "AM";
       hour = hour % 12;
@@ -137,7 +142,21 @@ export const ModularChart: React.FC<ChartProps> = ({ isPrice, coinData }) => {
       {
         fill: true,
         label: "Coin Price",
-        data: formattedData().map((price) => price[1]),
+        data: retreiveData(0).map((price) => price[1]),
+        backgroundColor: gradientBackground,
+        tension: 0.4,
+      },
+      {
+        fill: true,
+        label: "Coin Price",
+        data: retreiveData(1).map((price) => price[1]),
+        backgroundColor: gradientBackground,
+        tension: 0.4,
+      },
+      {
+        fill: true,
+        label: "Coin Price",
+        data: retreiveData(2).map((price) => price[1]),
         backgroundColor: gradientBackground,
         tension: 0.4,
       },

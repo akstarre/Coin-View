@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
@@ -28,6 +28,12 @@ type CoinChartsProps = {
   coinVolumeData: CoinDataProps;
   currentCoin: Coin;
   currentCurrency: string;
+};
+
+const EmptyChartData = {
+  prices: [[0, 0]],
+  market_caps: [[0], [0]],
+  total_volumes: [[0], [0]],
 };
 
 const ComponentContainer = tw.div`
@@ -91,46 +97,45 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
   const [currentChartData, setCurrentChartData] = useState<ChartData[]>([]);
   const dispatch = useDispatch<AppDispatch>();
 
-  const { currency, currentChart } = useAppSelector((state) => state.currency);
-
-  const { coins, loading, error } = useSelector(
-    (state: RootState) => state.marketTable
+  const { currency } = useAppSelector((state) => state.currency);
+  const { charts } = useAppSelector((state) => state.coinChart);
+  const { currentCharts } = useAppSelector((state) => state.currentCharts);
+  const { coins, loading, error } = useAppSelector(
+    (state) => state.marketTable
   );
 
-  const { charts } = useSelector((state: RootState) => state.coinChart);
+  const timePeriod = "1";
 
-  const timePeriod = "1D";
-
-  const handleCoinChartSelection = async (selections: string[]) => {
-    for (const selection of selections) {
-      if (!charts[selection] || !charts[selection][timePeriod]) {
-        await dispatch(
-          fetchCoinChart({ coinId: selection, currency, timePeriod })
-        );
+  useEffect(() => {
+    const fetchChartDataForStore = async () => {
+      for (const chart of currentCharts) {
+        if (!charts[chart] || !charts[chart][timePeriod]) {
+          await dispatch(
+            fetchCoinChart({
+              coinId: chart,
+              currency,
+              timePeriod,
+            })
+          );
+        }
       }
-    }
+    };
+    fetchChartDataForStore();
 
-    const currentChartDataArray = selections.map((selection) => {
-      return charts[selection][timePeriod];
+    const currentChartDataArray = currentCharts.map((chart) => {
+      if (charts[chart] && charts[chart][timePeriod]) {
+        return charts[chart][timePeriod];
+      } else return EmptyChartData;
     });
     setCurrentChartData(currentChartDataArray);
-  };
+  }, [currentCharts, charts]);
 
   return (
     <ComponentContainer>
-      <CoinSelectorCarousel
-        coins={coins}
-        currentChart={currentChart}
-        currentCurrency={currency}
-        handleCoinChartSelection={handleCoinChartSelection}
-      />
+      <CoinSelectorCarousel coins={coins} currentCurrency={currency} />
       <ChartsContainer>
         <SingleChartContainer>
-          <ModularChart
-            coinData={coinPriceData}
-            hasAxis={true}
-            isPrice={true}
-          />
+          <ModularChart coinData={currentChartData} isPrice={true} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
@@ -140,11 +145,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = ({
           )}
         </SingleChartContainer>
         <SingleChartContainer>
-          <ModularChart
-            coinData={coinVolumeData}
-            hasAxis={true}
-            isPrice={false}
-          />
+          <ModularChart coinData={currentChartData} isPrice={false} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
