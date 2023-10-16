@@ -70,6 +70,11 @@ export const ModularChart: React.FC<ChartProps> = ({
 }) => {
   const chartRef = useRef<ChartJS<"line" | "bar", number[], string>>(null);
 
+  const [border, setBorder] = useState<BorderObject>({
+    color: "transparent",
+    width: 0,
+  });
+
   const [gradientBackground, setGradientBackground] = useState<
     CanvasGradient | string
   >("rgba(75, 192, 192, 0.2)");
@@ -129,7 +134,12 @@ export const ModularChart: React.FC<ChartProps> = ({
         lineGradient.addColorStop(0, "rgba(120,120,255,1)");
         lineGradient.addColorStop(1, getChartBackground());
 
-        setGradientBackground(barGradient);
+        if (isPrice) {
+          setGradientBackground(lineGradient);
+          setBorder({ color: "rgba(120,120,255, 1)", width: 2 });
+        } else {
+          setGradientBackground(barGradient);
+        }
       }
     }
   }, [theme]);
@@ -148,6 +158,8 @@ export const ModularChart: React.FC<ChartProps> = ({
         label: "Coin Price",
         data: formattedData().map((price) => price[1]),
         backgroundColor: gradientBackground,
+        borderColor: border.color,
+        borderWidth: border.width,
         tension: 0.4,
       },
     ],

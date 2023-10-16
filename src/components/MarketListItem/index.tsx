@@ -16,6 +16,11 @@ type PercentChangeProp = {
   $increase: boolean;
 };
 
+type MarketListItemProps = {
+  coin: Coin;
+  index: number;
+};
+
 const TableRowContainer = tw.div`
   flex
   justify-evenly
@@ -82,11 +87,6 @@ export const SparklineCell = tw.div`
 const StyledIcon = tw(FontAwesomeIcon)`
 px-2
 `;
-
-type MarketListItemProps = {
-  coin: Coin;
-  index: number;
-};
 
 export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
   const oneHourObject = getCaretAndColor(
