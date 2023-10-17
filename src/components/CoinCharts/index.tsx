@@ -124,7 +124,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
     }
 
     setCurrentChartData(currentChartDataArray);
-  }, [currentCharts, charts]);
+  }, [currentCharts, charts, coins]);
 
   return (
     <ComponentContainer>
