@@ -3,7 +3,7 @@
 import { useSelector, TypedUseSelectorHook } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import marketTableReducer from "./Features/MarketTableSlice";
-import currencyReducer from "./Features/APIStateSlice";
+import currencyReducer from "./Features/CurrencySlice";
 import coinChartReducer from "./Features/CoinChartSlice";
 import globalReducer from "./Features/GlobalSlice";
 import currentChartsReducer from "./Features/CurrentChartSlice";

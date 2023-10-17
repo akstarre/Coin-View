@@ -3,7 +3,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
-import { changeCurrency } from "@/app/GlobalRedux/Features/APIStateSlice";
+import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "@/components/Dropdown";
