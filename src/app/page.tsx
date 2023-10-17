@@ -30,7 +30,7 @@ const CoinChartsContainer = tw.div`
 const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { currency: currentCurrency, currentChart } = useAppSelector(
+  const { currency: currentCurrency } = useAppSelector(
     (state) => state.currency
   );
 
