@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CoinView Web App
 
-## Getting Started
+CoinView is an intuitive web application built for cryptocurrency enthusiasts and professionals, offering a comprehensive overview of crypto trends and data. Dive deep into the world of cryptocurrencies with state-of-the-art visuals and invaluable insights.
 
-First, run the development server:
+<img width="1907" alt="Coin_view_readme" src="https://github.com/akstarre/crypto/assets/121568866/4b711128-816d-4610-81f1-ef53585bf1b6">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Multiple Coin Overlay**: View the trend charts of multiple cryptocurrencies simultaneously for efficient comparison.
+  
+- **Top Coins Data**: Stay updated with the most trending coins in the market right now.
+  
+- **State-of-the-Art Design**: Our intuitive design makes understanding complex data a breeze.
+  
+- **Coin Converter**: Planning to exchange? Know the exact value of one coin in terms of another. (Coming Soon)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Coin Viewer**: A deep dive into individual coin details and its historical data. (Coming Soon)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Portfolio**: Keep track of your crypto assets and observe how they fluctuate with market changes. (Coming Soon)
 
-## Learn More
+## Built With
 
-To learn more about Next.js, take a look at the following resources:
+- **Redux Toolkit**: For efficient global state management.
+  
+- **Tailwind Styled Components**: Crafting the sleek and responsive design of our application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Quick Start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Clone the Repo**  
+    ```bash
+    git clone https://github.com/yourusername/coinview.git
+    ```
 
-## Deploy on Vercel
+2. **Install Dependencies**  
+    ```bash
+    npm install
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the App**  
+    ```bash
+    npm start
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Your app should be up and running on [http://localhost:3000](http://localhost:3000)!
+
+## Contribution
+
+We're always open to improvements! If you find a bug, have a feature request, or want to contribute to the code, please feel free to open an issue or send a pull request.
