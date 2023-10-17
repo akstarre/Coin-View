@@ -6,6 +6,7 @@ import marketTableReducer from "./Features/MarketTableSlice";
 import currencyReducer from "./Features/APIStateSlice";
 import coinChartReducer from "./Features/CoinChartSlice";
 import globalReducer from "./Features/GlobalSlice";
+import currentChartsReducer from "./Features/CurrentChartSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     currency: currencyReducer,
     globalData: globalReducer,
     coinChart: coinChartReducer,
+    currentCharts: currentChartsReducer,
   },
 });
 

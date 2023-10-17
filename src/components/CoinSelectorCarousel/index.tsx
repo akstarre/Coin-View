@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import tw from "tailwind-styled-components";
 import Image from "next/image";
 import { Url } from "next/dist/shared/lib/router/router";
@@ -8,12 +9,13 @@ import { formatNumber, getCurrencySymbol } from "@/utils/formatting";
 import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import { changeCurrentCharts } from "@/app/GlobalRedux/Features/CurrentChartSlice";
+import { Coin } from "../../../interfaces";
+import { useAppSelector } from "@/app/GlobalRedux/store";
 
 type ChartSelectorProps = {
   coins: Coin[];
-  currentChart: string;
   currentCurrency: string;
-  handleCoinChartSelection: (selection: string) => void;
 };
 
 type CoinCardProps = {
@@ -27,20 +29,6 @@ type PercentChangeProps = {
 type ScrollButtonProps = {
   $isLeft: boolean;
 };
-
-interface Coin {
-  name: string;
-  symbol: string;
-  current_price: number;
-  image: Url;
-  price_change_percentage_1h_in_currency: number;
-  price_change_percentage_24h_in_currency: number;
-  price_change_percentage_7d_in_currency: number;
-  market_cap_change_24h: number;
-  market_cap: number;
-  circulating_supply: number;
-  total_supply: number;
-}
 
 const ChartSelectorContainer = tw.div`
   w-full
@@ -80,7 +68,6 @@ const CoinedCard = tw.div<CoinCardProps>`
   shadow-md
   cursor-pointer
   text-lg
-  
   ${(props) =>
     props.$isCurrent
       ? `border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
@@ -149,12 +136,25 @@ const PercentChangeContainer = tw.div<PercentChangeProps>`
 
 export const CoinSelectorCarousel = ({
   coins,
-  currentChart,
   currentCurrency,
-  handleCoinChartSelection,
 }: ChartSelectorProps) => {
+  const dispatch = useDispatch();
+
+  const { currentCharts } = useAppSelector((state) => state.currentCharts);
+
   const handleSelection = (selection: string) => {
-    handleCoinChartSelection(selection);
+    let currentChartsHolder = [...currentCharts];
+    if (currentChartsHolder.includes(selection)) {
+      currentChartsHolder = currentChartsHolder.filter(
+        (el) => el !== selection
+      );
+    } else {
+      if (currentChartsHolder.length >= 3) {
+        currentChartsHolder.shift();
+      }
+      currentChartsHolder.push(selection);
+    }
+    dispatch(changeCurrentCharts(currentChartsHolder));
   };
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -182,7 +182,7 @@ export const CoinSelectorCarousel = ({
       <ChartSelectorinnerContainer>
         <ChartSelectorInnerContainer ref={scrollContainerRef}>
           {coins.map((coin: Coin) => {
-            const isCurrent = coin.name === currentChart;
+            const isCurrent = currentCharts.includes(coin.id);
             const CaretColorObject = getCaretAndColor(
               coin.price_change_percentage_24h_in_currency
             );
@@ -192,7 +192,7 @@ export const CoinSelectorCarousel = ({
                 className="flex flex-grow min-w-[250px]"
                 key={coin.symbol}
                 $isCurrent={isCurrent}
-                onClick={() => handleSelection(coin.name)}
+                onClick={() => handleSelection(coin.id)}
               >
                 <Image
                   src={`${coin.image}`}

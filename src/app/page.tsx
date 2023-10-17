@@ -40,8 +40,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchCoins(currentCurrency));
-    console.log("Home page rerendered");
-  }, []);
+  }, [currentCurrency]);
 
   const coinPriceData = BitcoinDailyData.prices;
   const coinVolumeData = BitcoinDailyData.total_volumes;
@@ -51,7 +50,6 @@ const Home = () => {
     <PageContainer>
       <CoinChartsContainer>
         <CoinCharts
-          coins={coins}
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
           coinVolumeData={{ prices: coinVolumeData as [number, number][] }}
           currentCoin={currentCoin}

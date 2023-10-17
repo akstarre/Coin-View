@@ -6,7 +6,7 @@ import { fetchData } from "@/utils/conversions";
 export const fetchCoins = createAsyncThunk(
   "coins/getCoins",
   async (currency: string, thunkApi) => {
-    const COIN_URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en`;
+    const COIN_URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d&locale=en&x_cg_demo_api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
     return fetchData(COIN_URL);
   }
 );

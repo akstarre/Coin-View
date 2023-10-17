@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { fetchData } from "@/utils/conversions";
 
-interface ChartData {
+export interface ChartData {
   prices: number[][];
   market_caps: number[][];
   total_volumes: number[][];
@@ -29,8 +29,11 @@ export const fetchCoinChart = createAsyncThunk(
     }: { coinId: string; currency: string; timePeriod: string },
     thunkApi
   ) => {
-    const COIN_URL = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=${timePeriod}`;
-    return fetchData(COIN_URL);
+    const COIN_URL = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency}&days=${timePeriod}&x_cg_demo_api_key=${process.env.NEXT_PUBLIC_API_KEY}`;
+    const response = await fetch(COIN_URL);
+    const data = await response.json();
+    //Need to return arguments of function with payload
+    return { coinId, timePeriod, data };
   }
 );
 

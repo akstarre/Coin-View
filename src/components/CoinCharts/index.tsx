@@ -1,31 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
-
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "@/app/GlobalRedux/store";
-
 import {
-  formatDate,
-  formatChartNumber,
-  getCurrencySymbol,
-} from "@/utils/formatting";
-import { ChartInfo } from "../ChartInfo";
-
+  fetchCoinChart,
+  ChartData,
+} from "@/app/GlobalRedux/Features/CoinChartSlice";
 import { ChartSelector } from "@/components/ChartSelector";
-import { changeChart } from "@/app/GlobalRedux/Features/APIStateSlice";
+import CurrencySlice from "@/app/GlobalRedux/Features/CurrencySlice";
+import { ChartInfo } from "../ChartInfo";
 import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";
 import { CoinDataProps } from "../ModularChart";
 import { Coin } from "../../../interfaces";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CoinChartsProps = {
   coinPriceData: CoinDataProps;
   coinVolumeData: CoinDataProps;
   currentCoin: Coin;
   currentCurrency: string;
-  coins: Coin[];
+};
+
+const EmptyChartData = {
+  prices: [[0, 0]],
+  market_caps: [[0], [0]],
+  total_volumes: [[0], [0]],
 };
 
 const ComponentContainer = tw.div`
@@ -81,54 +81,72 @@ const ChartDate = tw.div`
   dark:text-opacity-50
 `;
 
-export const CoinCharts: React.FC<CoinChartsProps> = ({
-  coins,
-  coinPriceData,
-  coinVolumeData,
-  currentCoin,
-}) => {
+export const CoinCharts: React.FC<CoinChartsProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { currency: currentCurrency, currentChart } = useAppSelector(
-    (state) => state.currency
-  );
 
-  const handleCoinChartSelection = (selection: string) => {
-    dispatch(changeChart(selection));
+  const [currentChartData, setCurrentChartData] = useState<ChartData[]>([]);
+  const [currentCoin, setCurrentCoin] = useState<Coin>();
+
+  const { currency } = useAppSelector((state) => state.currency);
+  const { charts } = useAppSelector((state) => state.coinChart);
+  const { currentCharts } = useAppSelector((state) => state.currentCharts);
+  const { coins } = useAppSelector((state) => state.marketTable) as {
+    coins: Coin[];
   };
+
+  const timePeriod = "1";
+
+  useEffect(() => {
+    const fetchChartDataForStore = async (chart: string) => {
+      await dispatch(
+        fetchCoinChart({
+          coinId: chart,
+          currency,
+          timePeriod,
+        })
+      );
+    };
+    for (const chart of currentCharts) {
+      if (!charts[chart] || !charts[chart][timePeriod]) {
+        fetchChartDataForStore(chart);
+      }
+    }
+    const currentChartDataArray = currentCharts.map((chart) => {
+      if (charts[chart] && charts[chart][timePeriod]) {
+        return charts[chart][timePeriod];
+      } else return EmptyChartData;
+    });
+
+    if (coins && currentCharts[0]) {
+      const currentCoinHolder = coins.find(
+        (coin) => coin.id === currentCharts[0]
+      );
+      setCurrentCoin(currentCoinHolder);
+    }
+
+    setCurrentChartData(currentChartDataArray);
+  }, [currentCharts, charts]);
 
   return (
     <ComponentContainer>
-      <CoinSelectorCarousel
-        coins={coins}
-        currentChart={currentChart}
-        currentCurrency={currentCurrency}
-        handleCoinChartSelection={handleCoinChartSelection}
-      />
+      <CoinSelectorCarousel coins={coins} currentCurrency={currency} />
       <ChartsContainer>
         <SingleChartContainer>
-          <ModularChart
-            coinData={coinPriceData}
-            hasAxis={true}
-            isPrice={true}
-          />
+          <ModularChart coinData={currentChartData} isLine={true} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
-              currentCurrency={currentCurrency}
+              currentCurrency={currency}
               isprice={true}
             />
           )}
         </SingleChartContainer>
         <SingleChartContainer>
-          <ModularChart
-            coinData={coinVolumeData}
-            hasAxis={true}
-            isPrice={false}
-          />
+          <ModularChart coinData={currentChartData} isLine={false} />
           {currentCoin && (
             <ChartInfo
               currentCoin={currentCoin}
-              currentCurrency={currentCurrency}
+              currentCurrency={currency}
               isprice={false}
             />
           )}
