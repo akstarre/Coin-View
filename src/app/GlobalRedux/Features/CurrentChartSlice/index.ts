@@ -25,5 +25,6 @@ const currentChartsSlice = createSlice({
   },
 });
 
-export const { changeCurrentCharts } = currentChartsSlice.actions;
+export const { changeCurrentCharts, changeTimePeriod } =
+  currentChartsSlice.actions;
 export default currentChartsSlice.reducer;

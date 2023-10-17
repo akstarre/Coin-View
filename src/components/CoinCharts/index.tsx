@@ -88,12 +88,12 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
 
   const { currency } = useAppSelector((state) => state.currency);
   const { charts } = useAppSelector((state) => state.coinChart);
-  const { currentCharts } = useAppSelector((state) => state.currentCharts);
+  const { currentCharts, currentTimePeriod } = useAppSelector(
+    (state) => state.currentCharts
+  );
   const { coins } = useAppSelector((state) => state.marketTable) as {
     coins: Coin[];
   };
-
-  const timePeriod = "1";
 
   useEffect(() => {
     const fetchChartDataForStore = async (chart: string) => {
@@ -101,18 +101,18 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
         fetchCoinChart({
           coinId: chart,
           currency,
-          timePeriod,
+          timePeriod: currentTimePeriod,
         })
       );
     };
     for (const chart of currentCharts) {
-      if (!charts[chart] || !charts[chart][timePeriod]) {
+      if (!charts[chart] || !charts[chart][currentTimePeriod]) {
         fetchChartDataForStore(chart);
       }
     }
     const currentChartDataArray = currentCharts.map((chart) => {
-      if (charts[chart] && charts[chart][timePeriod]) {
-        return charts[chart][timePeriod];
+      if (charts[chart] && charts[chart][currentTimePeriod]) {
+        return charts[chart][currentTimePeriod];
       } else return EmptyChartData;
     });
 
@@ -124,7 +124,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
     }
 
     setCurrentChartData(currentChartDataArray);
-  }, [currentCharts, charts, coins]);
+  }, [currentCharts, charts, coins, currentTimePeriod]);
 
   return (
     <ComponentContainer>
@@ -151,7 +151,7 @@ export const CoinCharts: React.FC<CoinChartsProps> = () => {
           )}
         </SingleChartContainer>
       </ChartsContainer>
-      <ChartSelector chartSelection={"1D"} />
+      <ChartSelector />
     </ComponentContainer>
   );
 };

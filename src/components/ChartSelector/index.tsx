@@ -1,10 +1,28 @@
 import { useState } from "react";
 import tw from "tailwind-styled-components";
+import { changeTimePeriod } from "../../app/GlobalRedux/Features/CurrentChartSlice";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/app/GlobalRedux/store";
 
-const chartSelections = ["1D", "7D", "14D", "1M", "1W", "1Y", "5Y"];
+type ChartKey = "1D" | "7D" | "14D" | "1M" | "1Y" | "5Y";
 
-type ChartSelectorProps = {
-  chartSelection: string;
+type ChartObject = {
+  "1D": string;
+  "7D": string;
+  "14D": string;
+  "1M": string;
+  "1Y": string;
+  "5Y": string;
+  Max: string;
+};
+const chartSelections = {
+  "1D": "1",
+  "7D": "7",
+  "14D": "14",
+  "1M": "28",
+  "1Y": "365",
+  "5Y": "1825",
+  Max: "max",
 };
 
 const ChartSelectorContainer = tw.div`
@@ -68,22 +86,35 @@ const ChartSelection = tw.div<{ $isTransitioning: boolean }>`
   ${(props) => (props.$isTransitioning ? "text-opacity-0" : "text-opactiy-100")}
 `;
 
-export const ChartSelector: React.FC<ChartSelectorProps> = ({
-  chartSelection,
-}) => {
-  const [currentSelection, setCurrentSelection] = useState("1D");
+export const ChartSelector = () => {
+  const dispatch = useDispatch();
+
+  const { currentTimePeriod } = useAppSelector((state) => state.currentCharts);
+
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const handleSelection = (selection: string) => {
-    if (selection === currentSelection) return;
+  const handleSelection = (selection: ChartKey) => {
+    if (selection === currentTimePeriod) return;
     setIsTransitioning(true);
-    setCurrentSelection(selection);
+    const selectionValue = chartSelections[selection];
+    dispatch(changeTimePeriod(selectionValue));
     setTimeout(() => {
       setIsTransitioning(false);
     }, 300);
   };
 
-  const currentIndex = chartSelections.indexOf(currentSelection);
+  const getKeyByValue = (obj: ChartObject, value: string) => {
+    for (let [key, val] of Object.entries(obj)) {
+      if (val === value) {
+        return key;
+      }
+    }
+    return "";
+  };
+
+  const keysArray = Object.keys(chartSelections);
+  const selectedKey = getKeyByValue(chartSelections, currentTimePeriod);
+  const currentIndex = keysArray.indexOf(selectedKey);
   const translationAmount = currentIndex * 75;
 
   return (
@@ -94,11 +125,14 @@ export const ChartSelector: React.FC<ChartSelectorProps> = ({
             $isTransitioning={isTransitioning}
             style={{ transform: `translateX(${translationAmount}px)` }}
           >
-            {currentSelection}
+            {selectedKey}
           </ChartSelection>
-          {chartSelections.map((chart) => {
+          {keysArray.map((chart) => {
             return (
-              <ChartButton key={chart} onClick={() => handleSelection(chart)}>
+              <ChartButton
+                key={chart}
+                onClick={() => handleSelection(chart as ChartKey)}
+              >
                 {chart}
               </ChartButton>
             );
