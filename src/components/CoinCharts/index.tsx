@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "@/app/GlobalRedux/store";
 import {
   fetchCoinChart,
   ChartData,
 } from "@/app/GlobalRedux/Features/CoinChartSlice";
 import { ChartSelector } from "@/components/ChartSelector";
-import CurrencySlice from "@/app/GlobalRedux/Features/CurrencySlice";
 import { ChartInfo } from "../ChartInfo";
 import { CoinSelectorCarousel } from "../CoinSelectorCarousel";
 import { ModularChart } from "../ModularChart";

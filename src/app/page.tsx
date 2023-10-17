@@ -5,15 +5,10 @@ import tw from "tailwind-styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { useAppSelector } from "@/app/GlobalRedux/store";
-import { Navbar } from "@/components/Navbar";
 import { CoinCharts } from "@/components/CoinCharts";
 import { fetchCoins } from "@/app/GlobalRedux/Features/MarketTableSlice";
 import { BitcoinDailyData } from "@/app/FakeData/BitcoinDailyData";
-import { NavbarCoinInfo } from "@/components/NavbarCoinInfo";
 import MarketTable from "../components/MarketTable/index";
-import { CoinSelectorCarousel } from "../components/CoinSelectorCarousel/index";
-import { CoinsData } from "./FakeData/CoinsData";
-import { GlobalData } from "./FakeData/GlobalData";
 
 const PageContainer = tw.div`
   bg-l-light-grey-background
