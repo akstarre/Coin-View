@@ -21,8 +21,6 @@ const LogoContainer = tw.div`
   items-center
   m-0
   h-1/2
-  bg-white
-  dark:bg-d-black-purple
 `;
 
 const MainNavbarContainer = tw.div`
@@ -92,6 +90,8 @@ const NavbarContainer = tw.div`
   m-0
   p-0
   w-[100vw]
+  bg-white
+  dark:bg-d-black-purple
 `;
 
 const CoinConverterSwitchContainer = tw.div`
