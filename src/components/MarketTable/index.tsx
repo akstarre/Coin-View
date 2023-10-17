@@ -1,15 +1,13 @@
 "use client";
 
 import tw from "tailwind-styled-components";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/GlobalRedux/store";
 import { Coin } from "../../../interfaces";
 import { MarketListItem } from "../MarketListItem";
 import { MarketTableHeader } from "../MarketTableHeader";
 
-interface MarketTableProps {
-  coins?: Coin[];
-  loading: boolean;
-  error: string;
-}
+interface MarketTableProps {}
 
 const MarketTableContainer = tw.div`
   flex 
@@ -29,7 +27,11 @@ const TableHeadCell = tw.div`
   px-4
 `;
 
-const MarketTable: React.FC<MarketTableProps> = ({ coins, loading, error }) => {
+const MarketTable: React.FC<MarketTableProps> = () => {
+  const { coins, loading, error } = useSelector(
+    (state: RootState) => state.marketTable
+  ) as { coins: Coin[]; loading: boolean; error: string };
+
   return (
     <MarketTableContainer>
       {loading ? (

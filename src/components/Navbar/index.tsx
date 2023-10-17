@@ -3,7 +3,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
-import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
+import { changeCurrency } from "@/app/GlobalRedux/Features/APIStateSlice";
 import { AppDispatch, RootState } from "@/app/GlobalRedux/store";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "@/components/Dropdown";
@@ -21,6 +21,8 @@ const LogoContainer = tw.div`
   items-center
   m-0
   h-1/2
+  bg-white
+  dark:bg-d-black-purple
 `;
 
 const MainNavbarContainer = tw.div`
@@ -28,8 +30,6 @@ const MainNavbarContainer = tw.div`
   justify-center
   items-center  
   w-full  
-  bg-white
-  dark:bg-d-black-purple
 `;
 
 const MainNavbarInnerContainer = tw.div`

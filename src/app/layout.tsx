@@ -1,5 +1,7 @@
 "use client";
 
+import { Navbar } from "@/components/Navbar";
+import { NavbarCoinInfo } from "@/components/NavbarCoinInfo";
 import "./globals.css";
 import ThemeProviders from "./ThemeProviders";
 import { ReduxProvider } from "./GlobalRedux/provider";
@@ -13,7 +15,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProvider>
-          <ThemeProviders>{children}</ThemeProviders>
+          <ThemeProviders>
+            <NavbarCoinInfo />
+            <Navbar />
+            {children}
+          </ThemeProviders>
         </ReduxProvider>
       </body>
     </html>

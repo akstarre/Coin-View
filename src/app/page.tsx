@@ -48,8 +48,6 @@ const Home = () => {
 
   return (
     <PageContainer>
-      <NavbarCoinInfo currency={currentCurrency} />
-      <Navbar />
       <CoinChartsContainer>
         <CoinCharts
           coinPriceData={{ prices: coinPriceData as [number, number][] }}
@@ -60,7 +58,7 @@ const Home = () => {
       </CoinChartsContainer>
 
       <div>
-        <MarketTable coins={coins} loading={loading} error={error} />
+        <MarketTable />
       </div>
     </PageContainer>
   );
