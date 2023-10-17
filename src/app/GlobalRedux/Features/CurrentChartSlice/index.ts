@@ -4,10 +4,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface CurrentChartState {
   currentCharts: string[];
+  currentTimePeriod: string;
 }
 
 const initialState: CurrentChartState = {
-  currentCharts: [],
+  currentCharts: ["bitcoin"],
+  currentTimePeriod: "1",
 };
 
 const currentChartsSlice = createSlice({
@@ -17,8 +19,12 @@ const currentChartsSlice = createSlice({
     changeCurrentCharts(state, action) {
       state.currentCharts = action.payload;
     },
+    changeTimePeriod(state, action) {
+      state.currentTimePeriod = action.payload;
+    },
   },
 });
 
-export const { changeCurrentCharts } = currentChartsSlice.actions;
+export const { changeCurrentCharts, changeTimePeriod } =
+  currentChartsSlice.actions;
 export default currentChartsSlice.reducer;
