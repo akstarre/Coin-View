@@ -90,7 +90,7 @@ const NavbarContainer = tw.div`
   m-0
   p-0
   w-[100vw]
-  bg-white
+  bg-l-light-grey-background
   dark:bg-d-black-purple
 `;
 
