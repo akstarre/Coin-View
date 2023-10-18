@@ -11,14 +11,28 @@ import { HorizontalBar } from "../HorizontalBar";
 import { SparklineChart, CoinDataProps } from "../SparklineChart";
 import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
+import { useTheme } from "next-themes";
 
 type PercentChangeProp = {
-  $increase: boolean;
+  // $increase: boolean;
 };
 
 type MarketListItemProps = {
   coin: Coin;
   index: number;
+};
+
+type ThemeColors = {
+  [key: string]: {
+    fill: {
+      increase: string;
+      decrease: string;
+    };
+    background: {
+      increase: string;
+      decrease: string;
+    };
+  };
 };
 
 const TableRowContainer = tw.div`
@@ -66,7 +80,7 @@ export const PercentChangeCell = tw.div<PercentChangeProp>`
   text-center
   py-3
   px-4
-  ${(props) => (props.$increase ? "text-green-change" : "text-red-change")}
+  
 `;
 
 export const HorizontalBarCell = tw.div`
@@ -88,7 +102,42 @@ const StyledIcon = tw(FontAwesomeIcon)`
 px-2
 `;
 
+const colors: ThemeColors = {
+  dark: {
+    fill: {
+      increase: "#01F1E3",
+      decrease: "#FE2264",
+    },
+    background: {
+      increase: "#3D7A76",
+      decrease: "#804058",
+    },
+  },
+  light: {
+    fill: {
+      increase: "#02B1A7",
+      decrease: "#FE2263",
+    },
+    background: {
+      increase: "#AFE5E5",
+      decrease: "#FBBAD1",
+    },
+  },
+};
+
 export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
+  const { theme, setTheme } = useTheme();
+
+  const getTableColor = (isFill: boolean, increase: boolean) => {
+    const fillOrBackground = isFill ? "fill" : "background";
+    const increaseOrDecrease = increase ? "increase" : "decrease";
+
+    if (!theme || !colors[theme]) {
+      return colors["dark"][fillOrBackground][increaseOrDecrease];
+    }
+    return colors[theme][fillOrBackground][increaseOrDecrease];
+  };
+
   const oneHourObject = getCaretAndColor(
     coin.price_change_percentage_1h_in_currency
   );
@@ -119,30 +168,37 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
         {coin.name} ({coin.symbol})
       </NameCell>
       <PriceCell>{coin.current_price.toFixed(2)}</PriceCell>
-      <PercentChangeCell $increase={oneHourObject.increase}>
+      {/* Switched PercentageChangeCell to inline style for more dynamic table styling */}
+      <PercentChangeCell
+        style={{ color: `${getTableColor(true, oneHourObject.increase)}` }}
+      >
         <StyledIcon icon={oneHourObject.caret} />
         {formatNumber(coin.price_change_percentage_1h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell $increase={twoFourHourObject.increase}>
+      <PercentChangeCell
+        style={{ color: `${getTableColor(true, twoFourHourObject.increase)}` }}
+      >
         <StyledIcon icon={twoFourHourObject.caret} />
         {formatNumber(coin.price_change_percentage_24h_in_currency)}
       </PercentChangeCell>
-      <PercentChangeCell $increase={sevenDayObject.increase}>
+      <PercentChangeCell
+        style={{ color: `${getTableColor(true, sevenDayObject.increase)}` }}
+      >
         <StyledIcon icon={sevenDayObject.caret} />
         {formatNumber(coin.price_change_percentage_7d_in_currency)}
       </PercentChangeCell>
       <HorizontalBarCell>
         <HorizontalBar
           percentage={getPercentage(coin.total_volume, coin.market_cap)}
-          fillColor={twoFourHourObject.increase ? "#01F1E3" : "#FE2264"}
-          backgroundColor={twoFourHourObject.increase ? "#3D7A76" : "#804058"}
+          fillColor={getTableColor(true, twoFourHourObject.increase)}
+          backgroundColor={getTableColor(false, twoFourHourObject.increase)}
         />
       </HorizontalBarCell>
       <HorizontalBarCell>
         <HorizontalBar
           percentage={getPercentage(coin.circulating_supply, coin.total_supply)}
-          fillColor={twoFourHourObject.increase ? "#01F1E3" : "#FE2264"}
-          backgroundColor={twoFourHourObject.increase ? "#3D7A76" : "#804058"}
+          fillColor={getTableColor(true, twoFourHourObject.increase)}
+          backgroundColor={getTableColor(false, twoFourHourObject.increase)}
         />
       </HorizontalBarCell>
       <SparklineCell>
