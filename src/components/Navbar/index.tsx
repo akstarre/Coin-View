@@ -104,10 +104,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { currency } = useSelector((state: RootState) => state.currency);
 
-  const handleCurrencySelection = (selection: string) => {
-    dispatch(changeCurrency(selection.toLowerCase()));
-  };
-
   return (
     <NavbarContainer>
       <MainNavbarContainer>
@@ -121,10 +117,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
               <StyledIcon icon={faMagnifyingGlass} />
               <StyledInput placeholder="Search" />
             </InputContainer>
-            <RoundedDropdown
-              handleSelection={handleCurrencySelection}
-              currentCurrency={currency}
-            />
+            <RoundedDropdown />
             <ThemeToggle />
           </RightNavbarContainer>
         </MainNavbarInnerContainer>

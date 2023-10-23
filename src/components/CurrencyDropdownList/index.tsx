@@ -35,7 +35,7 @@ const CurrencyListItem = tw.div`
   dark:text-white
 `;
 
-const CurrencySpan = tw.span`
+const CurrencyButton = tw.button`
 
 `;
 
@@ -48,10 +48,15 @@ export const CurrencyDropdownList = ({ handleDropSelection }: Props) => {
     <CurrencyListContainer>
       {currencyList.map((currency) => (
         <CurrencyListItem key={currency}>
-          <CurrencySpan onClick={() => handleDropSelection(currency)}>
+          <CurrencyButton
+            onClick={() => {
+              console.log("clicked");
+              handleDropSelection(currency);
+            }}
+          >
             <StyledIcon icon={getCurrencySymbol(currency)} />
             {currency.toUpperCase()}
-          </CurrencySpan>
+          </CurrencyButton>
         </CurrencyListItem>
       ))}
     </CurrencyListContainer>

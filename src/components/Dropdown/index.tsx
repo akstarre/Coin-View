@@ -2,14 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import tw from "tailwind-styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCurrencySymbol } from "@/utils/formatting";
+import { changeCurrency } from "@/app/GlobalRedux/Features/CurrencySlice";
+import { RootState } from "@/app/GlobalRedux/store";
 import { CurrencyDropdownList } from "../CurrencyDropdownList/index";
 
-type DropdownProps = {
-  handleSelection: (currency: string) => void;
-  currentCurrency: string;
-};
+type DropdownProps = {};
 
 const DropdownContainer = tw.div`
   flex
@@ -49,11 +49,10 @@ const StyledIcon = tw(FontAwesomeIcon)`
   pr-2
 `;
 
-export const Dropdown = ({
-  handleSelection,
-  currentCurrency,
-}: DropdownProps) => {
+export const Dropdown = ({}: DropdownProps) => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { currency } = useSelector((state: RootState) => state.currency);
 
   const closedropDown = () => {
     setDropDownOpen(false);
@@ -64,7 +63,8 @@ export const Dropdown = ({
   };
 
   const handleDropSelection = (selection: string) => {
-    handleSelection(selection);
+    console.log(selection);
+    dispatch(changeCurrency(selection));
     closedropDown();
   };
 
@@ -85,8 +85,8 @@ export const Dropdown = ({
   return (
     <DropdownContainer ref={dropdownRef} onBlur={handleDropBlur}>
       <DropdownButton className="dropdownButton" onClick={updateDropDown}>
-        <StyledIcon icon={getCurrencySymbol(currentCurrency)} />{" "}
-        {currentCurrency.toUpperCase()}
+        <StyledIcon icon={getCurrencySymbol(currency)} />{" "}
+        {currency.toUpperCase()}
       </DropdownButton>
       {dropDownOpen && (
         <DropdownList>
