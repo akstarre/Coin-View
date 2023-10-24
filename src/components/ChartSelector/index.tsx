@@ -75,15 +75,19 @@ const ChartSelection = tw.div<{ $isTransitioning: boolean }>`
   bg-l-light-purple-highlight
   dark:bg-d-purple-highlight
   focus:outline-none
+  transition-opacity
   transition-transform
-  duration-300
+  duration-500
   ease-in-out
   rounded-[10px]
   border-t-[1px] border-l-[1px] border-r-[1px] border-opacity-50
   border-l-light-purple-border
   dark:border-d-purple-border 
   dark:shadow-light
-  ${(props) => (props.$isTransitioning ? "text-opacity-0" : "text-opactiy-100")}
+  ${(props) =>
+    props.$isTransitioning
+      ? "text-opacity-0 dark:text-opacity-0"
+      : "text-opactiy-100 dark:text-opactiy-100"}
 `;
 
 export const ChartSelector = () => {
@@ -100,7 +104,7 @@ export const ChartSelector = () => {
     dispatch(changeTimePeriod(selectionValue));
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 300);
+    }, 250);
   };
 
   const getKeyByValue = (obj: ChartObject, value: string) => {
