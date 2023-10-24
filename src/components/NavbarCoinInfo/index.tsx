@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import tw from "tailwind-styled-components";
-
 import {
   AppDispatch,
   RootState,
@@ -92,12 +91,11 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { currency } = useAppSelector((state) => state.currency);
+  const { data: global } = useSelector((state: RootState) => state.globalData);
 
   useEffect(() => {
     dispatch(fetchGlobal());
   }, []);
-
-  const { data: global } = useSelector((state: RootState) => state.globalData);
 
   if (!global) {
     return <div>Loading..</div>;
