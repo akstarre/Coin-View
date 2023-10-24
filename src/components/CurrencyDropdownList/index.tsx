@@ -50,7 +50,6 @@ export const CurrencyDropdownList = ({ handleDropSelection }: Props) => {
         <CurrencyListItem key={currency}>
           <CurrencyButton
             onClick={() => {
-              console.log("clicked");
               handleDropSelection(currency);
             }}
           >
