@@ -18,6 +18,14 @@ export const formatNumber = (num: number) => {
     const finalNum = (num / 1000000).toFixed(2);
     return `${finalNum}M`;
   }
+  if (num > 1000) {
+    const finalNum = (num / 1000).toFixed(2);
+    return `${finalNum}K`;
+  }
+  if (num < -1000) {
+    const finalNum = (num / 1000).toFixed(2);
+    return `${finalNum}K`;
+  }
   if (num < -1000000) {
     const finalNum = (num / 1000000).toFixed(2);
     return `${finalNum}M`;

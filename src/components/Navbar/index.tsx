@@ -85,13 +85,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
           </LogoContainer>
           <HomePortfolioSwitch />
           <RightNavbarContainer>
-
             <SearchBar />
-            <RoundedDropdown
-              handleSelection={handleCurrencySelection}
-              currentCurrency={currency}
-            />
-
+            <RoundedDropdown />
             <ThemeToggle />
           </RightNavbarContainer>
         </MainNavbarInnerContainer>

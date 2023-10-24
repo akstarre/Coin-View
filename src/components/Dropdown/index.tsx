@@ -63,7 +63,6 @@ export const Dropdown = ({}: DropdownProps) => {
   };
 
   const handleDropSelection = (selection: string) => {
-    console.log(selection);
     dispatch(changeCurrency(selection));
     closedropDown();
   };
