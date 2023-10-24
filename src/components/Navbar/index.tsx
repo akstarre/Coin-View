@@ -13,6 +13,7 @@ import { NavbarCoinInfo } from "../NavbarCoinInfo/index";
 import { ThemeToggle } from "../ThemeToggle/index";
 import { HomePortfolioSwitch } from "../HomePortfolioSwitch";
 import { CoinConverterSwitch } from "../CoinConverterSwitch/index";
+import { SearchBar } from "../SearchBar";
 
 type NavbarProps = {};
 
@@ -57,35 +58,6 @@ const RoundedDropdown = tw(Dropdown)`
   rounded-[10px]
 `;
 
-const InputContainer = tw.div`
-  relative
-  w-72
-  bg-l-light-purple-background
-  dark:bg-d-grey-purple-1
-  dark:border-[1px]
-  dark:border-d-grey-purple-border
-  rounded-[10px]
-`;
-
-const StyledIcon = tw(FontAwesomeIcon)`
-  absolute
-  left-3
-  top-1/2
-  transform -translate-y-1/2
-`;
-
-const StyledInput = tw.input`
-  pl-8
-  py-2
-  w-full
-  bg-transparent
-  focus:outline-none
-  ::placeholder {
-    text-l-dark-purple
-    dark:text-white
-  }
-`;
-
 const NavbarContainer = tw.div`
   m-0
   p-0
@@ -117,10 +89,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           </LogoContainer>
           <HomePortfolioSwitch />
           <RightNavbarContainer>
-            <InputContainer>
-              <StyledIcon icon={faMagnifyingGlass} />
-              <StyledInput placeholder="Search" />
-            </InputContainer>
+            <SearchBar />
             <RoundedDropdown
               handleSelection={handleCurrencySelection}
               currentCurrency={currency}
