@@ -3,19 +3,17 @@
 import React, { ReactElement } from "react";
 import Image from "next/image";
 import tw from "tailwind-styled-components";
-import { formatNumber } from "@/utils/formatting";
+import { useTheme } from "next-themes";
+import { useSelector } from "react-redux";
+import { formatNumber, getCurrencySymbol } from "@/utils/formatting";
 import { getCaretAndColor } from "@/utils/formatting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { transformSparklineToChartFormat } from "@/utils/conversions";
+import { RootState } from "@/app/GlobalRedux/store";
+import { getPercentage } from "@/utils/conversions";
 import { HorizontalBar } from "../HorizontalBar";
 import { SparklineChart, CoinDataProps } from "../SparklineChart";
-import { getPercentage } from "@/utils/conversions";
 import { Coin } from "../../../interfaces";
-import { useTheme } from "next-themes";
-
-type PercentChangeProp = {
-  // $increase: boolean;
-};
 
 type MarketListItemProps = {
   coin: Coin;
@@ -75,7 +73,7 @@ export const PriceCell = tw.div`
   font-medium
 `;
 
-export const PercentChangeCell = tw.div<PercentChangeProp>`
+export const PercentChangeCell = tw.div`
   w-28
   text-center
   py-3
@@ -127,6 +125,7 @@ const colors: ThemeColors = {
 
 export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
   const { theme, setTheme } = useTheme();
+  const { currency } = useSelector((state: RootState) => state.currency);
 
   const getTableColor = (isFill: boolean, increase: boolean) => {
     const fillOrBackground = isFill ? "fill" : "background";
@@ -167,7 +166,10 @@ export const MarketListItem = ({ coin, index }: MarketListItemProps) => {
         />
         {coin.name} ({coin.symbol})
       </NameCell>
-      <PriceCell>{coin.current_price.toFixed(2)}</PriceCell>
+      <PriceCell>
+        {formatNumber(coin.current_price)}{" "}
+        <FontAwesomeIcon icon={getCurrencySymbol(currency)} />
+      </PriceCell>
       {/* Switched PercentageChangeCell to inline style for more dynamic table styling */}
       <PercentChangeCell
         style={{ color: `${getTableColor(true, oneHourObject.increase)}` }}
