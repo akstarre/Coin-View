@@ -27,7 +27,7 @@ interface GlobalData {
   market_cap_change_percentage_24h_usd: number;
   updated_at: number;
 }
-interface CoinListData {
+export interface CoinListData {
   id: string;
   symbol: string;
   name: string;
@@ -35,7 +35,7 @@ interface CoinListData {
 
 interface GlobalState {
   data: GlobalData | null;
-  coinList: CoinListData [] | null;
+  coinList: CoinListData[] | null;
   loading: boolean;
   error: string;
 }
@@ -43,14 +43,17 @@ interface GlobalState {
 export const fetchGlobal = createAsyncThunk(
   "global/getData",
   async (thunkApi) => {
-    const GLOBAL_URL = `https://api.coingecko.com/api/v3/global`;
-    const COINLIST_URL='https://api.coingecko.com/api/v3/coins/list'
-    const globalResponse = await fetch(GLOBAL_URL );
-    const globalData = await globalResponse.json();
-    const coinListResponse = await fetch(COINLIST_URL);
-    const coinListData = await globalResponse.json();
-    return {globalData,coinListData }
-    
+    try {
+      const GLOBAL_URL = `https://api.coingecko.com/api/v3/global`;
+      const COINLIST_URL = "https://api.coingecko.com/api/v3/coins/list";
+      const globalResponse = await fetch(GLOBAL_URL);
+      const globalData = await globalResponse.json();
+      const coinListResponse = await fetch(COINLIST_URL);
+      const coinListData = await coinListResponse.json();
+      return { globalData, coinListData };
+    } catch (err) {
+      throw new Error("Error Fetching Global Data");
+    }
   }
 );
 
@@ -68,9 +71,9 @@ const globalSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchGlobal.fulfilled, (state, action) => {
-        const {globalData, coinListData} = action.payload
-        state.data =  globalData
-        state.coinList = coinListData
+        const { globalData, coinListData } = action.payload;
+        state.data = globalData.data;
+        state.coinList = coinListData;
       })
       .addCase(fetchGlobal.pending, (state) => {
         state.loading = true;
