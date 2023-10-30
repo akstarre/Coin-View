@@ -17,9 +17,12 @@ const PageContainer = tw.div`
 
 const CoinChartsContainer = tw.div`
   w-full 
+  sm:w-3/4
+  md:w-1/2 
   justify-around 
   items-center 
-  p-4
+  p-2 
+  sm:p-4
 `;
 
 const Home = () => {

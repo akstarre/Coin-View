@@ -13,7 +13,7 @@ const MarketTableContainer = tw.div`
   flex 
   flex-col
   items-center
-  w-[100vw]
+  w-full
   bg-l-light-grey-background
   dark:bg-d-black-purple
 `;

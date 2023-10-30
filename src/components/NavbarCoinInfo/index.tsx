@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { HorizontalBar } from "../HorizontalBar";
 import { BtcLogo, EthLogo } from "../../../public/svg";
+import { GlobalData } from "@/app/FakeData/GlobalData";
 
 type NavbarCoinInfoProps = {};
 
@@ -27,13 +28,12 @@ type FontAwesomeProps = {
 };
 
 const NavBarCoinInfoContainer = tw.div`
-  h-[50px]
-  w-[100vw]
+  flex
+  flex-col md:flex-row
+  w-full
   p-0
   m-0
-  flex
   justify-center
-  space-x-4
   border-b
   border-[#353048]
   bg-l-dark-purple-background
@@ -41,22 +41,44 @@ const NavBarCoinInfoContainer = tw.div`
   dark:bg-d-dark-purple
 `;
 
-const CoinInfo = tw.div`
+const CoinInfoGroup = tw.div`
   flex
+  flex-row
   justify-center
   space-x-4
-  w-40
+  items-center
+`;
+
+const CoinInfo = tw.div`
+  flex
+  space-x-4
+  w-auto md:w-40
   items-center
   text-xs
 `;
 
 const MarketInfo = tw.div`
   flex
-  justify-center
-  space-x-4
-  w-32
+  justify-between
+  space-x-2
+  w-full md:w-32
   items-center
   text-xs
+  overflow-hidden
+  px-32 sm:px-16 md:px-8 lg:px-0
+`;
+
+const HorizontalBarContainer = tw.div`
+  flex-grow
+  p-1
+  w-0 min-w-4
+`;
+
+const PriceText = tw.span`
+  whitespace-nowrap
+  overflow-ellipsis
+  overflow-hidden
+  max-w-[70%]
 `;
 
 const Icon = tw(FontAwesomeIcon)`
@@ -91,7 +113,8 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { currency } = useAppSelector((state) => state.currency);
-  const { data: global } = useSelector((state: RootState) => state.globalData);
+  // const { data: global } = useSelector((state: RootState) => state.globalData);
+  const global = GlobalData.data;
 
   useEffect(() => {
     dispatch(fetchGlobal());
@@ -109,58 +132,72 @@ export const NavbarCoinInfo: React.FC<NavbarCoinInfoProps> = () => {
 
   return (
     <NavBarCoinInfoContainer>
-      <CoinInfo>
-        <Icon icon={faCoins} />
-        Coins: {global?.active_cryptocurrencies}
-      </CoinInfo>
-      <CoinInfo>
-        <Icon icon={faBalanceScale} />
-        Exchange: {global?.markets}
-      </CoinInfo>
-      <CoinInfo>
-        <Caret
-          icon={usdChangeObject.caret}
-          $increase={usdChangeObject.increase}
-        />{" "}
-        ${formatNumber(global?.total_volume[currency] || 0)}
-      </CoinInfo>
-      <MarketInfo>
-        <span>${formatNumber(global?.total_market_cap[currency] || 0)}</span>
-        <HorizontalBar
-          percentage={getPercentage(
-            global?.total_volume[currency],
-            global?.total_market_cap[currency]
+      <CoinInfoGroup>
+        <CoinInfo>
+          <Icon icon={faCoins} />
+          Coins: {global?.active_cryptocurrencies}
+        </CoinInfo>
+        <CoinInfo>
+          <Icon icon={faBalanceScale} />
+          Exchange: {global?.markets}
+        </CoinInfo>
+        <CoinInfo>
+          <Caret
+            icon={usdChangeObject.caret}
+            $increase={usdChangeObject.increase}
+          />{" "}
+          ${formatNumber(global?.total_volume[currency] || 0)}
+        </CoinInfo>
+      </CoinInfoGroup>
+      <CoinInfoGroup>
+        <MarketInfo>
+          <PriceText>
+            ${formatNumber(global?.total_market_cap[currency] || 0)}
+          </PriceText>
+          <HorizontalBarContainer>
+            <HorizontalBar
+              percentage={getPercentage(
+                global?.total_volume[currency],
+                global?.total_market_cap[currency]
+              )}
+              fillColor="white"
+              backgroundColor="#797585"
+            />
+          </HorizontalBarContainer>
+        </MarketInfo>
+      </CoinInfoGroup>
+      <CoinInfoGroup>
+        <CoinInfo>
+          <LogoContainer>
+            <BtcLogoDiv />
+          </LogoContainer>
+          {global?.market_cap_percentage.btc.toFixed(2)}%
+          {global && (
+            <HorizontalBarContainer>
+              <HorizontalBar
+                percentage={BtcMCP}
+                fillColor="#CE7200"
+                backgroundColor="#797585"
+              />
+            </HorizontalBarContainer>
           )}
-          fillColor="white"
-          backgroundColor="#797585"
-        />
-      </MarketInfo>
-      <CoinInfo>
-        <LogoContainer>
-          <BtcLogoDiv />
-        </LogoContainer>
-        {global?.market_cap_percentage.btc.toFixed(2)}%
-        {global && (
-          <HorizontalBar
-            percentage={BtcMCP}
-            fillColor="#CE7200"
-            backgroundColor="#797585"
-          />
-        )}
-      </CoinInfo>
-      <CoinInfo>
-        <LogoContainer>
-          <EthLogoDiv />
-        </LogoContainer>
-        {global?.market_cap_percentage.eth.toFixed(2)}%
-        {global && (
-          <HorizontalBar
-            percentage={EthMCP}
-            fillColor="#5F75C9"
-            backgroundColor="#797585"
-          />
-        )}
-      </CoinInfo>
+        </CoinInfo>
+        <CoinInfo>
+          <LogoContainer>
+            <EthLogoDiv />
+          </LogoContainer>
+          {global?.market_cap_percentage.eth.toFixed(2)}%
+          {global && (
+            <HorizontalBarContainer>
+              <HorizontalBar
+                percentage={EthMCP}
+                fillColor="#5F75C9"
+                backgroundColor="#797585"
+              />
+            </HorizontalBarContainer>
+          )}
+        </CoinInfo>
+      </CoinInfoGroup>
     </NavBarCoinInfoContainer>
   );
 };
